@@ -45,6 +45,7 @@ header {
     background-repeat: no-repeat;
     background-position: top;
     border: 1px solid black;
+    height: 120px;
 }
 
 .header-nav {
@@ -59,9 +60,9 @@ header {
 .nav-list {
   display: flex;
   list-style-type: none;
-  margin-top: 1.5rem;
+  margin-right: 3rem;
+  margin-top: 4rem;
 }
-
 /*Dropdown*/
 
 .bar {
@@ -86,6 +87,7 @@ header {
   font-weight: 600;
   cursor: pointer;
   z-index: 1;
+  margin-right: 1rem;
 }
 
 .nav-list a:hover, 
@@ -119,6 +121,7 @@ button:hover,
   font-size: 20px;
   background-color: #000000;
   color: #FFFFFF;
+  margin-right: 4rem;
 }
 
 .hamburger-menu ul {
@@ -316,7 +319,6 @@ button:hover,
 
 /* Home */
 .home {
-  background-image: url(../assets/images/background1.jpeg);
   background-size: cover;
   background-position: center;
   aspect-ratio: auto 2792/1861;
@@ -377,7 +379,6 @@ position: relative;
 /* Media query for larger screens (e.g., desktop) */
 @media (min-width: 1700px) {
 .home {
-  background-image: url(../assets/images/background1.jpeg);
   background-size: cover;
   background-position: center;
   aspect-ratio: auto 2792/1861;
@@ -428,7 +429,6 @@ justify-content: center;
   @media (max-width: 300px) {
   .home {
     height: 100%;
-    background-image: url(assets/images/background1.jpeg);
     background-size: cover;
     background-position: 30%;
     backface-visibility: hidden;
@@ -484,23 +484,15 @@ justify-content: center;
   max-width: 100%;
 }
 
-/* Media query for larger screens (e.g., desktop) */
-@media (min-width: 1440px) {
-  .searchfield {
-    width: 700px;
-}
-}
 /* Media query for smaller screens (e.g., mobile) */
-@media (max-width: 600px) {
+@media (min-width: 600px) {
   .searchfield {
     width: 400px;
 }
 }
 
 .steps {
-  background-image: url(assets/images/background2.jpeg);
-  background-size: cover;
-  background-position: center; 
+  background-color:rgb(rgb(69, 47, 15));
   background-repeat: no-repeat;
   padding: 0;
   margin: 0;
@@ -512,13 +504,11 @@ justify-content: center;
 
 .steps-container {
 display: flex;
-justify-content: space-around; 
 }
 
 /* Media query for larger screens (e.g., desktop) */
 @media (min-width: 600px) {
   .steps {
-    background-image: url(assets/images/background2.jpeg);
     background-size: cover;
     background-position: center; 
     background-repeat: no-repeat;
@@ -567,7 +557,6 @@ justify-content: space-around;
 /* Media query for smaller screens (e.g., mobile) */
 @media (min-width: 600px) {
   .steps {
-    background-image: url(assets/images/background2.jpeg);
     background-size: cover;
     background-position: center; 
     background-repeat: no-repeat;
@@ -864,7 +853,7 @@ justify-content: space-around;
 
 /* List of movies */
 .top-section-list {
-  background-image: url("assets/images/search_background.jpeg");
+  background-image: url("images/images/search_background.jpeg");
   background-size: cover;
   background-position: 100% 55%;
   color: #000000;
@@ -1685,10 +1674,74 @@ justify-content: space-around;
   padding: 5rem;
 }
 
+/*Contact Us Form*/
+
+.flex-grid {
+  padding: 0.5rem;
+}
+
+.flex-grid .column {
+  display: flex;
+  flex: 1;
+  background: var(--tertiary-color);
+  padding: 1rem;
+  border-radius: 5px;
+  border: solid black 2px;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color-1);
+}
+
+.flex-grid h1 {
+  font-size: 40px;
+  color: #ffffff;
+  margin-bottom: 0;
+}
+
+.flex-grid p {
+  font-size: 24px;
+  text-decoration: solid;
+}
+
+input[type="text"] {
+  margin-bottom: 1rem;
+  font-size: 20px;
+  border-radius: 5px;
+  width: 210px;
+}
+
+textarea[id="message"] {
+  font-size: 20px;
+  border-radius: 5px;
+  height: 150px;
+  width: 210px;
+}
+
+select {
+  font-size: 18px;
+  border-radius: 5px;
+  width: 215px;
+  color: rgb(34, 33, 33);
+  margin-bottom: 1rem;
+}
+
+input[type="submit"] {
+  color: #000000; 
+  text-align: center; 
+  display: inline-block;
+  font-size: 20px; 
+  border-radius: 5px; 
+  cursor: pointer;
+  margin-left: 26%;
+  width: 100px;
+  border-radius: 20px;
+  border: solid black;
+  background-color: #ffffff;
+}
 
 /* Contact us page */
 
-.contact {
+/* .contact {
   background: linear-gradient(to bottom, rgb(71,71,71), rgb(128, 106, 89));
   display: flex;
   flex-direction: column;
@@ -1737,10 +1790,10 @@ justify-content: space-around;
   padding: 1rem;
   margin-top: -1rem;
   box-shadow:inset;
-}
+} */
 
 
-/* Media query for larger screens (e.g., desktop) */
+/* Media query for larger screens (e.g., desktop)
 @media (min-width: 600px) {
 
   .contact-container {
@@ -1758,9 +1811,9 @@ justify-content: space-around;
     box-shadow: #000000;
   }
 
-}
+} */
 
-/* Media query for smaller screens (e.g., mobile) */
+/* Media query for smaller screens (e.g., mobile)
 @media (max-width: 600px) {
 
   .contact-container {
@@ -1840,7 +1893,7 @@ input[type="message"] {
   border-radius: 24px;
   background-color: #FFFFFF;
 
-}
+} */
 
 .contact-info-boxes {
   display: flex;
@@ -1943,7 +1996,7 @@ input[type="message"] {
   padding: 5rem;
   height: 400px; 
   margin: 5rem auto;
-  background-image: url(assets/images/OnceUponATimeInHollywood.jpeg);
+  background-image: url(images/images/OnceUponATimeInHollywood.jpeg);
   object-fit: cover;
   border: 1rem solid white;  
   text-align: start;
