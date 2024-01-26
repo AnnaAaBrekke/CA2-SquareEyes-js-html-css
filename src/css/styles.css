@@ -316,7 +316,7 @@ button:hover,
 
 /* Home */
 .home {
-  background-image: url(assets/images/background1.jpeg);
+  background-image: url(../assets/images/background1.jpeg);
   background-size: cover;
   background-position: center;
   aspect-ratio: auto 2792/1861;
@@ -377,7 +377,7 @@ position: relative;
 /* Media query for larger screens (e.g., desktop) */
 @media (min-width: 1700px) {
 .home {
-  background-image: url(assets/images/background1.jpeg);
+  background-image: url(../assets/images/background1.jpeg);
   background-size: cover;
   background-position: center;
   aspect-ratio: auto 2792/1861;
