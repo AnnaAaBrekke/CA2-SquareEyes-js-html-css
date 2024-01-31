@@ -73,6 +73,8 @@ header {
   z-index: 1;
   position: absolute;
   margin-top:  1rem;
+  margin-top: 1rem;
+  right: 1.5rem;
 }
 
 .hamburger-menu {
@@ -98,7 +100,8 @@ button:hover,
 }
 
 .nav-list a,
-.hamburger-menu a {
+.hamburger-menu a,
+.dropdown a {
   text-decoration: none;
   color: #ffffff;
 }
@@ -110,7 +113,7 @@ button:hover,
 .dropdown ul {
   list-style: none;
   width: 150px;
-  height: 170px;
+  height: 180px;
   justify-content: space-around;
   align-items: center;
   border-radius: 5px;
@@ -121,13 +124,13 @@ button:hover,
   font-size: 20px;
   background-color: #000000;
   color: #FFFFFF;
-  margin-right: 4rem;
 }
 
 .hamburger-menu ul {
   list-style: none;
   width: 150px;
-  height: 250px;
+  height: auto;
+  max-height: 270px;
   justify-content: space-around;
   align-items: center;
   border-radius: 5px;
@@ -140,7 +143,6 @@ button:hover,
   z-index: 1;
   color: #ffffff;
   position: relative;
-  margin-left: 2rem;
   background-color: #000000;
 }
 
