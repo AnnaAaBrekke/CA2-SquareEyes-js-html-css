@@ -1,9 +1,8 @@
-// console.log("This is the API");
 
-// fetch("https://api.noroff.dev/api/v1/square-eyes")
-//     .then ((response) => response.json()) 
-//     .then((data) => console.log(data))
-//     .catch(error => console.error(error));
+// Fetch movies from the API
+
+
+// Function to update movies on the page
 
 
 //Cart
@@ -77,19 +76,22 @@ function quantityChanged(event){
 
 function addCartClicked(event){
     var button = event.target
-    var shopMovies = button.parentElement
-    var movieElement = shopMovies.getElementsByClassName("product-movie")[0]
-    
-    if (movieElement) {
-        var movie = movieElement.innerText;
-        console.log(movie);
-    } else {
-        console.error("Element with class 'product-movie' not found.");
-    }
-}
+    var movieContainer = button.parentElement
 
-!!!// HER ER VI - ERROR - FINNER IKKE PRODUCT-MOVIE!!!!!!
-// 45min https://www.youtube.com/watch?v=18Jvyp60Vbg
+    // Get the movie image element
+    var movieImgElement = movieContainer.querySelector(".product-movie");
+
+    // Check if the movie image element exists
+    if (movieImgElement) {
+        var movieImgSrc = movieImgElement.src;
+        console.log("Movie Image Source: ", movieImgSrc);
+    } else {
+        console.error("Movie image element not found.");
+    }
+
+    var moviePrice = movieContainer.getElementsByClassName("product-price")[0].innerText;
+    console.log("Price: ", moviePrice);   
+}
 
 // Update Total
 

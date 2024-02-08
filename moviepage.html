@@ -13,13 +13,14 @@
 </head>
 
 <body>
+    <body>
+
     <header>
-        <nav>
-          <a href="index.html"><img class="SELogoBar" src="/images/images/SquareEyes_Logo-crop.png" alt="Futures Museum Logo"></a>
+        <nav class="header-left">
+            <a href="index.html"><img class="SELogoBar" src="/images/images/SquareEyes_Logo-crop.png" alt="Futures Museum Logo"></a>
         </nav>
-        
-        <nav>
-          <div class="hamburger-menu">
+        <!-- <nav>
+            <div class="hamburger-menu">
             <button class="bar"><i class="fa-solid fa-bars"></i></button>  
             <ul>
                 <li><a href="checkout.html"><i class="fa-solid fa-cart-shopping cart-icon" alt="My cart icon"></i> Cart</a></li>
@@ -27,23 +28,44 @@
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="contact.html">Contact Us</a></li>
             </ul>
-          </div>
-        </nav>
-        
-        <nav class="header-nav">
-          <nav class="nav-list">
-            <div class="dropdown">
-              <button class="nav-button"><i class="fa-solid fa-bars"></i></button>
-              <ul>
-                <li><a href="checkout.html"><i class="fa-solid fa-cart-shopping cart-icon" alt="My cart icon"></i> Cart</a></li>
-                <li><a href="listofmovies.html"><i class="fa-solid fa-film film-icon" alt="Film icon for my movies"></i> Movies</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-              </ul>
             </div>
-          </nav>
-        </nav>
-    </header>
+        </nav> -->
+        
+        <section class="header-right">
+            <i class="fa-solid fa-cart-shopping cart-icon" alt="My cart icon" id="cart-icon"></i>
+                <div class="dropdown-cart">
+                    <h2>Your Cart</h2>
+                    <div class="cart-dropdown-content">
+                        <div class="cart-item">
+                        <img src="images/images/OnceUponATimeInHollywood.jpeg" alt="" class="cart-img">
+                            <div class="cart-item-info">
+                                <div class="cart-item-title">Once Upon A Time In Hollywood</div>
+                                <div class="cart-item-price">9.90$</div>
+                            </div>
+                            <input type="number" value="1" class="quantity">
+                            <button type="button" class="remove-item"  value="Remove">Remove</button>
+                        </div>
+                        <div class="cart-total">
+                            <div class="total-title">Total</div>
+                            <div class="total-price">$0</div>
+                        </div>
+                        <button type="submit" class="check-out">Check out</button>
+                        <i class="fa-solid fa-xmark" id="close-cart"></i>
+                    </div>
+                </div>
+                    <nav class="nav-list">
+                <div class="dropdown">
+                <button class="nav-button"><i class="fa-solid fa-bars"></i></button>
+                <ul>
+                    <li><a href="checkout.html"><i class="fa-solid fa-cart-shopping cart-icon" alt="My cart icon"></i> Cart</a></li>
+                    <li><a href="listofmovies.html"><i class="fa-solid fa-film film-icon" alt="Film icon for my movies"></i> Movies</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+                </div>
+            </nav>
+        </section>
+        </header>
 
     <div class="movie-page">
         <div class="movie-page-cover">
