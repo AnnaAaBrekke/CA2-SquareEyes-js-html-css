@@ -1016,7 +1016,7 @@ button[type="submit"]:hover {
   .action-movies,
   .comedy-movies,
   .drama-movies,
-  .horror-movies {
+  .kids-movies {
     z-index: 1;
     display: grid;
     grid-template-columns: auto auto auto;
@@ -1031,7 +1031,7 @@ button[type="submit"]:hover {
   .Action,
   .Drama,
   .Comedy,
-  .Horror {
+  .Kids {
     padding: 1rem;
     text-align: start;
    }
@@ -1039,7 +1039,7 @@ button[type="submit"]:hover {
   .action-movies img,
   .comedy-movies img,
   .drama-movies img,
-  .horror-movies img {
+  .kids-movies img {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     height: 400px;
@@ -1062,7 +1062,7 @@ button[type="submit"]:hover {
   .action-movies img:hover,
   .comedy-movies img:hover,
   .drama-movies img:hover,
-  .horror-movies img:hover {
+  .kids-movies img:hover {
     background-color: #FFFFFF;
   }
 
@@ -1072,7 +1072,7 @@ button[type="submit"]:hover {
   .action-movies,
   .comedy-movies,
   .drama-movies,
-  .horror-movies {
+  .kids-movies {
     z-index: 1;
     display: grid;
     grid-template-columns: auto auto auto;
@@ -1087,7 +1087,7 @@ button[type="submit"]:hover {
   .action-movies img,
   .comedy-movies img,
   .drama-movies img,
-  .horror-movies img {
+  .kids-movies img {
     justify-content: center;
     align-items: center;
 }
@@ -1098,7 +1098,7 @@ button[type="submit"]:hover {
 .action-movies,
 .comedy-movies,
 .drama-movies,
-.horror-movies {
+.kids-movies {
   display: flex;
   flex-wrap: wrap;
 }
