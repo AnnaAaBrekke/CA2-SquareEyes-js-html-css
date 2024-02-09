@@ -1,4 +1,3 @@
-
 // Fetch movies from the API
 
 async function displayMovies() {
@@ -144,10 +143,27 @@ const movies = [
   // Add more movies here...
 ];
 
+//"Batman Image"
+const batmanImgElement = document.querySelector('.Batman-img');
+const batmanImageUrl = 'https://static.noroff.dev/api/square-eyes/6-batman.jpg'; // URL from your movies array
+batmanImgElement.src = batmanImageUrl;
 
-// Loop through the movies and create image elements dynamically
-// movies.forEach((movie) => 
+//"Once Upon A Time image"
+const onceUponImgElement = document.querySelector('.Once-Upon-img');
+const onceUponImageUrl = "https://static.noroff.dev/api/square-eyes/2-once-upon-a-time-hollywood.jpg"; // URL from your movies array
+onceUponImgElement.src = onceUponImageUrl;
 
+//"Godzilla image"
+const godzillaImgElement = document.querySelector('.Godzilla-img');
+const godzillaImageUrl = "https://static.noroff.dev/api/square-eyes/1-godzilla-king-of-monsters.jpg"; // URL from your movies array
+godzillaImgElement.src = godzillaImageUrl;
+
+//"SweetHeart image"
+const sweetHeartImgElement = document.querySelector('.Sweet-Heart-img');
+const sweetHeartImageUrl = "https://static.noroff.dev/api/square-eyes/4-sweetheart.jpg"; // URL from your movies array
+sweetHeartImgElement.src = sweetHeartImageUrl;
+
+// ADD THE REST !!!
 
 
 //Cart
@@ -186,18 +202,43 @@ function ready(){
 
 // Quantity changes
 
-var quantityInputs = document.getElementsByClassName("quantity");
-for (var i = 0; i < quantityInputs.length; i++){
-    var input = quantityInputs[i];
+const quantityInputs = document.getElementsByClassName("quantity");
+for (let i = 0; i < quantityInputs.length; i++){
+    const input = quantityInputs[i];
     input.addEventListener("change", quantityChanged);
     }
     // Add to cart
-    var addCart = document.getElementsByClassName("fa-cart-plus")
-    for (var i = 0; i < addCart.length; i++){
-        var button = addCart[i];
-        button.addEventListener("click", addCartClicked);
+    const addToCartButton = document.getElementsByClassName("fa-cart-plus")
+    for (let i = 0; i < addToCartButton.length; i++){
+        const button = addToCartButton[i];
+        button.addEventListener("click", addToCartClicked);
     }
 }
+
+// Without an API
+
+// function addToCartClicked() {
+//     var cartItem = document.createElement("div")
+//     cartItem.innerText = img
+//     var movies = document.getElementsByClassName("movies")[0]
+//     movies.append(cartItem);
+//     console.log("Added the image");
+// } 
+
+
+
+// Function to handle cart button click
+
+function addToCartClicked(event) {
+    const moviesId = parseInt(event.target.dataset.moviesId);
+    const BatmanImageUrl = movies.find((movie) => movie.id === moviesId);
+    movies.push(BatmanImageUrl);
+    
+    console.log("Added to cart: Batman")
+    
+}
+
+
 
 // Remove Items from Cart
 
@@ -217,26 +258,58 @@ function quantityChanged(event){
     updateTotal();
 }
 
-// Add to Cart
 
-function addCartClicked(event){
-    var button = event.target
-    var movieContainer = button.parentElement
+// Add event listeners to the "fa-cart-plus" icons
+// const cartIcons = document.querySelectorAll(".fa-cart-plus");
+// cartIcons.forEach((icon) => {
+//     icon.addEventListener("click", addToCart);
+// });
 
-    // Get the movie image element
-    var movieImgElement = movieContainer.getElementsByClassName(".movie-container img");
+// // Function to add an item to the cart
+// function addToCart(event) {
+//     const moviesId = parseInt(event.target.dataset.moviesId); // Assuming you set a data attribute for item ID
+//     const selectedMovie = movies.find((movies) => movies.id === moviesId);
+//     // Rest of your code...
+// }
 
-    // Check if the movie image element exists
-    if (movieImgElement) {
-        var movieImgSrc = movieImgElement.src;
-        console.log("Movie Image Source: ", movieImgSrc);
-    } else {
-        console.error("Movie image element not found.");
-    }
 
-    var moviePrice = movieContainer.getElementsByClassName("product-price")[0].innerText;
-    console.log("Price: ", moviePrice);   
-}
+// // Add to Cart
+
+// // // // function addCartClicked(event) {
+// // // //     var button = event.target;
+// // // //     var movieContainer = button.parentElement;
+
+// // // //     // Get the movie image element
+// // // //     var movieImgElement = movieContainer.querySelector(".movie-container img");
+
+// // // //     // Check if the movie image element exists
+// // // //     if (movieImgElement) {
+// // // //         var movieImgSrc = movieImgElement.src;
+// // // //         console.log("Movie Image Source: ", movieImgElement);
+// // // //     } else {
+// // // //         console.error("Movie image element not found.");
+// // // //     }
+
+// // // //     var moviePrice = movieContainer.getElementsByClassName("product-price")[0].innerText;
+// // // //     console.log("Price: ", moviePrice);
+// // // // }
+
+// displayMovies(BatmanImageUrl) {
+//     return {
+//         id: productId,
+//         name: "The Batman",
+//         price: 154.99,
+//         image.url:
+//     };
+// };
+
+// function addCartClicked(movies) {
+//     var button = movies.target;
+//     var movieContainer = button.parentElement
+//     var productInfo = displayMovies(BatmanImageUrl)
+//     console.log("Produkt lagt til i handlekurven:", productInfo.name);
+// };
+
 
 // Update Total
 
@@ -257,3 +330,4 @@ function updateTotal(){
         document.getElementsByClassName("total-price")[0].innerText = "$" + total;
     }
 }
+
