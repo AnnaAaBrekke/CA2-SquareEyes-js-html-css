@@ -4,7 +4,7 @@ async function displayMovies() {
     try {
         const response = await fetch("https://v2.api.noroff.dev/square-eyes");
         const moviesData = await response.json();
-        console.log("Movies fetched successfully:", moviesData); 
+        console.log("Movies fetched successfully:", moviesData);
     } catch (error) {
         console.error("Error fetching the movies:", error);
     }
@@ -15,6 +15,20 @@ displayMovies()
 // Function to display/update movies on the page
 
 const movies = [
+    {
+        id: "352ba432-5b5d-4ccc-9aba-f2704c500cf3",
+        title: "Hobbs & Shaw",
+        description: "Lawman Luke Hobbs (Dwayne 'The Rock' Johnson) and outcast Deckard Shaw (Jason Statham) form an unlikely alliance when a cyber-genetically enhanced villain threatens the future of humanity.",
+        genre: "Action",
+        price: 129.99,
+        discountedPrice: 119.99,
+        rating: "6.5",
+        released: "2019",
+        image: {
+            url: "https://static.noroff.dev/api/square-eyes/0-hobbs-and-shaw.jpg",
+            alt: ""
+        },
+    },    
     {
       id: "972df6d3-b4e8-44c1-9dec-cadd3b35102e",
       title: "The Batman",
@@ -57,48 +71,6 @@ const movies = [
         alt: "Sweetheart Poster",
       },
     },
-     {
-    id: "972df6d3-b4e8-44c1-9dec-cadd3b35102e",
-    title: "The Batman",
-    description: "When a sadistic serial killer begins murdering key political figures in Gotham, Batman is forced to investigate the city's hidden corruption and question his family's involvement.",
-    genre: "Action",
-    price: 154.99,
-    discountedPrice: 129.99,
-    rating: "7",
-    released: "2022",
-    image: {
-      url: "https://static.noroff.dev/api/square-eyes/6-batman.jpg",
-      alt: "The Batman Poster",
-    },
-  },
-  {
-    id: "4696b9e6-ec6e-4672-a08d-3e3212a215c8",
-    title: "Godzilla: King of the Monsters",
-    description: "The crypto-zoological agency Monarch faces off against a battery of god-sized monsters, including the mighty Godzilla, who collides with Mothra, Rodan, and his ultimate nemesis, the three-headed King Ghidorah.",
-    genre: "Action",
-    price: 109.99,
-    discountedPrice: 109.99,
-    rating: "9",
-    released: "2019",
-    image: {
-      url: "https://static.noroff.dev/api/square-eyes/1-godzilla-king-of-monsters.jpg",
-      alt: "Godzilla: King of the Monsters Poster",
-    },
-  },
-  {
-    id: "581f13b2-3ca4-494e-be7c-bb51fbc320f4",
-    title: "Sweetheart",
-    description: "Jenn has washed ashore a small tropical island and it doesn't take her long to realize she's completely alone. She must spend her days not only surviving the elements, but must also fend off the malevolent force that comes out each night.",
-    genre: "Horror",
-    price: 139.99,
-    discountedPrice: 139.99,
-    rating: "5.8",
-    released: "2019",
-    image: {
-      url: "https://static.noroff.dev/api/square-eyes/4-sweetheart.jpg",
-      alt: "Sweetheart Poster",
-    },
-  },
   {
     id: "a969a4b4-a4d0-4dd5-99e5-86ae0a8eee43",
     title: "The Addams Family",
@@ -143,27 +115,19 @@ const movies = [
   // Add more movies here...
 ];
 
-//"Batman Image"
+let cartItems = [];
+
+// Select movie images
+const hobbsAndShawImgElement = document.querySelector('.Hobbs-Shaw-img');
 const batmanImgElement = document.querySelector('.Batman-img');
-const batmanImageUrl = 'https://static.noroff.dev/api/square-eyes/6-batman.jpg'; // URL from your movies array
-batmanImgElement.src = batmanImageUrl;
-
-//"Once Upon A Time image"
-const onceUponImgElement = document.querySelector('.Once-Upon-img');
-const onceUponImageUrl = "https://static.noroff.dev/api/square-eyes/2-once-upon-a-time-hollywood.jpg"; // URL from your movies array
-onceUponImgElement.src = onceUponImageUrl;
-
-//"Godzilla image"
 const godzillaImgElement = document.querySelector('.Godzilla-img');
-const godzillaImageUrl = "https://static.noroff.dev/api/square-eyes/1-godzilla-king-of-monsters.jpg"; // URL from your movies array
-godzillaImgElement.src = godzillaImageUrl;
-
-//"SweetHeart image"
 const sweetHeartImgElement = document.querySelector('.Sweet-Heart-img');
-const sweetHeartImageUrl = "https://static.noroff.dev/api/square-eyes/4-sweetheart.jpg"; // URL from your movies array
-sweetHeartImgElement.src = sweetHeartImageUrl;
 
-// ADD THE REST !!!
+// Set movie image sources
+hobbsAndShawImgElement.src = movies[1].image.url;  // Assuming hobbsAndShaw is the object you created for Hobbs & Shaw
+batmanImgElement.src = movies[5].image.url;  // Assuming Batman is the first movie in your array
+godzillaImgElement.src = movies[2].image.url;  // Assuming Godzilla is the second movie
+sweetHeartImgElement.src = movies[3].image.url;  // Assuming Sweetheart is the third movie
 
 
 //Cart
@@ -194,7 +158,7 @@ if (document.readyState == "loading"){
 function ready(){
     // Remove items from cart
     var removeCartButtons = document.getElementsByClassName("remove-item")
-    console.log("Remove buttons found:", removeCartButtons); 
+    console.log("Remove buttons found:", removeCartButtons);
     for (var i = 0; i < removeCartButtons.length; i++){
         var button = removeCartButtons[i]
         button.addEventListener("click", removeCartItem)
@@ -215,30 +179,30 @@ for (let i = 0; i < quantityInputs.length; i++){
     }
 }
 
-// Without an API
-
-// function addToCartClicked() {
-//     var cartItem = document.createElement("div")
-//     cartItem.innerText = img
-//     var movies = document.getElementsByClassName("movies")[0]
-//     movies.append(cartItem);
-//     console.log("Added the image");
-// } 
-
-
 
 // Function to handle cart button click
 
 function addToCartClicked(event) {
     const moviesId = parseInt(event.target.dataset.moviesId);
-    const BatmanImageUrl = movies.find((movie) => movie.id === moviesId);
-    movies.push(BatmanImageUrl);
-    
-    console.log("Added to cart: Batman")
-    
-}
+
+    console.log("moviesId:", moviesId);  // Add this line
 
 
+    if (!isNaN(moviesId)) {
+        const selectedMovie = movies.find((movie) => movie.id === moviesId);
+
+        if (selectedMovie) {
+            cartItems.push(selectedMovie);
+            console.log("Added to cart:", selectedMovie);
+            addToCartUI(selectedMovie);
+            updateTotal();
+    } else {
+        console.error("Movie not found:", moviesId);
+    }
+    } else {
+        console.error("Invalid moviesId:", event.target.dataset.moviesId);
+    }
+}  
 
 // Remove Items from Cart
 
@@ -260,56 +224,31 @@ function quantityChanged(event){
 
 
 // Add event listeners to the "fa-cart-plus" icons
-// const cartIcons = document.querySelectorAll(".fa-cart-plus");
-// cartIcons.forEach((icon) => {
-//     icon.addEventListener("click", addToCart);
-// });
+document.addEventListener("DOMContentLoaded", () => {
+    const cartIcons = document.querySelectorAll(".fa-cart-plus");
+    cartIcons.forEach((icon) => {
+        icon.addEventListener("click", addToCart);
+    });
+});
 
-// // Function to add an item to the cart
-// function addToCart(event) {
-//     const moviesId = parseInt(event.target.dataset.moviesId); // Assuming you set a data attribute for item ID
-//     const selectedMovie = movies.find((movies) => movies.id === moviesId);
-//     // Rest of your code...
-// }
+// Function to add an item to the cart
+function addToCart(event) {
+const moviesId = parseInt(event.target.dataset.moviesId); // Assuming you set a data attribute for item ID
+const selectedMovie = movies.find((movies) => movies.id === moviesId);
+}
+
+addToCartUI(selectedMovie);
+    console.log("Added to cart:", selectedMovie.title);
 
 
-// // Add to Cart
-
-// // // // function addCartClicked(event) {
-// // // //     var button = event.target;
-// // // //     var movieContainer = button.parentElement;
-
-// // // //     // Get the movie image element
-// // // //     var movieImgElement = movieContainer.querySelector(".movie-container img");
-
-// // // //     // Check if the movie image element exists
-// // // //     if (movieImgElement) {
-// // // //         var movieImgSrc = movieImgElement.src;
-// // // //         console.log("Movie Image Source: ", movieImgElement);
-// // // //     } else {
-// // // //         console.error("Movie image element not found.");
-// // // //     }
-
-// // // //     var moviePrice = movieContainer.getElementsByClassName("product-price")[0].innerText;
-// // // //     console.log("Price: ", moviePrice);
-// // // // }
-
-// displayMovies(BatmanImageUrl) {
-//     return {
-//         id: productId,
-//         name: "The Batman",
-//         price: 154.99,
-//         image.url:
-//     };
-// };
-
-// function addCartClicked(movies) {
-//     var button = movies.target;
-//     var movieContainer = button.parentElement
-//     var productInfo = displayMovies(BatmanImageUrl)
-//     console.log("Produkt lagt til i handlekurven:", productInfo.name);
-// };
-
+// Function to update the cart UI
+function addToCartUI(movie) {
+    if (movie && movie.title) {
+        console.log("Updating cart UI with:", movie.title);
+    } else {
+        console.error("Movie object not working", movie)
+    }
+}
 
 // Update Total
 
@@ -326,7 +265,7 @@ function updateTotal(){
         total = total + (price * quantitySelected);
         // If price contains come Cents value
         total = Math.round(total * 100) / 100;
-    
+
         document.getElementsByClassName("total-price")[0].innerText = "$" + total;
     }
 }
