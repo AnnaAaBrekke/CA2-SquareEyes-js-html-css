@@ -1,16 +1,37 @@
-// Fetch movies from the API
 
+// Fetch movies from the API
 async function displayMovies() {
     try {
         const response = await fetch("https://v2.api.noroff.dev/square-eyes");
-        const moviesData = await response.json();
+        moviesData = await response.json();  
         console.log("Movies fetched successfully:", moviesData);
+
+        updateMoviesInDOM(moviesData);
     } catch (error) {
         console.error("Error fetching the movies:", error);
     }
 }
 
+
 displayMovies()
+
+function updateMoviesInDOM() {
+    movies.forEach((movie, index) => {
+        const movieContainer = document.querySelector(`.movie-container:nth-child(${index + 1})`);
+        
+        if (movieContainer) {
+            const cartIcon = movieContainer.querySelector('.fa-cart-plus');
+            const priceElement = movieContainer.querySelector('.product-price');
+            const price = movie.price;
+
+            // Update the HTML content
+            priceElement.innerHTML = `<i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
+                                      <h class="product-price">$${price.toFixed(2)}</h>`;
+        } else {
+            console.error('Movie container not found for index:', index, 'Movie:', movie);
+        }
+    });
+}
 
 // Function to display/update movies on the page
 
@@ -112,26 +133,32 @@ const movies = [
       alt: "Scream Poster",
     },
   },
-  // Add more movies here...
 ];
 
 let cartItems = [];
 
-// Select movie images
-const hobbsAndShawImgElement = document.querySelector('.Hobbs-Shaw-img');
-const batmanImgElement = document.querySelector('.Batman-img');
-const godzillaImgElement = document.querySelector('.Godzilla-img');
-const sweetHeartImgElement = document.querySelector('.Sweet-Heart-img');
 
-// Set movie image sources
-hobbsAndShawImgElement.src = movies[1].image.url;  // Assuming hobbsAndShaw is the object you created for Hobbs & Shaw
-batmanImgElement.src = movies[5].image.url;  // Assuming Batman is the first movie in your array
-godzillaImgElement.src = movies[2].image.url;  // Assuming Godzilla is the second movie
-sweetHeartImgElement.src = movies[3].image.url;  // Assuming Sweetheart is the third movie
+// // What is the movieId? String
+// const idType = typeof movies[0].id;
+// console.log("The type of the movie ID is:", idType);
+
+
+
+// // // Select movie images
+// // const hobbsAndShawImgElement = document.querySelector('.Hobbs-Shaw-img');
+// // const batmanImgElement = document.querySelector('.Batman-img');
+// // const godzillaImgElement = document.querySelector('.Godzilla-img');
+// // const sweetHeartImgElement = document.querySelector('.Sweet-Heart-img');
+
+// // // Set movie image sources
+// // hobbsAndShawImgElement.src = movies[1].image.url;  // Assuming hobbsAndShaw is the object you created for Hobbs & Shaw
+// // batmanImgElement.src = movies[5].image.url;  // Assuming Batman is the first movie in your array
+// // godzillaImgElement.src = movies[2].image.url;  // Assuming Godzilla is the second movie
+// // sweetHeartImgElement.src = movies[3].image.url;  // Assuming Sweetheart is the third movie
 
 
 //Cart
-let cartIcon = document.querySelector("#cart-icon");
+cartIcon = document.querySelector("#cart-icon");
 let dropdownCart = document.querySelector(".dropdown-cart");
 let closeCart = document.querySelector("#close-cart");
 
@@ -153,47 +180,56 @@ if (document.readyState == "loading"){
     ready()
 }
 
-// Making function
+function ready() {
+    const addToCartButtons = document.querySelectorAll (".fa-cart-plus");
+    addToCartButtons.forEach(button => button.addEventListener("click", addToCartClicked));
 
-function ready(){
-    // Remove items from cart
-    var removeCartButtons = document.getElementsByClassName("remove-item")
-    console.log("Remove buttons found:", removeCartButtons);
-    for (var i = 0; i < removeCartButtons.length; i++){
-        var button = removeCartButtons[i]
-        button.addEventListener("click", removeCartItem)
-    }
+    const removeCartButtons = document.querySelectorAll (".remove-item");
+    removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
 
-// Quantity changes
-
-const quantityInputs = document.getElementsByClassName("quantity");
-for (let i = 0; i < quantityInputs.length; i++){
-    const input = quantityInputs[i];
-    input.addEventListener("change", quantityChanged);
-    }
-    // Add to cart
-    const addToCartButton = document.getElementsByClassName("fa-cart-plus")
-    for (let i = 0; i < addToCartButton.length; i++){
-        const button = addToCartButton[i];
-        button.addEventListener("click", addToCartClicked);
-    }
+    const quantityInputs = document.querySelectorAll (".quantity");
+    quantityInputs.forEach(input => input.addEventListener("change", quantityChanged));
 }
+
+// // Making function
+
+// function ready() {
+//     // Remove items from cart
+//     var removeCartButtons = document.getElementsByClassName("remove-item")
+//     console.log("Remove buttons found:", removeCartButtons);
+//     for (var i = 0; i < removeCartButtons.length; i++){
+//         var button = removeCartButtons[i]
+//         button.addEventListener("click", removeCartItem)
+//     }
+
+// // Quantity changes
+
+// const quantityInputs = document.getElementsByClassName("quantity");
+// for (let i = 0; i < quantityInputs.length; i++){
+//     const input = quantityInputs[i];
+//     input.addEventListener("change", quantityChanged);
+//     }
+//     // Add to cart
+//     const addToCartButton = document.getElementsByClassName("fa-cart-plus")
+//     for (let i = 0; i < addToCartButton.length; i++){
+//         const button = addToCartButton[i];
+//         button.addEventListener("click", addToCartClicked);
+//     }
+// }
 
 
 // Function to handle cart button click
 
-function addToCartClicked(event) {
-    const moviesId = parseInt(event.target.dataset.moviesId);
+function addToCartClicked() {
+    const moviesId = this.dataset.moviesId;
 
     console.log("moviesId:", moviesId);  // Add this line
 
-
-    if (!isNaN(moviesId)) {
+    if (moviesId) {
         const selectedMovie = movies.find((movie) => movie.id === moviesId);
 
         if (selectedMovie) {
-            cartItems.push(selectedMovie);
-            console.log("Added to cart:", selectedMovie);
+            cartItems.push(selectedMovie);            
             addToCartUI(selectedMovie);
             updateTotal();
     } else {
@@ -207,7 +243,7 @@ function addToCartClicked(event) {
 // Remove Items from Cart
 
 function removeCartItem(event){
-    var buttonClicked = event.target
+    const buttonClicked = event.target
     buttonClicked.parentElement.remove()
     updateTotal();
 }
@@ -215,30 +251,46 @@ function removeCartItem(event){
 // Quantity Changes
 
 function quantityChanged(event){
-    var input = event.target
-    if (isNaN(input.value) || input.value <= 0) {
+    const input = event.target
+    if (isNaN(input.value) || input.value <= 1) {
         input.value = 1;
     }
     updateTotal();
 }
 
+// // Add event listener to the document and delegate to .fa-cart-plus elements
+// document.addEventListener("click", function (event) {
+//     if (event.target.classList.contains("fa-cart-plus")) {
+//         addToCart(event);
+//     }
+// });
 
-// Add event listeners to the "fa-cart-plus" icons
-document.addEventListener("DOMContentLoaded", () => {
-    const cartIcons = document.querySelectorAll(".fa-cart-plus");
-    cartIcons.forEach((icon) => {
-        icon.addEventListener("click", addToCart);
-    });
-});
+// // Add event listeners to the "fa-cart-plus" icons
+// document.addEventListener("DOMContentLoaded", () => {
+//     const cartIcons = document.querySelectorAll(".fa-cart-plus");
+//     cartIcons.forEach((icon) => {
+//         icon.addEventListener("click", addToCart);
+//     });
+// });
 
 // Function to add an item to the cart
-function addToCart(event) {
-const moviesId = parseInt(event.target.dataset.moviesId); // Assuming you set a data attribute for item ID
-const selectedMovie = movies.find((movies) => movies.id === moviesId);
-}
+// function addToCart(event) {
+//     const moviesId = event.target.dataset.moviesId; 
+//     const selectedMovie = movies.find((movies) => movies.id === moviesId);
 
-addToCartUI(selectedMovie);
-    console.log("Added to cart:", selectedMovie.title);
+//     if (selectedMovie) {
+//         cartItems.push(selectedMovie);
+//         console.log("Added to cart:", selectedMovie.title);
+//         addToCartUI(selectedMovie);
+//         updateTotal();
+//     } else {
+//         console.error("Movie not found:", moviesId);
+//     }
+// }
+
+
+// addToCartUI(selectedMovie);
+//     console.log("Added to cart:", selectedMovie.title);
 
 
 // Function to update the cart UI
@@ -253,20 +305,21 @@ function addToCartUI(movie) {
 // Update Total
 
 function updateTotal(){
-    var cartDropdownContent = document.getElementsByClassName("cart-dropdown-content")[0];
-    var cartItems = cartDropdownContent.getElementsByClassName("cart-item");
-    var total = 0;
-    for (var i = 0; i < cartItems.length; i++) {
-        var cartItem = cartItems[i];
-        var priceElement = cartItem.getElementsByClassName("cart-item-price")[0];
-        var quantityElement = cartItem.getElementsByClassName("quantity")[0];
-        var price = parseFloat(priceElement.innerText.replace ("$", ""));
-        var quantitySelected = quantityElement.value;
-        total = total + (price * quantitySelected);
-        // If price contains come Cents value
-        total = Math.round(total * 100) / 100;
+    const cartDropdownContent = document.getElementsByClassName("cart-dropdown-content")[0];
+    const cartItems = cartDropdownContent.getElementsByClassName("cart-item");
+    let total = 0;
 
-        document.getElementsByClassName("total-price")[0].innerText = "$" + total;
-    }
+    cartItems.forEach(cartItem => {
+        const priceElement = cartItem.querySelector(".cart-item-price");
+        const quantityElement = cartItem.querySelector(".quantity");
+        const price = parseFloat(priceElement.innerText.replace("$", ""));
+        const quantitySelected = quantityElement.value;
+        total += price * quantitySelected;
+    });
+    
+    // If price contains come Cents value
+    total = Math.round(total * 100) / 100;
+
+    document.querySelector(".total-price").innerText = `$${total}`;
 }
 

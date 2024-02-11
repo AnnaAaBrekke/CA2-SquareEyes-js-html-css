@@ -74,3 +74,9 @@
 //     var productInfo = displayMovies(BatmanImageUrl)
 //     console.log("Produkt lagt til i handlekurven:", productInfo.name);
 // };
+
+
+
+
+// const movieId = movies[0].id;
+// console.log("The movie ID is:", movieId);
