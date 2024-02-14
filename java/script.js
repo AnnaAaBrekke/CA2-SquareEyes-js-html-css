@@ -118,3 +118,27 @@ function displayMovies(movies) {
 fetchMovies().then(movies => { 
     displayMovies(movies);
 });
+
+fetchMovies().then(movies => {
+    try {
+        const cartItemContainer = document.querySelector(".cart-dropdown-content");
+        const movie = movies[6];
+
+        const cartItem = document.createElement("div");
+        cartItem.classList.add("cart-item");
+        cartItem.innerHTML = `
+            <img src="${movie.image.url}" alt="${movie.title}" class="cart-img">
+            <div class="cart-item-info">
+                <div class="cart-item-title">${movie.title}</div>
+                <div class="cart-item-price">${movie.price}kr</div>
+            </div>
+            <input type="number" value="1" class="quantity">
+            <button type="button" class="remove-item" value="Remove">Remove</button>
+        `;
+
+        cartItemContainer.innerHTML = "";
+        cartItemContainer.appendChild(cartItem);
+    } catch (error) {
+        console.error("Error displaying movies in cart:", error);
+    }
+});
