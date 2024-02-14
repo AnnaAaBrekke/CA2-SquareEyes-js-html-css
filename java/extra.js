@@ -672,3 +672,56 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchMovies();
     });
     
+
+
+
+
+
+
+
+
+
+
+
+    
+// function displayCartTotal(movies) {
+//     try {
+//         const cartTotalContainer = document.querySelector(".cart-total");
+
+//         // Create elements
+//         const cartTotal = document.createElement("div");
+//         const totalTitle = document.createElement("div");
+//         const totalPrice = document.createElement("div");
+//         const checkOutButton = document.createElement("button");
+//         const closeCartIcon = document.createElement("i");
+
+//         // Add classes
+//         cartTotal.classList.add("cart-total-container");
+//         totalTitle.classList.add("total-title");
+//         totalPrice.classList.add("total-price");
+//         checkOutButton.classList.add("check-out");
+//         closeCartIcon.classList.add("fa-solid", "fa-xmark");
+//         closeCartIcon.id = "close-cart";
+
+//         // Set content
+//         totalTitle.textContent = "Total";
+//         totalPrice.textContent = `${movies.reduce((total, movie) => total + parseFloat(movie.price), 0)}kr`;
+//         checkOutButton.type = "submit";
+//         checkOutButton.textContent = "Check out";
+
+//         // Append elements
+//         cartTotal.appendChild(totalTitle);
+//         cartTotal.appendChild(totalPrice);
+//         cartTotal.appendChild(checkOutButton);
+//         cartTotal.appendChild(closeCartIcon);
+
+//         // Clear existing content and append new content
+//         cartTotalContainer.innerHTML = "";
+//         cartTotalContainer.appendChild(cartTotal);
+
+//         console.log("The total price in the cart is correct");
+
+//     } catch (error) {
+//         console.error("Error displaying the total price in cart", error);
+//     }
+// };

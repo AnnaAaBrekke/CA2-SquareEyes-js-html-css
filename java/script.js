@@ -1,7 +1,13 @@
+// DomContentet Load
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("DOMContentLoaded works the correct way");
+});
+
 //Cart
 cartIcon = document.querySelector("#cart-icon");
 let dropdownCart = document.querySelector(".dropdown-cart");
 let closeCart = document.querySelector("#close-cart");
+console.log("Dropdown cart is created successfully");
 
 // Open cart
 cartIcon.onclick = () => {
@@ -83,7 +89,7 @@ async function fetchMovies() {
         const data = await response.json();
 
         if (Array.isArray(data.data)) {
-            console.log("Movies data:", data.data);
+            console.log("API movies with data:", data.data);
             return data.data;
         } else {
             console.error("Invalid data format from the API");
@@ -95,34 +101,11 @@ async function fetchMovies() {
     }
 }
 
-
-function displayMovies(movies) {
-    const moviesContainer = document.querySelector(".movies");
-
-    movies.forEach(movie => {
-        
-        const movieElement = document.createElement("div");
-        movieElement.classList.add("movie");
-        movieElement.innerHTML =`
-        <img src="${movie.image.url}" alt="${movie.title}">
-        <div class="price-movie">
-            <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
-            <h class="product-price">${movie.price}kr</h>
-        </div>
-    `;
-        
-        moviesContainer.appendChild(movieElement);
-    });
-}
-
-fetchMovies().then(movies => { 
-    displayMovies(movies);
-});
-
+// Display the correct item in cart by fetching "Once upon A time"
 fetchMovies().then(movies => {
     try {
         const cartItemContainer = document.querySelector(".cart-dropdown-content");
-        const movie = movies[6];
+        const movie = movies[6]; // OR: const movie = movies.find(movie => movie.title === "Once Upon A Time In Hollywood");
 
         const cartItem = document.createElement("div");
         cartItem.classList.add("cart-item");
@@ -138,7 +121,66 @@ fetchMovies().then(movies => {
 
         cartItemContainer.innerHTML = "";
         cartItemContainer.appendChild(cartItem);
+        console.log("The correct cart-item is displayed");
+
+        // displayCartTotal(movies);
+
     } catch (error) {
-        console.error("Error displaying movies in cart:", error);
+        console.error("Error displaying data in cart:", error);
     }
+
+    displayMovies(movies);
 });
+
+
+function displayMovies(movies) {
+    const moviesContainer = document.querySelector(".movie-container");
+
+    movies.forEach(movie => {
+        const movieElement = document.createElement("div");
+        movieElement.classList.add("movie");
+        
+        movieElement.innerHTML = `
+            <img src="${movie.image.url}" alt="${movie.title}">
+            <div class="price-movie">
+                <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
+                <h class="product-price">${movie.price}kr</h>
+            </div>
+        `;
+
+        moviesContainer.appendChild(movieElement);
+    });
+};
+
+
+
+// // Cart-total outside
+// function displayCartTotal(movies) {
+//     try {
+//         const cartTotalContainer = document.querySelector(".cart-total");
+//         console.log("Did find div cart-total in the html", cartTotalContainer);
+
+//         if (cartTotalContainer) {
+
+//             const cartTotal = document.createElement("div");
+//             cartTotal.classList.add("cart-total-container");
+//             cartTotal.innerHTML = ` 
+//                 <div class="total-title">Total</div>
+//                 <div class="total-price">${movies.reduce((total, movie) => total + parseFloat(movie.price), 0)}kr</div>
+//                 <button type="submit" class="check-out">Check out</button>
+//                 <i class="fa-solid fa-xmark" id="close-cart"></i>
+//             `;
+
+//         cartTotalContainer.body.innerHTML = ""; 
+//         cartTotalContainer.appendChild(cartTotal);
+//         console.log("The total price in the cart is correct");
+    
+//     }   else {
+//         console.error("Error: it is null");
+//     }
+//     } catch (error) {
+//         console.error("Error displaying the total price in cart", error)
+//     } 
+// };
+
+

@@ -653,7 +653,7 @@ button[type="submit"]:hover {
   }
 }
 
-
+/*
 .latest-editions {
   display: flex;
   flex-direction: column;
@@ -700,7 +700,7 @@ button[type="submit"]:hover {
 
 
 /* Media query for larger screens (e.g., desktop) */
-@media (min-width: 1440px) {
+/* @media (min-width: 1440px) {
 .latest-editions {
   display: flex;
   flex-direction: column;
@@ -743,11 +743,11 @@ button[type="submit"]:hover {
   padding: 5px;
   border-radius: 12px;
   flex: 0 0;
-}
+} */
 
-}
+/* } */ */
 
-/* Media query for smaller screens (e.g., mobile) */
+/* Media query for smaller screens (e.g., mobile)
 @media (max-width: 600px) {
   .latest-editions {
     display: flex;
@@ -775,8 +775,8 @@ button[type="submit"]:hover {
     grid-template-rows: auto auto auto;
     padding: 10px;
     margin-top: 0;
-  }
-
+  } */
+/*
   .imgOnceUponHome,
   .imgBatmanHome {
     height: 265px;
@@ -812,8 +812,8 @@ button[type="submit"]:hover {
     border-radius: 21px;
     flex: 0 0;
   }
-}
-
+} */
+/*
 .halloween {
   display: flex;
   background-color: black;
@@ -837,8 +837,8 @@ button[type="submit"]:hover {
   display: grid;
   grid-template-columns: auto auto;
   padding: 1rem;
-}
-
+} */
+/*
 .imgScreamHome,
 .imgAddamsHome,
 .imgBatmanHome2,
@@ -852,9 +852,9 @@ button[type="submit"]:hover {
   margin: -1.5rem;
   margin-top: 1rem;
   min-width: 200px;
-}
+} */
 
-/* Media query for larger screens (e.g., desktop) */
+/* Media query for larger screens (e.g., desktop)
 @media (min-width: 1440px) {
 .imgScreamHome,
 .imgAddamsHome,
@@ -870,9 +870,9 @@ button[type="submit"]:hover {
   margin-top: 1rem;
   min-width: 200px;
 }
-}
+} */
 
-/* Media query for smaller screens (e.g., mobile) */
+/* Media query for smaller screens (e.g., mobile)
 @media (max-width: 600px) {
 .imgScreamHome,
 .imgAddamsHome,
@@ -888,7 +888,7 @@ button[type="submit"]:hover {
   margin-top: 0;
   min-width: 200px;
 }
-}
+} */
 
 .discover {
   font-size: 30px;
@@ -898,8 +898,6 @@ button[type="submit"]:hover {
   filter: drop-shadow(black);
   margin-top: 2rem;
 }
-
-
 
 
 /* List of movies */
@@ -1017,8 +1015,9 @@ button[type="submit"]:hover {
 .drama-movies,
 .kids-movies {
   z-index: 1;
-  display: grid;
-  grid-template-columns: auto auto auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   gap: 0;
   padding: 0.5rem;
   border: 2px solid black;
@@ -1035,6 +1034,7 @@ button[type="submit"]:hover {
   text-align: start;
   }
 
+.movie,
 .action-movies img,
 .comedy-movies img,
 .drama-movies img,
@@ -1058,6 +1058,7 @@ button[type="submit"]:hover {
   transition: background-color 0.3s;
 }
 
+.movie img:hover,
 .action-movies img:hover,
 .comedy-movies img:hover,
 .drama-movies img:hover,
@@ -1073,8 +1074,8 @@ button[type="submit"]:hover {
   .drama-movies,
   .kids-movies {
     z-index: 1;
-    display: grid;
-    grid-template-columns: auto auto auto;
+    display: flex;
+    flex-direction: row;
     gap: 0;
     padding: 0.5rem;
     border: 2px solid black;
@@ -1083,6 +1084,7 @@ button[type="submit"]:hover {
     object-fit: cover;
   }
 
+  .movie img,
   .action-movies img,
   .comedy-movies img,
   .drama-movies img,
@@ -1093,13 +1095,15 @@ button[type="submit"]:hover {
 }
 
 /* Media query for smaller screens (e.g., mobile) */
-@media (max-width: 600px) {
+@media (max-width: 800px) {
 .action-movies,
 .comedy-movies,
 .drama-movies,
 .kids-movies {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
 }
 }
 
@@ -2042,7 +2046,7 @@ input[type="message"] {
 }
 
 
-/* Play Movie Page */
+/* Play Movie Page
 
 .movie {
   display: flex;
@@ -2050,29 +2054,30 @@ input[type="message"] {
   text-align: center;
   justify-content: center;
   width: 100%;
-  padding: 5rem;
+  padding: 1rem;
   height: 400px;
-  margin: 5rem auto;
-  background-image: url(images/images/OnceUponATimeInHollywood.jpeg);
+  margin: 4rem auto;
+  /* background-image: url(images/images/OnceUponATimeInHollywood.jpeg); */
   object-fit: cover;
-  border: 1rem solid white;
   text-align: start;
   font-size: 40px;
   border-radius: 2px;
 }
 
 /* Media query for larger screens (e.g., desktop) */
-@media (min-width: 1440px) {
-  .movie {
+@media (min-width: 1440px) { */
+  /* .movie {
+    flex-direction: column;
     width: 800px;
     height: 500px;
     object-fit: fill;
-}
+} */
 }
 
 /* Media query for smaller screens (e.g., mobile) */
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
   .movie {
+    flex-direction: ;
     width: 500px;
-  }
+  } */
 }
