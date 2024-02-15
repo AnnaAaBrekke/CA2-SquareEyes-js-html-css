@@ -102,8 +102,9 @@ async function fetchMovies() {
 }
 
 // Display the correct item in cart by fetching "Once upon A time"
-fetchMovies().then(movies => {
+async function displayCartItem() {
     try {
+        const movies = await fetchMovies();
         const cartItemContainer = document.querySelector(".cart-dropdown-content");
         const movie = movies[6]; // OR: const movie = movies.find(movie => movie.title === "Once Upon A Time In Hollywood");
 
@@ -128,29 +129,59 @@ fetchMovies().then(movies => {
     } catch (error) {
         console.error("Error displaying data in cart:", error);
     }
+}
 
-    displayMovies(movies);
-});
+displayCartItem();
+
+async function displayMovies(movies) {
+    try {
+        const moviesContainer = document.querySelector(".movie-container");
+
+        // Clear existing innerHTML content
+        moviesContainer.innerHTML = "";
+
+        movies.forEach(movie => {
+            const movieElement = document.createElement("div");
+            movieElement.classList.add("movie");
+            movieElement.innerHTML = `
+                <img src="${movie.image.url}" alt="${movie.title}">
+            `;
+
+            const moviePriceElement = document.createElement("div");
+            moviePriceElement.classList.add("price-movie");
+            moviePriceElement.innerHTML = `
+                <div class="price-movie">
+                    <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
+                    <span class="product-price">${movie.price}kr</span>
+                </div>
+            `;
+
+            moviesContainer.appendChild(movieElement);
+            movieElement.appendChild(moviePriceElement);
+        });
+
+        console.log("Movies displayed successfully");
+    } catch (error) {
+        console.error("Error displaying movies", error);
+    }
+}
 
 
-function displayMovies(movies) {
-    const moviesContainer = document.querySelector(".movie-container");
 
-    movies.forEach(movie => {
-        const movieElement = document.createElement("div");
-        movieElement.classList.add("movie");
-        
-        movieElement.innerHTML = `
-            <img src="${movie.image.url}" alt="${movie.title}">
-            <div class="price-movie">
-                <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
-                <h class="product-price">${movie.price}kr</h>
-            </div>
-        `;
+//fetchMovies().then(displayMovies);// - need to use async instead
 
-        moviesContainer.appendChild(movieElement);
-    });
-};
+async function main () {
+    try {
+        const movies = await fetchMovies();
+        await displayMovies(movies);
+        console.log("The main async function is working");
+
+    } catch (error) {
+        console.error("Error in the main async function:", error);
+    }
+}
+
+main();
 
 
 
