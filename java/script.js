@@ -19,67 +19,13 @@ closeCart.onclick = () => {
     dropdownCart.classList.remove("active");
 };
 
-// Cart working
+// // Cart working
 
-if (document.readyState == "loading"){
-    document.addEventListener("DOMContentLoaded", ready);
-} else {
-    ready()
-}
-
-function ready() {
-    const removeCartButtons = document.querySelectorAll (".remove-item");
-    removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
-
-    // const quantityInputs = document.querySelectorAll (".quantity");
-    // quantityInputs.forEach(input => input.addEventListener("change", quantityChanged));
-}
-
-function removeCartItem(event){
-    const buttonClicked = event.target
-    buttonClicked.parentElement.remove()
-    updateTotal();
-}
-
-
-// // Quantity Changes
-// const quantityInputs = document.getElementsByClassName("quantity");
-
-// for (let i = 0; i < quantityInputs.length; i++) {
-//     const input = quantityInputs[i];
-//     input.addEventListener("change", quantityChanged);
+// if (document.readyState == "loading"){
+//     document.addEventListener("DOMContentLoaded", ready);
+// } else {
+//     ready()
 // }
-
-// function quantityChanged(event) {
-//     const input = event.target;
-//     if (isNaN(input.value) || input.value <= 1) {
-//         input.value = 1;
-//     }
-//     updateTotal();
-// }
-
-// function updateTotal() {
-//     const cartDropdownContent = document.getElementsByClassName("cart-dropdown-content")[0];
-//     const cartItems = cartDropdownContent.getElementsByClassName("cart-item");
-//     let total = 0;
-
-//     cartItems.forEach(cartItem => {
-//         const priceElement = cartItem.querySelector(".cart-item-price");
-//         const quantityElement = cartItem.querySelector(".quantity");
-//         const price = parseFloat(priceElement.innerText.replace("$", ""));
-//         const quantitySelected = quantityElement.value;
-//         total += price * quantitySelected;
-
-//         console.log(`Price: ${price}, Quantity: ${quantitySelected}`);
-//     });
-
-//     // If price contains decimals
-//     total = Math.round(total * 100) / 100;
-
-//     document.querySelector(".total-price").innerText = `$${total}`;
-// }
-
-
 
 
 // Fetch movies from the API
@@ -106,7 +52,7 @@ async function displayCartItem() {
     try {
         const movies = await fetchMovies();
         const cartItemContainer = document.querySelector(".cart-dropdown-content");
-        const movie = movies[6]; // OR: const movie = movies.find(movie => movie.title === "Once Upon A Time In Hollywood");
+        const movie = movies[6]; // OR: const movie = movies.find(movie => movie.title === "Once Upon A Time In Hollywood"); (this is probably better if the array changes?)
 
         const cartItem = document.createElement("div");
         cartItem.classList.add("cart-item");
@@ -124,6 +70,10 @@ async function displayCartItem() {
         cartItemContainer.appendChild(cartItem);
         console.log("The correct cart-item is displayed");
 
+        const removeCartButtons = document.querySelectorAll(".remove-item");
+        removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
+        console.log("Remove cart item when clicked button");
+
         // displayCartTotal(movies);
 
     } catch (error) {
@@ -132,6 +82,24 @@ async function displayCartItem() {
 }
 
 displayCartItem();
+ready();
+
+function ready() {
+    const removeCartButtons = document.querySelectorAll (".remove-item");
+    removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
+}
+
+function removeCartItem(event){
+    const buttonClicked = event.target;
+    const cartItem = buttonClicked.closest(".cart-item");
+
+    cartItem.remove();
+    console.log("The closest cart item is removed when clicked");
+
+}
+
+document.addEventListener("DOMContentLoaded", ready);
+
 
 async function displayMovies(movies) {
     try {

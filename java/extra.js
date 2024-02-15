@@ -725,3 +725,62 @@ document.addEventListener('DOMContentLoaded', () => {
 //         console.error("Error displaying the total price in cart", error);
 //     }
 // };
+
+
+
+
+
+// Quantity Changes
+const quantityInputs = document.getElementsByClassName("quantity");
+
+  for (let i = 0; i < quantityInputs.length; i++) {
+      const input = quantityInputs[i];
+      input.addEventListener("change", quantityChanged);
+  }
+
+  function quantityChanged(event) {
+      const input = event.target;
+      if (isNaN(input.value) || input.value <= 1) {
+          input.value = 1;
+      }
+      updateTotal();
+  }
+
+  function updateTotal() {
+      const cartDropdownContent = document.getElementsByClassName("cart-dropdown-content")[0];
+      const cartItems = cartDropdownContent.getElementsByClassName("cart-item");
+      let total = 0;
+
+      cartItems.forEach(cartItem => {
+          const priceElement = cartItem.querySelector(".cart-item-price");
+          const quantityElement = cartItem.querySelector(".quantity");
+          const price = parseFloat(priceElement.innerText.replace("$", ""));
+          const quantitySelected = quantityElement.value;
+          total += price * quantitySelected;
+
+          console.log(`Price: ${price}, Quantity: ${quantitySelected}`);
+      });
+
+        If price contains decimals
+      total = Math.round(total * 100) / 100;
+
+      document.querySelector(".total-price").innerText = `$${total}`;
+  }@addToCartClicked
+
+
+
+
+
+  function ready() {
+    const removeCartButtons = document.querySelectorAll (".remove-item");
+    removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
+}
+
+
+function removeCartItem(event){
+    const buttonClicked = event.target;
+    const cartItem = buttonClicked.closest(".cart-item");
+   cartItem.remove();
+}
+
+document.addEventListener("DOMContentLoaded", ready);

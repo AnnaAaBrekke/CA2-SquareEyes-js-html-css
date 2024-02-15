@@ -501,12 +501,11 @@ button[type="submit"]:hover {
   background-color: black;
   color: #FFFFFF;
   border: 4px solid white;
-  z-index: 1;
   transition: background-color 0.3s;
 }
 
 .home button:hover {
-  background-color: rgb(68, 40, 28);
+  background-color: rgb(176, 112, 84);
 }
 
 /* Media query for larger screens (e.g., desktop) */
@@ -546,7 +545,6 @@ button[type="submit"]:hover {
     margin-top: 0;
     padding: 1rem;
     filter: drop-shadow(black);
-    z-index: 1;
     width: 300px;
     font-size: 16px;
   }
@@ -562,7 +560,6 @@ button[type="submit"]:hover {
     background-color: black;
     color: #FFFFFF;
     border: 4px solid white;
-    z-index: 1;
     transition: background-color 0.3s;
   }
 }
@@ -627,6 +624,7 @@ button[type="submit"]:hover {
   border-radius: 25%;
   box-shadow: 0px 0px 10px;
   filter: drop-shadow(black);
+  cursor: pointer;
 }
 
 .Step1, .Step2, .Step3 {
