@@ -74,12 +74,38 @@ async function displayCartItem() {
         removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
         console.log("Remove cart item when clicked button");
 
-        // displayCartTotal(movies);
+        await displayCartTotal(movies);
 
     } catch (error) {
         console.error("Error displaying data in cart:", error);
     }
 }
+
+// Cart-total outside
+async function displayCartTotal(movies) {
+    try {
+        const cartTotalContainers = document.querySelectorAll(".cart-total");
+
+        cartTotalContainers.forEach(cartTotalContainer => {
+
+            const cartTotal = document.createElement("div");
+            cartTotal.classList.add("cart-total-container");
+            cartTotal.innerHTML =  ` 
+                <div class="total-title">Total</div>
+                <div class="total-price">${movies.reduce((total, movie) => total + parseFloat(movie.price), 0)}kr</div>
+                <button type="submit" class="check-out">Check out</button>
+                <i class="fa-solid fa-xmark" id="close-cart"></i>
+            `;
+
+            cartTotalContainer.innerHTML = "";
+            cartTotalContainer.appendChild(cartTotal);
+
+        });
+
+    } catch (error) {
+        console.error("Error adding submit and total", error);
+    }
+};
 
 displayCartItem();
 ready();
@@ -134,14 +160,14 @@ async function displayMovies(movies) {
     }
 }
 
-
-
 //fetchMovies().then(displayMovies);// - need to use async instead
 
 async function main () {
     try {
         const movies = await fetchMovies();
         await displayMovies(movies);
+        await displayCartItem(movies);
+        await displayCartTotal(movies);
         console.log("The main async function is working");
 
     } catch (error) {
@@ -150,36 +176,4 @@ async function main () {
 }
 
 main();
-
-
-
-// // Cart-total outside
-// function displayCartTotal(movies) {
-//     try {
-//         const cartTotalContainer = document.querySelector(".cart-total");
-//         console.log("Did find div cart-total in the html", cartTotalContainer);
-
-//         if (cartTotalContainer) {
-
-//             const cartTotal = document.createElement("div");
-//             cartTotal.classList.add("cart-total-container");
-//             cartTotal.innerHTML = ` 
-//                 <div class="total-title">Total</div>
-//                 <div class="total-price">${movies.reduce((total, movie) => total + parseFloat(movie.price), 0)}kr</div>
-//                 <button type="submit" class="check-out">Check out</button>
-//                 <i class="fa-solid fa-xmark" id="close-cart"></i>
-//             `;
-
-//         cartTotalContainer.body.innerHTML = ""; 
-//         cartTotalContainer.appendChild(cartTotal);
-//         console.log("The total price in the cart is correct");
-    
-//     }   else {
-//         console.error("Error: it is null");
-//     }
-//     } catch (error) {
-//         console.error("Error displaying the total price in cart", error)
-//     } 
-// };
-
 
