@@ -1,7 +1,10 @@
-// DomContentet Load
+// DomContentet Loads
 document.addEventListener("DOMContentLoaded", function () {
     console.log("DOMContentLoaded works the correct way");
 });
+
+
+// ---------
 
 //Cart
 cartIcon = document.querySelector("#cart-icon");
@@ -26,6 +29,20 @@ document.body.addEventListener("click", (event) => {
     }
 });
 
+
+// // Add to cart function 
+// // Add to cart happens when cart-plus is clicked - event
+// // Add to cart function displays as the "displayCartItem"
+    const addToCartButton = document.querySelector(".fa-cart-plus");
+    addToCartButton.addEventListener("click", () => {
+    const movieElement = addToCartButton.closest(".movie-container");
+});
+
+
+
+
+// ------
+
 // Fetch movies from the API
 async function fetchMovies() {
     try {
@@ -44,6 +61,9 @@ async function fetchMovies() {
         return [];
     }
 };
+
+// ------
+
 
 // Display the correct item in cart by fetching "Once upon A time"
 async function displayCartItem() {
@@ -78,11 +98,6 @@ async function displayCartItem() {
         console.error("Error displaying data in cart:", error);
     }
 }
-
-// Add to cart function 
-// Add to cart happens when cart-plus is clicked - event
-// Add to cart function displays as the "displayCartItem"
-
 
 // Cart-total outside
 async function displayCartTotal(movies) {
@@ -191,6 +206,9 @@ function removeCartItem(event){
 
 document.addEventListener("DOMContentLoaded", ready);
 
+// ------
+
+
 async function displayMovies(movies) {
     try {
         const moviesContainer = document.querySelector(".movie-container");
@@ -223,6 +241,9 @@ async function displayMovies(movies) {
         console.error("Error displaying movies", error);
     }
 };
+
+// ------
+
 
 async function GenreFilter() {
     try {
@@ -258,6 +279,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const movies = await fetchMovies();
     await displayMovies(movies);
 });
+
+// ------
+
 
 //fetchMovies().then(displayMovies);// - need to use async instead
 
