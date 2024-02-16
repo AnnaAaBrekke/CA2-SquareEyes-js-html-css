@@ -793,3 +793,13 @@ document.addEventListener("DOMContentLoaded", ready);
 // } else {
 //     ready()
 // }
+
+const genreFilterContainer = document.querySelector(".filter-container");
+genres.forEach(genre => {
+    const button = document.createElement("button");
+    button.classList.add("genre-button");
+    button.textContent = genre;
+    button.dataset.genre = genre;
+    genreFilterContainer.appendChild(button);
+    console.log("Button for genres is created")
+});

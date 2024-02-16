@@ -43,7 +43,9 @@ async function fetchMovies() {
         console.error("Error fetching movies:", error);
         return [];
     }
-}
+};
+
+
 
 // Display the correct item in cart by fetching "Once upon A time"
 async function displayCartItem() {
@@ -176,7 +178,6 @@ function removeCartItem(event){
 
 document.addEventListener("DOMContentLoaded", ready);
 
-
 async function displayMovies(movies) {
     try {
         const moviesContainer = document.querySelector(".movie-container");
@@ -208,7 +209,42 @@ async function displayMovies(movies) {
     } catch (error) {
         console.error("Error displaying movies", error);
     }
+};
+
+async function GenreFilter() {
+    try {
+        const movies = await fetchMovies();
+        const genres = [...new Set (movies.map(movie => movie.genre))];
+        const filterContainer = document.querySelector(".filter-container");
+
+        genres.forEach (genre =>{
+            const button = document.createElement("button");
+            button.classList.add("genre-button");
+            button.textContent = genre;
+            button.dataset.genre = genre;
+            filterContainer.appendChild(button);
+            console.log("Button for genres is created")
+        });
+    } catch (error) {
+        console.error("Error creating a filter for genres", error);
+    }
 }
+
+// Add event listener to the genre buttons to trigger movie filtering
+document.querySelector(".filter-container").addEventListener("click", async (event) => {
+    if (event.target.classList.contains("genre-button")) {
+        const selectedGenre = event.target.dataset.genre;
+        const movies = await fetchMovies();
+        const filteredMovies = movies.filter(movie => selectedGenre === "" || movie.genre === selectedGenre);
+        await displayMovies(filteredMovies);
+    }
+});
+
+document.addEventListener("DOMContentLoaded", async () => {
+    await GenreFilter();
+    const movies = await fetchMovies();
+    await displayMovies(movies);
+});
 
 //fetchMovies().then(displayMovies);// - need to use async instead
 

@@ -94,7 +94,7 @@ button:hover,
 .hamburger-menu a:hover,
 .hamburger-menu button:hover,
 #cart-icon:hover {
-  color: orange;
+  color:orange;
 }
 
 .nav-list a,
@@ -505,7 +505,7 @@ button[type="submit"]:hover {
 }
 
 .home button:hover {
-  background-color: rgb(176, 112, 84);
+  background-color: orange;
 }
 
 /* Media query for larger screens (e.g., desktop) */
@@ -636,7 +636,7 @@ button[type="submit"]:hover {
 }
 
 /* Media query for smaller screens (e.g., mobile) */
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .steps ul {
     flex-direction: column;
     gap: 0;
@@ -649,6 +649,37 @@ button[type="submit"]:hover {
   .steps-container h2 {
     max-width: 100%;
   }
+
+  .filter-container {
+    gap: 0.5rem;
+  } 
+
+  .genre-button {
+    font-size: 18px;
+    padding: 0rem;
+
+  }
+}
+
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+} 
+
+.genre-button {
+  background: black;
+  font-size: 24px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 2px solid white;
+  color: white;
+  padding: 0.5rem;
+  cursor: pointer;
+  box-shadow: black;
 }
 
 /*
