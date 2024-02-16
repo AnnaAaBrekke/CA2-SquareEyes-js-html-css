@@ -45,8 +45,6 @@ async function fetchMovies() {
     }
 };
 
-
-
 // Display the correct item in cart by fetching "Once upon A time"
 async function displayCartItem() {
     try {
@@ -81,6 +79,11 @@ async function displayCartItem() {
     }
 }
 
+// Add to cart function 
+// Add to cart happens when cart-plus is clicked - event
+// Add to cart function displays as the "displayCartItem"
+
+
 // Cart-total outside
 async function displayCartTotal(movies) {
     try {
@@ -114,6 +117,16 @@ async function displayCartTotal(movies) {
 
 
 // Quantity Changes
+
+// async function quantityChanged(input, quantity) {
+//     if (quantity == 0){
+//         delete displayCartItem [input]
+//     } else {
+//         updateTotal()
+//     }
+//     displayCartItem()
+// }
+
 const quantityInputs = document.querySelectorAll(".quantity");
 
   for (let i = 0; i < quantityInputs.length; i++) {
