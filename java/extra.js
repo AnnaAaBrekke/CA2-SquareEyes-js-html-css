@@ -784,3 +784,12 @@ function removeCartItem(event){
 }
 
 document.addEventListener("DOMContentLoaded", ready);
+
+
+// // Cart working
+
+// if (document.readyState == "loading"){
+//     document.addEventListener("DOMContentLoaded", ready);
+// } else {
+//     ready()
+// }

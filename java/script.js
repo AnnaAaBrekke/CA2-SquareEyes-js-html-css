@@ -19,14 +19,12 @@ closeCart.onclick = () => {
     dropdownCart.classList.remove("active");
 };
 
-// // Cart working
-
-// if (document.readyState == "loading"){
-//     document.addEventListener("DOMContentLoaded", ready);
-// } else {
-//     ready()
-// }
-
+document.body.addEventListener("click", (event) => {
+    if (event.target.classList.contains("fa-xmark")) {
+        dropdownCart.classList.remove("active");
+        console.log("When x is clicked the cart removes totally");
+    }
+});
 
 // Fetch movies from the API
 async function fetchMovies() {
@@ -60,7 +58,7 @@ async function displayCartItem() {
             <img src="${movie.image.url}" alt="${movie.title}" class="cart-img">
             <div class="cart-item-info">
                 <div class="cart-item-title">${movie.title}</div>
-                <div class="cart-item-price">${movie.price}kr</div>
+                <div class="cart-item-price">${movie.price}KR</div>
             </div>
             <input type="number" value="1" class="quantity">
             <button type="button" class="remove-item" value="Remove">Remove</button>
@@ -84,31 +82,83 @@ async function displayCartItem() {
 // Cart-total outside
 async function displayCartTotal(movies) {
     try {
-        const cartTotalContainers = document.querySelectorAll(".cart-total");
-
-        cartTotalContainers.forEach(cartTotalContainer => {
+        const cartTotalContainer = document.querySelector(".cart-dropdown-total");
 
             const cartTotal = document.createElement("div");
-            cartTotal.classList.add("cart-total-container");
+            cartTotal.classList.add("cart-total");
             cartTotal.innerHTML =  ` 
                 <div class="total-title">Total</div>
-                <div class="total-price">${movies.reduce((total, movie) => total + parseFloat(movie.price), 0)}kr</div>
+                <div class="total-price">${movies.reduce((total, movie) => total + parseFloat(movie.price), 0)}KR</div>
                 <button type="submit" class="check-out">Check out</button>
                 <i class="fa-solid fa-xmark" id="close-cart"></i>
-            `;
+                `;
 
             cartTotalContainer.innerHTML = "";
             cartTotalContainer.appendChild(cartTotal);
+            console.log("The total and check out is displayed");
 
-        });
+            updateTotal();
+
+            // // Event listener to the Check Out button guides to another site
+            // const checkOutButton = cartTotalContainer.querySelector(".check-out");
+            // checkOutButton,addEventListener("click", () => {
+            //     window.location.href = "checkout.html";
+            // })
 
     } catch (error) {
         console.error("Error adding submit and total", error);
     }
 };
 
-displayCartItem();
-ready();
+
+// Quantity Changes
+const quantityInputs = document.querySelectorAll(".quantity");
+
+  for (let i = 0; i < quantityInputs.length; i++) {
+      const input = quantityInputs[i];
+      input.addEventListener("change", quantityChanged);
+  }
+
+  async function quantityChanged(event) {
+    // console.log("Event", event); // Event was an array 
+    const input = event.target;
+    console.log("Input:", input); 
+    if (input && (isNaN(input.value) || input.value <= 1)) {
+        input.value = 1;
+    }
+
+    updateTotal();
+}
+
+
+// Update Total
+async function updateTotal() {
+        const cartDropdownContent = document.querySelector(".cart-dropdown-content");
+        const cartItems = cartDropdownContent.querySelectorAll(".cart-item");
+        let total = 0;
+    
+        Array.from(cartItems).forEach(cartItem => {
+            const priceElement = cartItem.querySelector(".cart-item-price");
+            const quantityElement = cartItem.querySelector(".quantity");
+            const price = parseFloat(priceElement.innerText.replace("KR", ""));
+            const quantitySelected = quantityElement.value;
+            console.log("Price", price, "Quantity", quantitySelected);
+            total += price * quantitySelected;
+        });
+        
+        // If price contains many decimals
+        total = Math.round(total * 100) / 100;
+
+        const totalElement = document.querySelector(".total-price");
+        console.log("Total", total);
+        totalElement.innerText = `${total}KR`;
+    }
+    
+        // Modify the quantity input event listener to trigger updateTotal
+        document.querySelectorAll(".quantity").forEach(input => {
+            input.addEventListener("input", updateTotal);
+            console.log("Quantity input changed");
+});
 
 function ready() {
     const removeCartButtons = document.querySelectorAll (".remove-item");
@@ -146,7 +196,7 @@ async function displayMovies(movies) {
             moviePriceElement.innerHTML = `
                 <div class="price-movie">
                     <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
-                    <span class="product-price">${movie.price}kr</span>
+                    <span class="product-price">${movie.price} KR</span>
                 </div>
             `;
 
@@ -168,6 +218,8 @@ async function main () {
         await displayMovies(movies);
         await displayCartItem(movies);
         await displayCartTotal(movies);
+        await quantityChanged(movies);
+        await updateTotal (movies);
         console.log("The main async function is working");
 
     } catch (error) {
