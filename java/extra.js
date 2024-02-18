@@ -851,3 +851,28 @@ genres.forEach(genre => {
 // });
 
 
+//   async function quantityChanged(event) {
+//     // console.log("Event", event); // Event was an array
+//     const input = event.target;
+//     console.log("Input:", input); 
+//     if (input && (isNaN(input.value) || input.value <= 1)) {
+//         input.value = 1;
+//     }
+
+//     updateTotal();
+// }
+
+        // // Modify the quantity input event listener to trigger updateTotal
+        // document.querySelectorAll(".quantity").forEach(input => {
+        // input.addEventListener("input", updateTotal);
+        // console.log("Quantity input changed");
+        // });
+
+
+
+
+            // // Event listener to the Check Out button guides to another site
+            // const checkOutButton = cartTotalContainer.querySelector(".check-out");
+            // checkOutButton,addEventListener("click", () => {
+            //     window.location.href = "checkout.html";
+            // })

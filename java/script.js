@@ -91,40 +91,39 @@ async function displayCartItem(title, price, imgSrc) {
         removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
         console.log("Remove cart item when clicked button");
 
-        await displayCartTotal();
-        updateTotal();
+        updateTotal()
 
     } catch (error) {
         console.error("Error displaying data in cart:", error);
     }
 }
 
+//-------
 
 // Cart-total outside
-async function displayCartTotal(movies) {
+async function displayCartTotal(cartItems) {
     try {
         const cartTotalContainer = document.querySelector(".cart-dropdown-total");
+        const total = cartItems.reduce((acc, cartItem) => {
+            const price = parseFloat(cartItem.querySelector(".cart-item-price").innerText.replace("KR", ""));
+            const quantity = parseFloat(cartItem.querySelector(".quantity").value);
+            return acc + (price * quantity);
+        }, 0);
 
             const cartTotal = document.createElement("div");
             cartTotal.classList.add("cart-total");
             cartTotal.innerHTML =  ` 
                 <div class="total-title">Total</div>
-                <div class="total-price">${price}KR</div>
+                <div class="total-price">${movies.price}KR</div>
                 <button type="submit" class="check-out">Check out</button>
                 <i class="fa-solid fa-xmark" id="close-cart"></i>
                 `;
 
-            // cartTotalContainer.innerHTML = "";
+            cartTotalContainer.innerHTML = "";
             cartTotalContainer.appendChild(cartTotal);
             console.log("The total and check out is displayed");
 
             updateTotal();
-
-            // // Event listener to the Check Out button guides to another site
-            // const checkOutButton = cartTotalContainer.querySelector(".check-out");
-            // checkOutButton,addEventListener("click", () => {
-            //     window.location.href = "checkout.html";
-            // })
 
     } catch (error) {
         console.error("Error adding submit and total", error);
@@ -134,63 +133,54 @@ async function displayCartTotal(movies) {
 
 // Quantity Changes
 
-async function quantityChanged(input, quantity) {
-    if (quantity == 0){
-        const cartItem = input.closest(".cart-item");
-        cartItem.remove();
-
-        updateTotal()
-    } else 
-        updateTotal()
- }
-
-const quantityInputs = document.querySelectorAll(".quantity");
-
-  for (let i = 0; i < quantityInputs.length; i++) {
-      const input = quantityInputs[i];
-      input.addEventListener("change", quantityChanged);
-  }
-
-  async function quantityChanged(event) {
-    // console.log("Event", event); // Event was an array 
-    const input = event.target;
-    console.log("Input:", input); 
-    if (input && (isNaN(input.value) || input.value <= 1)) {
-        input.value = 1;
-    }
-
-    updateTotal();
+async function quantityChanged() {
+    if (isNaN(this.value) || this.value<1) {
+        this.value = 1;
+    }  
+    displayCartItem(title, price, imgSrc);
+    updateTotal()
 }
+
+ const quantityInputs = document.querySelectorAll(".quantity");
+
+quantityInputs.forEach(input => {
+    input.addEventListener("change", quantityChanged);
+});
+
+//    for (let i = 0; i < quantityInputs.length; i++) {
+//        const input = quantityInputs[i];
+//        input.addEventListener("change", quantityChanged);
+
+ updateTotal()
+ console.log("Total after changing the quantity", quantityChanged);
 
 
 // Update Total
-async function updateTotal(movies) {
-        const cartDropdownContent = document.querySelector(".cart-dropdown-content");
-        const cartItems = cartDropdownContent.querySelectorAll(".cart-item");
+async function updateTotal() {
+        const cartItems = document.querySelectorAll(".cart-item");
+        const totalValue=document.querySelector(".total-price");
+
         let total = 0;
+
+        console.log("Total before calculation", total)
     
-        Array.from(cartItems).forEach(cartItem => {
+        cartItems.forEach(cartItem => {
+            
             const priceElement = cartItem.querySelector(".cart-item-price");
-            const quantityElement = cartItem.querySelector(".quantity");
-            const price = parseFloat(priceElement.innerText.replace("KR", ""));
-            const quantitySelected = quantityElement.value;
-            console.log("Price", price, "Quantity", quantitySelected);
-            total += price * quantitySelected;
+            const price = parseFloat(priceElement.innerText.replace("KR", "")) || 0;
+            const quantityElement = cartItem.querySelector(".quantity").value;
+            total = total + (price * quantityElement);
         });
-        
+
+        console.log("Total after calcuation", total) // NaN
+
         // If price contains many decimals
         total = Math.round(total * 100) / 100;
+        
+        totalValue.innerText = `${total}KR`;
 
-        const totalElement = document.querySelector(".total-price");
-        console.log("Total", total);
-        totalElement.innerText = `${total}KR`;
     }
-    
-        // Modify the quantity input event listener to trigger updateTotal
-        document.querySelectorAll(".quantity").forEach(input => {
-            input.addEventListener("input", updateTotal);
-            console.log("Quantity input changed");
-});
+
 
 function ready() {
     const removeCartButtons = document.querySelectorAll (".remove-item");
@@ -255,6 +245,7 @@ document.querySelector(".movie-container").addEventListener("click", async (even
         console.log(title, price, imgSrc);
 
         displayCartItem(title, price, imgSrc);
+        updateTotal()
     }
 }) 
 
@@ -266,6 +257,7 @@ async function addCart() {
 
     // Do something with the extracted information, e.g., add to the cart
     displayCartItem(title, price, imgSrc);
+    updateTotal();
 };
 
 async function GenreFilter() {
@@ -310,14 +302,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 async function main () {
     try {
-        const movies = await fetchMovies(movies);
+        const movies = await fetchMovies();
+        await GenreFilter();
         await displayMovies(movies);
-        await addCart(movies);
-        await displayCartItem(movies);
-        await displayCartTotal(movies);
-        await quantityChanged(movies);
-        await updateTotal (movies);
-        console.log("The main async function is working");
+
+        // Wait for user interactions (adding items to the cart)
+        await addCart();
+        await quantityChanged();
+
+        // Display the initial cart items and total
+        await displayCartItem();
+        await displayCartTotal();
+
+        await updateTotal ();
+
+        console.log("The main is not working");
 
     } catch (error) {
         console.error("Error in the main async function:", error);
