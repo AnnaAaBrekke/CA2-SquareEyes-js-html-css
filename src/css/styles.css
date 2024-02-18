@@ -174,16 +174,23 @@ button:hover,
 
 /* Cart */
 
+/* .cart-dropdown-content {
+  display: none;
+} */
+
 .dropdown-cart {
   position: fixed;
   top: 0;
   right: -100%;
   width: 360px;
-  min-height: 100vh;
+  height: 95%; /* Set a fixed height */
+  max-height: 100vh; /* Optional: set a maximum height */
   padding: 1rem;
   background: rgb(206, 205, 205);
   box-shadow: 1rem;
   transition: 0.3s;
+  overflow-y: auto; /* Add scroll when content exceeds the height */
+  border-radius: 3px;
 }
 
 .dropdown-cart.active {
@@ -210,6 +217,7 @@ button:hover,
   border: 1px solid grey;
   border-radius: 2px;
   position: relative;
+  margin: 3px;
 }
 
 .cart-item-info {
@@ -221,6 +229,7 @@ button:hover,
   font-size: 18px;
   font-weight: 500;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .cart-item-price {
@@ -257,19 +266,22 @@ button:hover,
 .remove-item:hover {
   background-color: #ff5566;
   color: #000000;
+  cursor: pointer;
 }
 
 .cart-total {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   margin-top: 1rem;
   border-top: 1px solid grey;
+  margin-bottom: 1rem;
 }
 
 .total-title  {
   font-size: 20px;
   font-weight: 500;
   color: #000000;
+  margin-top: 5px;
 }
 
 .total-price {
@@ -277,18 +289,21 @@ button:hover,
   font-size: 20px;
   font-weight: 700;
   color: #000000;
+  margin-top: 5px;
 }
 
 button[type="submit"] {
   display: flex;
-  margin: 1.5rem auto 0 auto;
+  justify-content: center;
   background-color: #28a745;
   color: #fff;
-  padding: 10px 20px;
+  padding: 10px 12px;
   border: none;
   border-radius: 4px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
+  margin-left: 5.5rem;
+  margin-top: 3px;
   cursor: pointer;
 }
 

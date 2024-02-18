@@ -803,3 +803,51 @@ genres.forEach(genre => {
     genreFilterContainer.appendChild(button);
     console.log("Button for genres is created")
 });
+
+
+
+// EXTRA ADD TO CART - NOT USEFUL?
+
+
+// //Add Cart
+// function addCart(){
+//     let movieElement =this.parentElement;
+//     let imgSrc=movieElement.querySelector('.food-img').url;
+//     let title=food.querySelector('.food-title').innerHTML;
+//     let price=food.querySelector('.food-price').innerHTML;
+//     //console.log(title,price,imgSrc);
+    
+//     let newProduct={title,price,imgSrc}
+   
+
+// const addToCartButton = movieElement.querySelector(".fa-cart-plus");
+// addToCartButton.addEventListener("click", addCart.bind(movie));
+
+
+//  function addToCart(event) {
+//     const buttonClicked = event.target;
+//     const movieContainer = buttonClicked.closest(".movie-container");
+//     const movieTitle = movieContainer.querySelector(".movie-title").innerText;
+//     const moviePrice = parseFloat(movieContainer.querySelector(".product-price").innerText.replace("KR", ""));
+//     const movieImage = movieContainer.querySelector("img").url;
+
+//     // Call a function to add the selected item to the cart
+//     addToCartFunction(movieTitle, moviePrice, movieImage);
+// }
+
+// function addToCartFunction(title, price, image) {
+
+   // const addToCartButton = document.querySelectorAll(".fa-cart-plus");
+        // addToCartButton.forEach(button => button.addEventListener("click", addToCart));
+
+
+
+// // // Add to cart function 
+// // // Add to cart happens when cart-plus is clicked - event
+// // // Add to cart function displays as the "displayCartItem"
+//     const addToCartButton = document.querySelector(".fa-cart-plus");
+//     addToCartButton.addEventListener("click", () => {
+//     const movieElement = addToCartButton.closest(".movie-container");
+// });
+
+

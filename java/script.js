@@ -4,10 +4,19 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+// A container to hold the items in the cart ✅
+// A function to add items to the cart ✅
+// A function to remove items from the cart ✅
+// A function to calculate the total cost of the items in the cart 👩🏽‍💻
+// An event listener to add items to the cart when the user clicks the 'Add to Cart' button ✅
+// An event listener to remove items from the cart when the user clicks the 'Remove' button ✅
+// A display of the number of items in the cart and the total cost 👩🏽‍💻
+// The ability to save the cart data to the local storage or a cookie 
+
 // ---------
 
 //Cart
-cartIcon = document.querySelector("#cart-icon");
+let cartIcon = document.querySelector("#cart-icon");
 let dropdownCart = document.querySelector(".dropdown-cart");
 let closeCart = document.querySelector("#close-cart");
 console.log("Dropdown cart is created successfully");
@@ -28,18 +37,6 @@ document.body.addEventListener("click", (event) => {
         console.log("When x is clicked the cart removes totally");
     }
 });
-
-
-// // Add to cart function 
-// // Add to cart happens when cart-plus is clicked - event
-// // Add to cart function displays as the "displayCartItem"
-    const addToCartButton = document.querySelector(".fa-cart-plus");
-    addToCartButton.addEventListener("click", () => {
-    const movieElement = addToCartButton.closest(".movie-container");
-});
-
-
-
 
 // ------
 
@@ -64,40 +61,44 @@ async function fetchMovies() {
 
 // ------
 
-
-// Display the correct item in cart by fetching "Once upon A time"
-async function displayCartItem() {
+// Display the correct item in cart 
+async function displayCartItem(title, price, imgSrc) {
     try {
-        const movies = await fetchMovies();
+        // const movies = await fetchMovies();
         const cartItemContainer = document.querySelector(".cart-dropdown-content");
-        const movie = movies[6]; // OR: const movie = movies.find(movie => movie.title === "Once Upon A Time In Hollywood"); (this is probably better if the array changes?)
+        // const movie = movies[6]; // OR: const movie = movies.find(movie => movie.title === "Once Upon A Time In Hollywood"); (this is probably better if the array changes?)
 
         const cartItem = document.createElement("div");
         cartItem.classList.add("cart-item");
         cartItem.innerHTML = `
-            <img src="${movie.image.url}" alt="${movie.title}" class="cart-img">
+            <img src="${imgSrc}" alt="${title}" class="cart-img">
             <div class="cart-item-info">
-                <div class="cart-item-title">${movie.title}</div>
-                <div class="cart-item-price">${movie.price}KR</div>
+                <div class="cart-item-title">${title}</div>
+                <div class="cart-item-price">${price}KR</div>
             </div>
             <input type="number" value="1" class="quantity">
             <button type="button" class="remove-item" value="Remove">Remove</button>
-        `;
+        `; 
 
-        cartItemContainer.innerHTML = "";
+        // cartItemContainer.innerHTML = ""; replaces instead of adding
         cartItemContainer.appendChild(cartItem);
         console.log("The correct cart-item is displayed");
+
+        // Show the cart
+        dropdownCart.classList.add("active");
 
         const removeCartButtons = document.querySelectorAll(".remove-item");
         removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
         console.log("Remove cart item when clicked button");
 
-        await displayCartTotal(movies);
+        await displayCartTotal();
+        updateTotal();
 
     } catch (error) {
         console.error("Error displaying data in cart:", error);
     }
 }
+
 
 // Cart-total outside
 async function displayCartTotal(movies) {
@@ -108,12 +109,12 @@ async function displayCartTotal(movies) {
             cartTotal.classList.add("cart-total");
             cartTotal.innerHTML =  ` 
                 <div class="total-title">Total</div>
-                <div class="total-price">${movies.reduce((total, movie) => total + parseFloat(movie.price), 0)}KR</div>
+                <div class="total-price">${price}KR</div>
                 <button type="submit" class="check-out">Check out</button>
                 <i class="fa-solid fa-xmark" id="close-cart"></i>
                 `;
 
-            cartTotalContainer.innerHTML = "";
+            // cartTotalContainer.innerHTML = "";
             cartTotalContainer.appendChild(cartTotal);
             console.log("The total and check out is displayed");
 
@@ -133,14 +134,15 @@ async function displayCartTotal(movies) {
 
 // Quantity Changes
 
-// async function quantityChanged(input, quantity) {
-//     if (quantity == 0){
-//         delete displayCartItem [input]
-//     } else {
-//         updateTotal()
-//     }
-//     displayCartItem()
-// }
+async function quantityChanged(input, quantity) {
+    if (quantity == 0){
+        const cartItem = input.closest(".cart-item");
+        cartItem.remove();
+
+        updateTotal()
+    } else 
+        updateTotal()
+ }
 
 const quantityInputs = document.querySelectorAll(".quantity");
 
@@ -162,7 +164,7 @@ const quantityInputs = document.querySelectorAll(".quantity");
 
 
 // Update Total
-async function updateTotal() {
+async function updateTotal(movies) {
         const cartDropdownContent = document.querySelector(".cart-dropdown-content");
         const cartItems = cartDropdownContent.querySelectorAll(".cart-item");
         let total = 0;
@@ -202,12 +204,12 @@ function removeCartItem(event){
     cartItem.remove();
     console.log("The closest cart item is removed when clicked");
 
+    updateTotal()
 }
 
 document.addEventListener("DOMContentLoaded", ready);
 
 // ------
-
 
 async function displayMovies(movies) {
     try {
@@ -234,6 +236,7 @@ async function displayMovies(movies) {
 
             moviesContainer.appendChild(movieElement);
             movieElement.appendChild(moviePriceElement);
+
         });
 
         console.log("Movies displayed successfully");
@@ -242,8 +245,28 @@ async function displayMovies(movies) {
     }
 };
 
-// ------
 
+document.querySelector(".movie-container").addEventListener("click", async (event)=> {
+    if (event.target.classList.contains("fa-cart-plus")){
+        const movieContainer = event.target.closest(".movie");
+        const imgSrc = movieContainer.querySelector("img").src;
+        const title = movieContainer.querySelector("img").alt;
+        const price = parseFloat(movieContainer.querySelector(".product-price").innerText.replace(" KR", ""));
+        console.log(title, price, imgSrc);
+
+        displayCartItem(title, price, imgSrc);
+    }
+}) 
+
+async function addCart() {
+    const imgSrc = querySelector("img").src;
+    const title = querySelector(".product-price").innerText;
+    const price = parseFloat(title.replace(" KR", ""));
+    console.log(title, price, imgSrc);
+
+    // Do something with the extracted information, e.g., add to the cart
+    displayCartItem(title, price, imgSrc);
+};
 
 async function GenreFilter() {
     try {
@@ -287,8 +310,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 async function main () {
     try {
-        const movies = await fetchMovies();
+        const movies = await fetchMovies(movies);
         await displayMovies(movies);
+        await addCart(movies);
         await displayCartItem(movies);
         await displayCartTotal(movies);
         await quantityChanged(movies);
@@ -301,4 +325,3 @@ async function main () {
 }
 
 main();
-
