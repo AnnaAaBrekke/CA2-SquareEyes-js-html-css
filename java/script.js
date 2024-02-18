@@ -64,9 +64,7 @@ async function fetchMovies() {
 // Display the correct item in cart 
 async function displayCartItem(title, price, imgSrc) {
     try {
-        // const movies = await fetchMovies();
         const cartItemContainer = document.querySelector(".cart-dropdown-content");
-        // const movie = movies[6]; // OR: const movie = movies.find(movie => movie.title === "Once Upon A Time In Hollywood"); (this is probably better if the array changes?)
 
         const cartItem = document.createElement("div");
         cartItem.classList.add("cart-item");
@@ -76,7 +74,6 @@ async function displayCartItem(title, price, imgSrc) {
                 <div class="cart-item-title">${title}</div>
                 <div class="cart-item-price">${price}KR</div>
             </div>
-            <input type="number" value="1" class="quantity">
             <button type="button" class="remove-item" value="Remove">Remove</button>
         `; 
 
@@ -106,16 +103,18 @@ async function displayCartTotal(cartItems) {
         const cartTotalContainer = document.querySelector(".cart-dropdown-total");
         const total = cartItems.reduce((acc, cartItem) => {
             const price = parseFloat(cartItem.querySelector(".cart-item-price").innerText.replace("KR", ""));
-            const quantity = parseFloat(cartItem.querySelector(".quantity").value);
+            const quantity = 1;
             return acc + (price * quantity);
-        }, 0);
+        });
 
             const cartTotal = document.createElement("div");
             cartTotal.classList.add("cart-total");
             cartTotal.innerHTML =  ` 
-                <div class="total-title">Total</div>
-                <div class="total-price">${movies.price}KR</div>
-                <button type="submit" class="check-out">Check out</button>
+                <siv class="total-title">Total</div>
+                <div class="total-price">${total}KR</div>
+                <a href="checkout.html">
+                    <button type="submit" class="check-out">Check out</button>
+                </a>
                 <i class="fa-solid fa-xmark" id="close-cart"></i>
                 `;
 
@@ -131,30 +130,6 @@ async function displayCartTotal(cartItems) {
 };
 
 
-// Quantity Changes
-
-async function quantityChanged() {
-    if (isNaN(this.value) || this.value<1) {
-        this.value = 1;
-    }  
-    displayCartItem(title, price, imgSrc);
-    updateTotal()
-}
-
- const quantityInputs = document.querySelectorAll(".quantity");
-
-quantityInputs.forEach(input => {
-    input.addEventListener("change", quantityChanged);
-});
-
-//    for (let i = 0; i < quantityInputs.length; i++) {
-//        const input = quantityInputs[i];
-//        input.addEventListener("change", quantityChanged);
-
- updateTotal()
- console.log("Total after changing the quantity", quantityChanged);
-
-
 // Update Total
 async function updateTotal() {
         const cartItems = document.querySelectorAll(".cart-item");
@@ -168,8 +143,9 @@ async function updateTotal() {
             
             const priceElement = cartItem.querySelector(".cart-item-price");
             const price = parseFloat(priceElement.innerText.replace("KR", "")) || 0;
-            const quantityElement = cartItem.querySelector(".quantity").value;
+            const quantityElement = 1;
             total = total + (price * quantityElement);
+
         });
 
         console.log("Total after calcuation", total) // NaN
@@ -179,13 +155,8 @@ async function updateTotal() {
         
         totalValue.innerText = `${total}KR`;
 
-    }
+    };
 
-
-function ready() {
-    const removeCartButtons = document.querySelectorAll (".remove-item");
-    removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
-}
 
 function removeCartItem(event){
     const buttonClicked = event.target;
@@ -195,6 +166,11 @@ function removeCartItem(event){
     console.log("The closest cart item is removed when clicked");
 
     updateTotal()
+}
+
+function ready() {
+    const removeCartButtons = document.querySelectorAll (".remove-item");
+    removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
 }
 
 document.addEventListener("DOMContentLoaded", ready);
@@ -247,18 +223,14 @@ document.querySelector(".movie-container").addEventListener("click", async (even
         displayCartItem(title, price, imgSrc);
         updateTotal()
     }
-}) 
+});
 
-async function addCart() {
-    const imgSrc = querySelector("img").src;
-    const title = querySelector(".product-price").innerText;
-    const price = parseFloat(title.replace(" KR", ""));
-    console.log(title, price, imgSrc);
+async function addCart(title, price, imgSrc) {
+     console.log(title, price, imgSrc);
 
-    // Do something with the extracted information, e.g., add to the cart
-    displayCartItem(title, price, imgSrc);
-    updateTotal();
-};
+displayCartItem(title, price, imgSrc);
+     updateTotal();
+ };
 
 async function GenreFilter() {
     try {
@@ -298,7 +270,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 // ------
 
 
-//fetchMovies().then(displayMovies);// - need to use async instead
+// Check Out Page
+
+
+
 
 async function main () {
     try {
@@ -306,13 +281,9 @@ async function main () {
         await GenreFilter();
         await displayMovies(movies);
 
-        // Wait for user interactions (adding items to the cart)
-        await addCart();
-        await quantityChanged();
-
         // Display the initial cart items and total
         await displayCartItem();
-        await displayCartTotal();
+        await displayCartTotal(document.querySelectorAll(".cart-item"));
 
         await updateTotal ();
 

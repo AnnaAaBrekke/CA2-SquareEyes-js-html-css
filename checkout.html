@@ -13,96 +13,89 @@
 </head>
 
 <body>
-        
     <header>
-        <nav>
+        <nav class="header-left">
             <a href="index.html"><img class="SELogoBar" src="/images/images/SquareEyes_Logo-crop.png" alt="Futures Museum Logo"></a>
         </nav>
         
-        <nav>
-            <div class="hamburger-menu">
-            <button class="bar"><i class="fa-solid fa-bars"></i></button>  
-            <ul>
-                <li><a href="checkout.html"><i class="fa-solid fa-cart-shopping cart-icon" alt="My cart icon"></i> Cart</a></li>
-                <li><a href="listofmovies.html"><i class="fa-solid fa-film film-icon" alt="Film icon for my movies"></i> Movies</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-            </ul>
-            </div>
-        </nav>
-        
-        <nav class="header-nav">
-            <nav class="nav-list">
-            <div class="dropdown">
+        <section class="header-right">
+            <!-- <i class="fa-solid fa-cart-shopping cart-icon" alt="My cart icon" id="cart-icon"></i>
+                <div class="dropdown-cart">
+                    <h2>Your Cart</h2>
+                    <div class="cart-dropdown-content">
+                        <div class="cart-item">
+                        <img class="cart-img" src="" alt="">
+                            <div class="cart-item-info">
+                                <div class="cart-item-title"></div>
+                                <div class="cart-item-price"></div>
+                            </div>
+                            <button type="button" class="remove-item"  value="Remove">Remove</button>
+                        </div>
+                    </div>
+                    <div class="cart-dropdown-total">
+                        <div class="cart-total">
+                            <div class="total-title">Total</div>
+                            <div class="total-price">0kr</div>
+                            <a href="checkout.html">
+                                <button type="submit" class="check-out">Check out</button>
+                              </a>
+                            <i class="fa-solid fa-xmark" id="close-cart"></i>
+                        </div>
+                    </div> -->
+                </div>
+                    <nav class="nav-list">
+                <div class="dropdown">
                 <button class="nav-button"><i class="fa-solid fa-bars"></i></button>
                 <ul>
-                <li><a href="checkout.html"><i class="fa-solid fa-cart-shopping cart-icon" alt="My cart icon"></i> Cart</a></li>
-                <li><a href="listofmovies.html"><i class="fa-solid fa-film film-icon" alt="Film icon for my movies"></i> Movies</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="checkout.html"><i class="fa-solid fa-cart-shopping cart-icon" alt="My cart icon"></i> Cart</a></li>
+                    <li><a href="listofmovies.html"><i class="fa-solid fa-film film-icon" alt="Film icon for my movies"></i> Movies</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
                 </ul>
-            </div>
+                </div>
             </nav>
-        </nav>
+        </section>
     </header>
     
     <section class="checkout-home">
-        <h1>Checkout</h1>
-        <div class="checkout-bar">
-            <div class="where-you-are">
-                <div class="inside-checkout-bar">
-                    <ul>
-                        <i class="fa-solid fa-cart-shopping cart-icon2" alt="My cart icon"></i>
-                        <i class="fa-solid fa-arrow-right-long arrow-icon"></i>
-                        <i class="fa-regular fa-user user-icon2" alt="User icon"></i>
-                        <i class="fa-solid fa-arrow-right-long arrow-icon"></i>
-                        <i class="fa-solid fa-credit-card card-icon2"></i>
-                        <i class="fa-solid fa-arrow-right-long arrow-icon"></i>
-                        <i class="fa-solid fa-film film-icon2" alt="Film icon for my movies"></i>
-                    </ul> 
-                </div>
-            </div>
-        </div>
-
-        <section class="cart-container">
-            <div class="cart">
-                <h1>Cart</h1>
-            </div>
-            <div>
-                <nav>
-                    <div class="cart">
-                        <a href="moviepage.html"><img class="imgOnceUpon-check" src="images/images/OnceUponATimeInHollywood.jpeg"  alt="Movie Once Upon A Time In Hollywood"></a>
-                        <h class="once-cart">Once Upon A Time in Hollywood 
-                        <p>Quentin Tarantino</p>
-                        <p>2019</p>
-                        <p>2h 41m</p>
-                        <br>
-                        <h>9.90$</h>
-                        <p class="remove">Remove</p>
-                    </div>
-                </nav>
-            </div>
-            <div class="total">
-                <h1>Total</h1>
-                <h>9.90$</h>
-            </div>
-        </div>
-
-        <div class="next-page">
+        <div class="cart-container">
             <nav>
-                <a href="checkoutsuccessfull.html"><i class="fa-solid fa-circle-arrow-right fa-2xl" style="color: #2bca35;"></i></a>
+                <div class="cart-dropdown-content">
+                    <div class="cart-item">
+                        <h1 class="cart-headline">Cart</h1>
+                        <div class="cart-img">
+                            <a href="moviepage.html"
+                                img class="" src="" alt="">
+                            </a>         
+                        </div>                       
+                        <div class="cart-item-info">
+                                <div class="cart-item-title"></div>
+                                <div class="cart-item-price"></div>
+                        </div>
+                        <button type="button" class="remove-item"  value="Remove">Remove</button>
+                    </div>
+                </div>
             </nav>
         </div>
-    </section>    
+        <div class="cart-dropdown-total">
+            <div class="cart-total">
+                <div class="total-title">Total</div>
+                <div class="total-price">0kr</div>
+                <a href="conf.html">
+                    <button type="submit" class="Pay">Pay</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>   
 
     <footer>
         <div class="footer">
             <div class="left-footer">
                 <nav>
                     <ul>
-                        <li>Terms of Use</li>
-                        <li><a href="about.html" class="link" >About</a></li>
-                        <li><a href="contact.html" class="link">Contact</a></li>
+                        <li>Terms & Conditions</li>
+                        <li>Privacy Policy</li>
                     </ul>
                 </nav>
                 <div class="social-icons">
@@ -123,5 +116,6 @@
         </div>
     </footer>
 
+ <script src="java/script.js"></script>
 </body>
 </html>

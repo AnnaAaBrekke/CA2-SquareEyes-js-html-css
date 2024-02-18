@@ -876,3 +876,27 @@ genres.forEach(genre => {
             // checkOutButton,addEventListener("click", () => {
             //     window.location.href = "checkout.html";
             // })
+
+
+
+async function quantityChanged() {
+    if (isNaN(this.value) || this.value<1) {
+        this.value = 1;
+    }  
+    displayCartItem(title, price, imgSrc);
+    updateTotal()
+}
+
+ const quantityInputs = document.querySelectorAll(".quantity");
+
+quantityInputs.forEach(input => {
+    input.addEventListener("change", quantityChanged);
+});
+
+//    for (let i = 0; i < quantityInputs.length; i++) {
+//        const input = quantityInputs[i];
+//        input.addEventListener("change", quantityChanged);
+
+ updateTotal()
+ console.log("Total after changing the quantity", quantityChanged);
+

@@ -99,7 +99,8 @@ button:hover,
 
 .nav-list a,
 .hamburger-menu a,
-.dropdown a {
+.dropdown a, 
+.cart-dropdown-total a {
   text-decoration: none;
   color: #ffffff;
 }
@@ -174,10 +175,6 @@ button:hover,
 
 /* Cart */
 
-/* .cart-dropdown-content {
-  display: none;
-} */
-
 .dropdown-cart {
   position: fixed;
   top: 0;
@@ -197,6 +194,11 @@ button:hover,
   right: 0;
 }
 
+.dropdown-cart a {
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
 .dropdown-cart h2 {
   text-align: center;
   margin-top: 1rem;
@@ -214,10 +216,11 @@ button:hover,
   align-items: center;
   gap: 1rem;
   padding: 1rem;
-  border: 1px solid grey;
+  border: 2px solid grey;
   border-radius: 2px;
   position: relative;
-  margin: 3px;
+  margin: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Adjust the values for your desired shadow effect */
 }
 
 .cart-item-info {
@@ -238,14 +241,21 @@ button:hover,
   margin-top: 0.2rem;
 }
 
-.quantity {
+.cart-img {
+  width: 240px;
+  max-height: 100%;
+  border-radius: 2px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5); /* Adjust the values for your desired shadow effect */
+}
+
+/* .quantity {
   border: 1px solid grey;
   width: 30px;
   text-align: center;
   border-radius: 3px;
   margin-top: 0;
   font-size: 16px;
-}
+} */
 
 .remove-item {
   position: absolute;
@@ -302,7 +312,7 @@ button[type="submit"] {
   border-radius: 4px;
   font-size: 16px;
   font-weight: 600;
-  margin-left: 5.5rem;
+  margin-left: 6.6rem;
   margin-top: 3px;
   cursor: pointer;
 }
@@ -1458,6 +1468,11 @@ button[type="submit"]:hover {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
+}
+
+.cart-headline {
+  font-size: 30px;
+  margin-top: 0;
 }
 
 .where-you-are {
