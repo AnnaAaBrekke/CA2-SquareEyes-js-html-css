@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // An event listener to add items to the cart when the user clicks the 'Add to Cart' button ✅
 // An event listener to remove items from the cart when the user clicks the 'Remove' button ✅
 // A display of the number of items in the cart and the total cost 👩🏽‍💻
-// The ability to save the cart data to the local storage or a cookie 
+// The ability to save the cart data to the local storage/session storage or a cookie 
 
 // ---------
 
@@ -90,8 +90,7 @@ async function displayCartItem(title, price, imgSrc) {
         removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
         console.log("Remove cart item when clicked button");
 
-        updateTotal()
-
+        updateTotal();
         saveCartToLocalStorage();
 
     } catch (error) {
@@ -99,16 +98,33 @@ async function displayCartItem(title, price, imgSrc) {
     }
 }
 
+// async function saveCartToSessionStorage() {
+//     const cartItems = document.querySelectorAll(".cart-item");
+//     const cartData = [];
+
+//     cartItems.forEach((cartItem) => {
+//         const title = cartItem.querySelector(".cart-item-title").innerText;
+//         const price = cartItem.querySelector(".cart-item-price").innerText;
+//         const imgSrc = cartItem.querySelector(".cart-img").src;
+
+//         cartData.push({title, price, imgSrc});
+//     });
+
+//     sessionStorage.setItem("cart", JSON.stringify(cartData));
+//     console.log("Cart data is correctly saved to the session storage");
+// }
+
+
 async function saveCartToLocalStorage() {
-    const cartItems = document.querySelectorAll(".cart-item");
-    const cartData = [];
+     const cartItems = document.querySelectorAll(".cart-item");
+     const cartData = [];
 
-    cartItems.forEach((cartItem) => {
-        const title = cartItem.querySelector(".cart-item-title").innerText;
-        const price = cartItem.querySelector(".cart-item-price").innerText;
-        const imgSrc = cartItem.querySelector(".cart-img").src;
-
-        cartData.push({title, price, imgSrc});
+     cartItems.forEach((cartItem) => {
+         const title = cartItem.querySelector(".cart-item-title").innerText;
+         const price = cartItem.querySelector(".cart-item-price").innerText;
+         const imgSrc = cartItem.querySelector(".cart-img").src;
+        
+     cartData.push({title, price, imgSrc});
     });
 
     localStorage.setItem("cart", JSON.stringify(cartData));
@@ -130,7 +146,7 @@ async function displayCartTotal(cartItems) {
             const cartTotal = document.createElement("div");
             cartTotal.classList.add("cart-total");
             cartTotal.innerHTML =  ` 
-                <siv class="total-title">Total</div>
+                <div class="total-title">Total</div>
                 <div class="total-price">${total}KR</div>
                 <a href="checkout.html">
                     <button type="submit" class="check-out">Check out</button>
@@ -239,6 +255,9 @@ document.querySelector(".movie-container").addEventListener("click", async (even
         const title = movieContainer.querySelector("img").alt;
         const price = parseFloat(movieContainer.querySelector(".product-price").innerText.replace(" KR", ""));
         console.log(title, price, imgSrc);
+        
+        // // Item added by the user is marked for the storage
+        // movieContainer.classList.add("user-added");
 
         displayCartItem(title, price, imgSrc);
         updateTotal()
@@ -292,22 +311,39 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // Check Out Page
 
+// Session storage - store the data to the checkout page
+
+// async function loadCartFromSessionStorage() {
+//     const savedCart = sessionStorage.getItem("cart");
+
+//     if (savedCart) {
+//         const cartData = JSON.parse(savedCart);
+
+//         cartData.forEach(({title, price,  imgSrc }) => {
+//             displayCartItem(title, price, imgSrc);
+//         });
+
+//     updateTotal();
+//     console.log("Loaded cart - The cart data is loaded and saved from the session storage");
+//     }
+// };
+
 // Local storage - store the data to the checkout page
 
-async function loadCartFromLocalStorage() {
+ async function loadCartFromLocalStorage() {
     const savedCart = localStorage.getItem("cart");
 
     if (savedCart) {
         const cartData = JSON.parse(savedCart);
 
-        cartData.forEach(({title, price,  imgSrc }) => {
-            displayCartItem(title, price, imgSrc);
-        });
+         cartData.forEach(({title, price,  imgSrc }) => {
+             displayCartItem(title, price, imgSrc);
+         });
 
-    updateTotal();
-    console.log("Loaded cart - The cart data is loaded and saved from the local storage");
-    }
-};
+        updateTotal();
+        console.log("Loaded cart - The cart data is loaded and saved from the local storage");
+     }
+ };
 
 
 async function main () {
@@ -317,7 +353,7 @@ async function main () {
         await displayMovies(movies);
 
         // Display the initial cart items and total
-        await displayCartItem();
+        // await displayCartItem();
         await displayCartTotal(document.querySelectorAll(".cart-item"));
 
         await updateTotal ();
