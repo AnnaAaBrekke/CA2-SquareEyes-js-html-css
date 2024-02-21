@@ -1,5 +1,6 @@
 // DomContentet Loads
 document.addEventListener("DOMContentLoaded", function () {
+    loadCartFromLocalStorage();
     console.log("DOMContentLoaded works the correct way");
 });
 
@@ -64,10 +65,11 @@ async function fetchMovies() {
 // Display the correct item in cart 
 async function displayCartItem(title, price, imgSrc) {
     try {
-        const cartItemContainer = document.querySelector(".cart-dropdown-content");
+        const cartItemContainer = document.querySelector(".cart-dropdown-content")
 
         const cartItem = document.createElement("div");
         cartItem.classList.add("cart-item");
+
         cartItem.innerHTML = `
             <img src="${imgSrc}" alt="${title}" class="cart-img">
             <div class="cart-item-info">
@@ -77,7 +79,7 @@ async function displayCartItem(title, price, imgSrc) {
             <button type="button" class="remove-item" value="Remove">Remove</button>
         `; 
 
-        // cartItemContainer.innerHTML = ""; replaces instead of adding
+        // cartItemContainer.innerHTML = ""; //replaces instead of adding
         cartItemContainer.appendChild(cartItem);
         console.log("The correct cart-item is displayed");
 
@@ -90,9 +92,27 @@ async function displayCartItem(title, price, imgSrc) {
 
         updateTotal()
 
+        saveCartToLocalStorage();
+
     } catch (error) {
         console.error("Error displaying data in cart:", error);
     }
+}
+
+async function saveCartToLocalStorage() {
+    const cartItems = document.querySelectorAll(".cart-item");
+    const cartData = [];
+
+    cartItems.forEach((cartItem) => {
+        const title = cartItem.querySelector(".cart-item-title").innerText;
+        const price = cartItem.querySelector(".cart-item-price").innerText;
+        const imgSrc = cartItem.querySelector(".cart-img").src;
+
+        cartData.push({title, price, imgSrc});
+    });
+
+    localStorage.setItem("cart", JSON.stringify(cartData));
+    console.log("Cart data is correctly saved to the local storage");
 }
 
 //-------
@@ -272,7 +292,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // Check Out Page
 
+// Local storage - store the data to the checkout page
 
+async function loadCartFromLocalStorage() {
+    const savedCart = localStorage.getItem("cart");
+
+    if (savedCart) {
+        const cartData = JSON.parse(savedCart);
+
+        cartData.forEach(({title, price,  imgSrc }) => {
+            displayCartItem(title, price, imgSrc);
+        });
+
+    updateTotal();
+    console.log("Loaded cart - The cart data is loaded and saved from the local storage");
+    }
+};
 
 
 async function main () {
@@ -286,6 +321,8 @@ async function main () {
         await displayCartTotal(document.querySelectorAll(".cart-item"));
 
         await updateTotal ();
+
+        await loadCartFromLocalStorage();
 
         console.log("The main is not working");
 
