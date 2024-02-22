@@ -320,9 +320,9 @@ async function displayMovies(movies) {
     }
 };
 
-function detailedMovie(movieId){
+function detailedMovie(movieId) {
         console.log("movie id is found", movieId)
-        window.location.href =`product/product.html?id=${movieId}`;
+        window.location.href = `product/product.html?id=${movieId}`;
     }
 
 
