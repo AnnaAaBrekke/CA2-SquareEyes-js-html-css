@@ -9,25 +9,32 @@
 // An event listener to add items to the cart when the user clicks the 'Add to Cart' button ✅
 // An event listener to remove items from the cart when the user clicks the 'Remove' button ✅
 
-// The ability to save the cart data to the local storage/session storage 
-// An event listener to submit items from the cart when the user clicks the 'Check Out' button 
+// The ability to save the cart data to the local storage/session storage  ✅
+// An event listener to submit items from the cart when the user clicks the 'Check Out' button  ✅
 // Redirect to the Check Out Page ✅
 // A check out page ✅
-// Display the cart data to a check out page
+// Display the cart data to a check out page ✅
 
 // An event listener to pay items from the cart when the user clicks the 'Pay' button and redirect to the Confirmation page ✅
-// Confirmation order page or alert on successfully 
+// Confirmation order page on successfully  ✅
 
-// Detailed information on movie either pop up or site 
+// Alert where needed ✅
+// Confirm where needed ✅
+
+// As a user, I want to view a single product page with more detail.
 // Add to cart from the movie-page detailed as well 
 
 // Clean up 
 // Export / Import
 // CSS
 
-// Reviews
+// Reviews: That is what Oliver answered  : "Reviews are not marked, and we should be able to see comments on the actual PR page itself" So the idea is to check the code of the student and make some pull request with some comment 🙂Something to fix for example
 
-// Change to correct URLS
+// Change to correct URLS 
+    // - Home Page containing product list `/index.html`
+    // - Product Page showing all details of a specific product `/product/index.html`
+    // - Checkout Page showing all items in the basket `/checkout/index.html`
+    // - Confirmation Page showing a thank you message `/checkout/confirmation/index.html`
 // Loading ERRORS
 // Remove Console Logs
 
@@ -85,7 +92,6 @@ async function fetchMovies() {
     }
 };
 
-// ------
 
 // Display the correct item in cart 
 async function displayCartItem(title, price, imgSrc) {
@@ -219,7 +225,7 @@ async function handleCheckOutButtonClick() {
         alert("Your cart is empty. Add some items before checking out!")
         console.log("Check Out button clicked and find no items in cart");
     } else {
-        window.location.href = "checkout.html";
+        window.location.href = "checkout/checkout.html";
     }
 };
 
@@ -288,6 +294,10 @@ async function displayMovies(movies) {
                 <img src="${movie.image.url}" alt="${movie.title}">
             `;
 
+            // const movieElementClicked = document.querySelectorAll(".movie");
+            // movieElementClicked.forEach(img => img.addEventListener("click", detailedMovie));
+            // console.log("Go to movie product page when clicked on movie");        
+
             const moviePriceElement = document.createElement("div");
             moviePriceElement.classList.add("price-movie");
             moviePriceElement.innerHTML = `
@@ -296,6 +306,8 @@ async function displayMovies(movies) {
                     <span class="product-price">${movie.price} KR</span>
                 </div>
             `;
+
+            movieElement.addEventListener("click", () => detailedMovie(movie.id));
 
             moviesContainer.appendChild(movieElement);
             movieElement.appendChild(moviePriceElement);
@@ -307,6 +319,11 @@ async function displayMovies(movies) {
         console.error("Error displaying movies", error);
     }
 };
+
+function detailedMovie(movieId){
+        console.log("movie id is found", movieId)
+        window.location.href =`product/product.html?id=${movieId}`;
+    }
 
 
 document.querySelector(".movie-container").addEventListener("click", async (event)=> {
