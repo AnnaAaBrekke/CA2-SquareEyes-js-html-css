@@ -1,25 +1,12 @@
-// Fetch API ✅
-// Display movies ✅
-// User can filter by genre ✅
-
-// A container to hold the items in the cart ✅
-// A function to add items to the cart ✅
 // A function to remove items from the cart ✅
 // A function to calculate the total cost of the items in the cart ✅
-// An event listener to add items to the cart when the user clicks the 'Add to Cart' button ✅
 // An event listener to remove items from the cart when the user clicks the 'Remove' button ✅
-
 // The ability to save the cart data to the local storage/session storage 
-// An event listener to submit items from the cart when the user clicks the 'Check Out' button 
 // Redirect to the Check Out Page ✅
 // A check out page ✅
 // Display the cart data to a check out page
-
 // An event listener to pay items from the cart when the user clicks the 'Pay' button and redirect to the Confirmation page ✅
 // Confirmation order page or alert on successfully 
-
-// Detailed information on movie either pop up or site 
-// Add to cart from the movie-page detailed as well 
 
 // Clean up 
 // Export / Import
@@ -31,8 +18,6 @@
 // Loading ERRORS
 // Remove Console Logs
 
-
-
 // DomContent Loads
 document.addEventListener("DOMContentLoaded", function () {
     loadCartFromSessionStorage();
@@ -41,28 +26,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // ---------
 
-// Cart
-let cartIcon = document.querySelector("#cart-icon");
-let dropdownCart = document.querySelector(".dropdown-cart");
-let closeCart = document.querySelector("#close-cart");
-console.log("Dropdown cart is created successfully");
+// // Cart
+// let cartIcon = document.querySelector("#cart-icon");
+// let dropdownCart = document.querySelector(".dropdown-cart");
+// let closeCart = document.querySelector("#close-cart");
+// console.log("Dropdown cart is created successfully");
 
-// Open cart
-cartIcon.onclick = () => {
-    dropdownCart.classList.add("active");
-};
+// // Open cart
+// cartIcon.onclick = () => {
+//     dropdownCart.classList.add("active");
+// };
 
-// Close cart
-closeCart.onclick = () => {
-    dropdownCart.classList.remove("active");
-};
+// // Close cart
+// closeCart.onclick = () => {
+//     dropdownCart.classList.remove("active");
+// };
 
-document.body.addEventListener("click", (event) => {
-    if (event.target.classList.contains("fa-xmark")) {
-        dropdownCart.classList.remove("active");
-        console.log("When x is clicked the cart removes totally");
-    }
-});
+// document.body.addEventListener("click", (event) => {
+//     if (event.target.classList.contains("fa-xmark")) {
+//         dropdownCart.classList.remove("active");
+//         console.log("When x is clicked the cart removes totally");
+//     }
+// });
 
 // ------
 
@@ -102,10 +87,10 @@ async function displayCartItem(title, price, imgSrc) {
 
         imgElement.onload = function () {
             cartItem.innerHTML = `
+                <div class="cart-item-title">${title}</div>
                 <img src="${imgSrc}" alt="${title}" class="cart-img">
                 <div class="cart-item-info">
-                    <div class="cart-item-title">${title}</div>
-                    <div class="cart-item-price">${price}KR</div>
+                    <div class="cart-item-price">${price}</div>
                 </div>
                 <button type="button" class="remove-item" value="Remove">Remove</button>
             `; 
@@ -114,8 +99,8 @@ async function displayCartItem(title, price, imgSrc) {
         cartItemContainer.appendChild(cartItem);
         console.log("The correct cart-item is displayed");
 
-        // Show the cart
-        dropdownCart.classList.add("active");
+        // // Show the cart
+        // dropdownCart.classList.add("active");
 
         const removeCartButtons = document.querySelectorAll(".remove-item");
         removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
@@ -123,11 +108,10 @@ async function displayCartItem(title, price, imgSrc) {
 
         updateTotal();
         saveCartToSessionStorage();
-
     };
 
-    // Append the imgElement to the cartItem
-    cartItem.appendChild(imgElement);
+        // Append the imgElement to the cartItem
+        cartItem.appendChild(imgElement);
 
     } catch (error) {
         console.error("Error displaying data in cart:", error);
@@ -142,9 +126,9 @@ async function saveCartToSessionStorage() {
     const cartData = [];
 
     cartItems.forEach((cartItem) => {
-        const title = cartItem.querySelector(".cart-item-title").innerText;
-        const price = cartItem.querySelector(".cart-item-price").innerText;
-        const imgSrc = cartItem.querySelector(".cart-img").src;
+        const title = cartItem.querySelector(".cart-item-title");
+        const price = cartItem.querySelector(".cart-item-price");
+        const imgSrc = cartItem.querySelector(".cart-img");
 
         cartData.push({title, price, imgSrc});
     });
@@ -176,30 +160,29 @@ async function displayCartTotal(cartItems) {
     try {
         const cartTotalContainer = document.querySelector(".cart-dropdown-total");
         const total = cartItems.reduce((acc, cartItem) => {
-            const price = parseFloat(cartItem.querySelector(".cart-item-price").innerText);
+            const price = parseFloat(cartItem.querySelector(".cart-item-price").price);
             const quantity = 1;
             return acc + (price * quantity);
         });
 
             const cartTotal = document.createElement("div");
             cartTotal.classList.add("cart-total");
-            cartTotal.innerHTML =  ` 
-                <div class="total-title">Total:</div>
-                <div class="total-price">${total}KR</div>
-                <a href="checkout.html">
-                    <button type="submit" class="check-out">Check out</button>
-                </a>
-                <i class="fa-solid fa-xmark" id="close-cart"></i>
-                `;
+            cartTotal.innerHTML = ` 
+            <div class="total-title">Total</div>
+            <div class="total-price">${total}KR</div>
+            <a href="confirmation.html">
+                <button type="submit" class="Pay">Pay</button>
+            </a>
+            `;
 
             cartTotalContainer.innerHTML = "";
             cartTotalContainer.appendChild(cartTotal);
-            console.log("The total and check out is displayed");
+            console.log("The total and pay is displayed");
 
             updateTotal();
 
     } catch (error) {
-        console.error("Error adding submit and total", error);
+        console.error("Error adding total on checkout", error);
     }
 };
 
@@ -214,18 +197,17 @@ async function updateTotal() {
         console.log("Total before calculation", total)
     
         cartItems.forEach(cartItem => {
-            
             const priceElement = cartItem.querySelector(".cart-item-price");
 
-            if (priceElement && priceElement.innerText) {
-                const price = parseFloat(priceElement.innerText.replace("KR", "")) || 0;
-                const quantityElement = 1;
-                total = total + (price * quantityElement);
-            };
+        if (priceElement && priceElement.innerText) {
+            const price = parseFloat(priceElement.innerText.replace("0KR", "")) || 0;
+            const quantityElement = 1;
+            total = total + (price * quantityElement);
+        };
 
         });
 
-        console.log("Total after calcualtion", total) // NaN
+        console.log("Total after calcuation", total) // NaN
 
         // If price contains many decimals
         total = Math.round(total * 100) / 100;
@@ -242,7 +224,7 @@ function removeCartItem(event){
     cartItem.remove();
     console.log("The closest cart item is removed when clicked");
 
-    updateTotal()
+    updateTotal();
 };
 
 function ready() {
@@ -259,7 +241,7 @@ async function displayMovies(movies) {
         const moviesContainer = document.querySelector(".movie-container");
 
         // Clear existing innerHTML content
-        moviesContainer.innerHTML = "";
+        // moviesContainer.innerHTML = "";
 
         movies.forEach(movie => {
             const movieElement = document.createElement("div");
@@ -277,8 +259,8 @@ async function displayMovies(movies) {
                 </div>
             `;
 
-            moviesContainer.appendChild(movieElement);
-            movieElement.appendChild(moviePriceElement);
+            // moviesContainer.appendChild(movieElement);
+            // movieElement.appendChild(moviePriceElement);
 
         });
 
@@ -289,19 +271,19 @@ async function displayMovies(movies) {
 };
 
 
-document.querySelector(".movie-container").addEventListener("click", async (event)=> {
-    if (event.target.classList.contains("fa-cart-plus")){
-        const movieContainer = event.target.closest(".movie");
-        const imgSrc = movieContainer.querySelector("img").src;
-        const title = movieContainer.querySelector("img").alt;
-        const price = parseFloat(movieContainer.querySelector(".product-price").innerText.replace(" KR", ""));
+// document.querySelector(".movie-container").addEventListener("click", async (event)=> {
+//     if (event.target.classList.contains("fa-cart-plus")){
+//         const movieContainer = event.target.closest(".movie");
+//         const imgSrc = movieContainer.querySelector("img").src;
+//         const title = movieContainer.querySelector("img").alt;
+//         const price = parseFloat(movieContainer.querySelector(".product-price").innerText.replace(" KR", ""));
         
-        console.log(title, price, imgSrc);
+//         console.log(title, price, imgSrc);
 
-        displayCartItem(title, price, imgSrc);
-        updateTotal()
-    }
-});
+//         displayCartItem(title, price, imgSrc);
+//         updateTotal()
+//     }
+// });
 
 async function addCart(title, price, imgSrc) {
      console.log(title, price, imgSrc);
@@ -310,37 +292,37 @@ displayCartItem(title, price, imgSrc);
      updateTotal();
  };
 
-async function GenreFilter() {
-    try {
-        const movies = await fetchMovies();
-        const genres = [...new Set (movies.map(movie => movie.genre))];
-        const filterContainer = document.querySelector(".filter-container");
+// async function GenreFilter() {
+//     try {
+//         const movies = await fetchMovies();
+//         const genres = [...new Set (movies.map(movie => movie.genre))];
+//         const filterContainer = document.querySelector(".filter-container");
 
-        genres.forEach (genre =>{
-            const button = document.createElement("button");
-            button.classList.add("genre-button");
-            button.textContent = genre;
-            button.dataset.genre = genre;
-            filterContainer.appendChild(button);
-            console.log("Button for genres is created")
-        });
-    } catch (error) {
-        console.error("Error creating a filter for genres", error);
-    }
-};
+//         genres.forEach (genre =>{
+//             const button = document.createElement("button");
+//             button.classList.add("genre-button");
+//             button.textContent = genre;
+//             button.dataset.genre = genre;
+//             filterContainer.appendChild(button);
+//             console.log("Button for genres is created")
+//         });
+//     } catch (error) {
+//         console.error("Error creating a filter for genres", error);
+//     }
+// };
 
 // Add event listener to the genre buttons to trigger movie filtering
-document.querySelector(".filter-container").addEventListener("click", async (event) => {
-    if (event.target.classList.contains("genre-button")) {
-        const selectedGenre = event.target.dataset.genre;
-        const movies = await fetchMovies();
-        const filteredMovies = movies.filter(movie => selectedGenre === "" || movie.genre === selectedGenre);
-        await displayMovies(filteredMovies);
-    }
-});
+// document.querySelector(".filter-container").addEventListener("click", async (event) => {
+//     if (event.target.classList.contains("genre-button")) {
+//         const selectedGenre = event.target.dataset.genre;
+//         const movies = await fetchMovies();
+//         const filteredMovies = movies.filter(movie => selectedGenre === "" || movie.genre === selectedGenre);
+//         await displayMovies(filteredMovies);
+//     }
+// });
 
 document.addEventListener("DOMContentLoaded", async () => {
-    await GenreFilter();
+    // await GenreFilter();
     const movies = await fetchMovies();
     await displayMovies(movies);
 });
@@ -363,6 +345,7 @@ async function loadCartFromSessionStorage() {
         });
 
     updateTotal();
+
     console.log("Loaded cart - The cart data is loaded and saved from the session storage");
     }
 };
@@ -393,17 +376,15 @@ function clearCart() {
 async function main () {
     try {
         const movies = await fetchMovies();
-        await GenreFilter();
+        // await GenreFilter();
         await displayMovies(movies);
 
         // Display the initial cart items and total
         // await displayCartItem(title, price, imgSrc);
-
         await loadCartFromSessionStorage();
 
         await displayCartTotal(document.querySelectorAll(".cart-item"));
         await updateTotal();
-
 
 
         console.log("The main is not working");
@@ -414,4 +395,5 @@ async function main () {
 };
 
 document.addEventListener("DOMContentLoaded", main);
+
 
