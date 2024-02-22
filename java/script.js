@@ -177,7 +177,7 @@ async function displayCartTotal(cartItems) {
         const cartTotalContainer = document.querySelector(".cart-dropdown-total");
 
         // Only next page if there are items in the cart
-        const hasItemsInCart = Array.from(cartItems).length > 0;
+        // const hasItemsInCart = Array.from(cartItems).length > 0;
 
         const total = Array.from(cartItems).reduce((acc, cartItem) => {
             const price = parseFloat(cartItem.querySelector(".cart-item-price").innerText);
@@ -188,24 +188,13 @@ async function displayCartTotal(cartItems) {
             const cartTotal = document.createElement("div");
             cartTotal.classList.add("cart-total");
 
-            if (hasItemsInCart) {
             cartTotal.innerHTML =  ` 
                 <div class="total-title">Total:</div>
                 <div class="total-price">${total}KR</div>
-                <a href="checkout.html">
-                    <button type="submit" class="check-out">Check out</button>
-                </a>
+                <button type="submit" class="check-out">Check out</button>
                 <i class="fa-solid fa-xmark" id="close-cart"></i>
                 `;
-                
-            } else {
-            cartTotal.innerHTML = ` 
-                <div class="total-title">Total</div>
-                <div class="total-price">${total}KR</div>
-                <button type="button" class="alert-checkout-button" onclick="showAlert()">Pay</button>
-                <i class="fa-solid fa-xmark" id="close-cart"></i>
-                `;
-            }
+            
 
             cartTotalContainer.innerHTML = "";
             cartTotalContainer.appendChild(cartTotal);
@@ -213,24 +202,23 @@ async function displayCartTotal(cartItems) {
 
             updateTotal();
 
+            const CheckOutButton = document.querySelector(".check-out");
+            CheckOutButton.addEventListener("click", handleCheckOutButtonClick);
+
+
     } catch (error) {
         console.error("Error adding submit and total", error);
     }
 };
 
-
-async function handleCheckOutClick() {
+async function handleCheckOutButtonClick() {
     const cartItems = document.querySelectorAll(".cart-item");
     
     if (cartItems.length === 0) {
-        showAlert();
+        alert("Empty cart")
     } else {
         window.location.href = "checkout.html";
     }
-};
-
-async function showAlert() {
-    alert("Your cart is empty.")
 };
 
 
@@ -329,14 +317,14 @@ document.querySelector(".movie-container").addEventListener("click", async (even
         console.log(title, price, imgSrc);
 
         displayCartItem(title, price, imgSrc);
-        updateTotal()
+        updateTotal();
     }
 });
 
 async function addCart(title, price, imgSrc) {
      console.log(title, price, imgSrc);
 
-displayCartItem(title, price, imgSrc);
+    displayCartItem(title, price, imgSrc);
      updateTotal();
  };
 
@@ -433,8 +421,6 @@ async function main () {
 
         await displayCartTotal(document.querySelectorAll(".cart-item"));
         await updateTotal();
-
-
 
         console.log("The main is not working");
 

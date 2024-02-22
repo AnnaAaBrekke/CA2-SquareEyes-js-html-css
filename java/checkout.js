@@ -171,9 +171,7 @@ async function displayCartTotal(cartItems) {
         cartTotal.innerHTML = ` 
             <div class="total-title">Total</div>
             <div class="total-price">${total}KR</div>
-            <a href="confirmation.html">
-                <button type="submit" class="Pay">Pay</button>
-            </a>
+            <button type="submit" class="Pay">Pay</button>
         `;
 
         cartTotalContainer.innerHTML = "";
@@ -182,10 +180,22 @@ async function displayCartTotal(cartItems) {
 
         updateTotal();
 
+        const payButton = document.querySelector(".Pay");
+        payButton.addEventListener("click", handlePayButtonClick);
+
+
     } catch (error) {
         console.error("Error adding total on checkout", error);
     }
 };
+
+function handlePayButtonClick() {
+    const confirmPayment = confirm("Are you sure you want to proceed with the payment?");
+
+    if (confirmPayment) {
+        window.location.href = "confirmation.html"
+    }
+};   
 
 // Update Total
 async function updateTotal() {
@@ -216,8 +226,6 @@ async function updateTotal() {
 
     };
 
-
-
 function removeCartItem(event){
     const buttonClicked = event.target;
     const cartItem = buttonClicked.closest(".cart-item");
@@ -233,6 +241,7 @@ function ready() {
     removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
 };
 
+updateTotal();
 
 document.addEventListener("DOMContentLoaded", ready);
 
@@ -291,7 +300,9 @@ async function addCart(title, price, imgSrc) {
      console.log(title, price, imgSrc);
 
 displayCartItem(title, price, imgSrc);
-     updateTotal();
+    
+updateTotal();
+     
  };
 
 // async function GenreFilter() {
@@ -387,7 +398,6 @@ async function main () {
 
         await displayCartTotal(document.querySelectorAll(".cart-item"));
         await updateTotal();
-
 
         console.log("The main is not working");
 

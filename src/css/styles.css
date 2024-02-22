@@ -302,9 +302,8 @@ button:hover,
   margin-top: 5px;
 }
 
-button[type="submit"] {
-  display: flex;
-  justify-content: center;
+.check-out,
+.Pay {
   background-color: #28a745;
   color: #fff;
   padding: 10px 12px;
@@ -313,13 +312,12 @@ button[type="submit"] {
   font-size: 16px;
   font-weight: 600;
   margin-left: 6.6rem;
-  margin-top: 3px;
+  margin-top: 300px;
   cursor: pointer;
   z-index: 1;
-  margin-top: 20rem;
 }
 
-button[type="submit"]:hover {
+.check-out:hover {
   background-color: #218838;
 }
 
