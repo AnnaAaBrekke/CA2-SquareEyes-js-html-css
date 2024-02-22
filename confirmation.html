@@ -2,92 +2,100 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="Confirmation on your checkout. Checkout-successfull content="width=device-width, initial-scale=1.0">
-    <title>Checkout Successfull</title>
-    <meta name="description" content="Your checkout was successfull. Enjoy your selected movie.">
+    <meta name="Confirmation on your checkout. Checkout-successful content="width=device-width, initial-scale=1.0">
+    <title>Checkout Successful</title>
+    <meta name="description" content="Your checkout was successful. Enjoy your selected movie.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="src/css/styles.css">
     <script src="https://kit.fontawesome.com/ead288c181.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
 
-<container>
-    <header>
-        <nav>
-          <a href="index.html"><img class="SELogoBar" src="/images/images/SquareEyes_Logo-crop.png" alt="Futures Museum Logo"></a>
-        </nav>
-        
-        <nav>
-          <div class="hamburger-menu">
-            <button class="bar"><i class="fa-solid fa-bars"></i></button>  
-            <ul>
-                <li><a href="checkout.html"><i class="fa-solid fa-cart-shopping cart-icon" alt="My cart icon"></i> Cart</a></li>
-                <li><a href="listofmovies.html"><i class="fa-solid fa-film film-icon" alt="Film icon for my movies"></i> Movies</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-            </ul>
+  <header>
+    <nav class="header-left">
+        <a href="index.html"><img class="SELogoBar" src="/images/images/SquareEyes_Logo-crop.png" alt="Futures Museum Logo"></a>
+    </nav>
+    
+    <section class="header-right">
+      <!-- <i class="fa-solid fa-cart-shopping cart-icon" alt="My cart icon" id="cart-icon"></i>
+          <div class="dropdown-cart">
+              <h2>Your Cart</h2>
+              <div class="cart-dropdown-content">
+                  <div class="cart-item">
+                  <img class="cart-img" src="" alt="">
+                      <div class="cart-item-info">
+                          <div class="cart-item-title"></div>
+                          <div class="cart-item-price"></div>
+                      </div>
+                      <button type="button" class="remove-item"  value="Remove">Remove</button>
+                  </div>
+              </div>
+              <div class="cart-dropdown-total">
+                  <div class="cart-total">
+                      <div class="total-title">Total</div>
+                      <div class="total-price">0kr</div>
+                      <a href="checkout.html">
+                          <button type="submit" class="check-out">Check out</button>
+                        </a>
+                      <i class="fa-solid fa-xmark" id="close-cart"></i>
+                  </div>
+              </div> -->
           </div>
-        </nav>
-        
-        <nav class="header-nav">
-          <nav class="nav-list">
-            <div class="dropdown">
-              <button class="nav-button"><i class="fa-solid fa-bars"></i></button>
-              <ul>
-                <li><a href="checkout.html"><i class="fa-solid fa-cart-shopping cart-icon" alt="My cart icon"></i> Cart</a></li>
-                <li><a href="listofmovies.html"><i class="fa-solid fa-film film-icon" alt="Film icon for my movies"></i> Movies</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-              </ul>
-            </div>
-          </nav>
-        </nav>
-
-      </header>
+              <nav class="nav-list">
+          <div class="dropdown">
+          <button class="nav-button"><i class="fa-solid fa-bars"></i></button>
+          <ul>
+              <li><a href="checkout.html"><i class="fa-solid fa-cart-shopping cart-icon" alt="My cart icon"></i> Cart</a></li>
+              <li><a href="listofmovies.html"><i class="fa-solid fa-film film-icon" alt="Film icon for my movies"></i> Movies</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+          </div>
+      </nav>
+    </section>
+  </header>
 
     <div class="checkoutsuccess-home">
         <div class="successfull-container">
                 <div class="check-icon">
-                    <i class="fa-solid fa-circle-check fa-bounce fa-2xl" style="color: #5FBF45;" alt="Circle check icon"></i>            
+                    <i class="fa-solid fa-circle-check fa-bounce"></i>            
                 </div>
-                <h1>Checkout successfull</h1>
-                <p>bla bla vbla blab bla</p>
-                <button class="watch-now">Watch Now</button>
+                <div class="success-info">
+                  <h1>Your movie selection is <br> now ready for enjoyment</h1>
+                  <button class="watch-now">Watch Now</button>
+                </div>
         </div>
     </div>    
 
-
-
     <footer>
-        <div class="footer">
-            <div class="left-footer">
-                <nav>
-                    <ul>
-                        <li>Terms of Use</li>
-                        <li><a href="about.html" class="link" >About</a></li>
-                        <li><a href="contact.html" class="link">Contact</a></li>
-                    </ul>
-                </nav>
-                <div class="social-icons">
-                    <ul>
-                        <a href="#" class="social-icon"><i class="fa-brands fa-tiktok" alt="TikTok icon"></i></a>
-                        <a href="#" class="social-icon"><i class="fa-brands fa-square-instagram" alt="Instagram icon"></i></a>
-                        <a href="#" class="social-icon"><i class="fa-brands fa-twitter" alt="Twitter icon"></i></a>
-                        <a href="#" class="social-icon"><i class="fa-brands fa-square-facebook" alt="Facebook icon"></i></a>
-                    </ul>   
-                </div>
-                <div class="copyright">
-                    <h>&copy; 2022 All rights reserved</h>
-                </div>
-            </div>
-            <div class="right-footer">
-                <img class="SELogoFooter" src="images/images/SquareEyes_Logo.png" alt="Square Eyes Logo">
-            </div>
-        </div>
-    </footer>
+      <div class="footer">
+          <div class="left-footer">
+              <nav>
+                  <ul>
+                      <li>Terms & Conditions</li>
+                      <li>Privacy Policy</li>
+                  </ul>
+              </nav>
+              <div class="social-icons">
+                  <ul>
+                      <a href="#" class="social-icon"><i class="fa-brands fa-tiktok" alt="TikTok icon"></i></a>
+                      <a href="#" class="social-icon"><i class="fa-brands fa-square-instagram" alt="Instagram icon"></i></a>
+                      <a href="#" class="social-icon"><i class="fa-brands fa-twitter" alt="Twitter icon"></i></a>
+                      <a href="#" class="social-icon"><i class="fa-brands fa-square-facebook" alt="Facebook icon"></i></a>
+                  </ul>   
+              </div>
+              <div class="copyright">
+                  <h>&copy; 2022 All rights reserved</h>
+              </div>
+          </div>
+          <div class="right-footer">
+              <img class="SELogoFooter" src="images/images/SquareEyes_Logo.png" alt="Square Eyes Logo">
+          </div>
+      </div>
+  </footer>
 
-</container>
 </body>
 </html>

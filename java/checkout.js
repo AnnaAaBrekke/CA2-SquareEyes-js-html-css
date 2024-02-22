@@ -159,33 +159,33 @@ async function saveCartToSessionStorage() {
 async function displayCartTotal(cartItems) {
     try {
         const cartTotalContainer = document.querySelector(".cart-dropdown-total");
-        const total = cartItems.reduce((acc, cartItem) => {
+
+        const total = Array.from(cartItems).reduce((acc, cartItem) => {
             const price = parseFloat(cartItem.querySelector(".cart-item-price").price);
             const quantity = 1;
             return acc + (price * quantity);
-        });
+        }, 0);  
 
-            const cartTotal = document.createElement("div");
-            cartTotal.classList.add("cart-total");
-            cartTotal.innerHTML = ` 
+        const cartTotal = document.createElement("div");
+        cartTotal.classList.add("cart-total");
+        cartTotal.innerHTML = ` 
             <div class="total-title">Total</div>
             <div class="total-price">${total}KR</div>
             <a href="confirmation.html">
                 <button type="submit" class="Pay">Pay</button>
             </a>
-            `;
+        `;
 
-            cartTotalContainer.innerHTML = "";
-            cartTotalContainer.appendChild(cartTotal);
-            console.log("The total and pay is displayed");
+        cartTotalContainer.innerHTML = "";
+        cartTotalContainer.appendChild(cartTotal);
+        console.log("The total and pay are displayed");
 
-            updateTotal();
+        updateTotal();
 
     } catch (error) {
         console.error("Error adding total on checkout", error);
     }
 };
-
 
 // Update Total
 async function updateTotal() {
@@ -217,6 +217,7 @@ async function updateTotal() {
     };
 
 
+
 function removeCartItem(event){
     const buttonClicked = event.target;
     const cartItem = buttonClicked.closest(".cart-item");
@@ -231,6 +232,7 @@ function ready() {
     const removeCartButtons = document.querySelectorAll (".remove-item");
     removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
 };
+
 
 document.addEventListener("DOMContentLoaded", ready);
 
