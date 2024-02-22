@@ -180,7 +180,7 @@ async function displayCartTotal(cartItems) {
         // const hasItemsInCart = Array.from(cartItems).length > 0;
 
         const total = Array.from(cartItems).reduce((acc, cartItem) => {
-            const price = parseFloat(cartItem.querySelector(".cart-item-price").innerText);
+            const price = parseFloat(cartItem.querySelector(".cart-item-price"));
             const quantity = 1;
             return acc + (price * quantity);
         }, 0);
@@ -204,6 +204,7 @@ async function displayCartTotal(cartItems) {
 
             const CheckOutButton = document.querySelector(".check-out");
             CheckOutButton.addEventListener("click", handleCheckOutButtonClick);
+            console.log("Check Out button clicked");
 
 
     } catch (error) {
@@ -215,7 +216,8 @@ async function handleCheckOutButtonClick() {
     const cartItems = document.querySelectorAll(".cart-item");
     
     if (cartItems.length === 0) {
-        alert("Empty cart")
+        alert("Your cart is empty. Add some items before checking out!")
+        console.log("Check Out button clicked and find no items in cart");
     } else {
         window.location.href = "checkout.html";
     }

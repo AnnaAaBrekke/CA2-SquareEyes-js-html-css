@@ -161,7 +161,7 @@ async function displayCartTotal(cartItems) {
         const cartTotalContainer = document.querySelector(".cart-dropdown-total");
 
         const total = Array.from(cartItems).reduce((acc, cartItem) => {
-            const price = parseFloat(cartItem.querySelector(".cart-item-price").price);
+            const price = parseFloat(cartItem.querySelector(".cart-item-price"));
             const quantity = 1;
             return acc + (price * quantity);
         }, 0);  
@@ -182,20 +182,40 @@ async function displayCartTotal(cartItems) {
 
         const payButton = document.querySelector(".Pay");
         payButton.addEventListener("click", handlePayButtonClick);
-
+        console.log("Event listener added to Pay Button");
 
     } catch (error) {
         console.error("Error adding total on checkout", error);
     }
 };
 
-function handlePayButtonClick() {
-    const confirmPayment = confirm("Are you sure you want to proceed with the payment?");
+// function handlePayButtonClick() {
+//     const confirmPayment = confirm("Are you sure you want to proceed with the payment?");
 
-    if (confirmPayment) {
-        window.location.href = "confirmation.html"
+//     if (confirmPayment) {
+//         window.location.href = "confirmation.html"
+//     }
+// };   
+
+async function handlePayButtonClick() {
+    console.log("Pay button clicked");
+    const cartItems = document.querySelectorAll(".cart-item");
+    
+    if (cartItems.length > 0) {
+        const confirmPayment = confirm("Are you sure you want to proceed with the payment?");
+
+        if (confirmPayment) 
+            window.location.href = "confirmation.html";
+            console.log("Confirm and goes to confirmation page");
+
+
+    } else {
+            window.location.href = "checkout.html"
     }
-};   
+};
+
+
+
 
 // Update Total
 async function updateTotal() {
