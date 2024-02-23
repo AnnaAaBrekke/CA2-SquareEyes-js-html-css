@@ -11,7 +11,7 @@
 
 // The ability to save the cart data to the local storage/session storage  ✅
 // An event listener to submit items from the cart when the user clicks the 'Check Out' button  ✅
-// Redirect to the Check Out Page ✅
+// Redirect to the Check  Out Page ✅
 // A check out page ✅
 // Display the cart data to a check out page ✅
 
@@ -30,7 +30,7 @@
 
 // Reviews: That is what Oliver answered  : "Reviews are not marked, and we should be able to see comments on the actual PR page itself" So the idea is to check the code of the student and make some pull request with some comment 🙂Something to fix for example
 
-// Change to correct URLS 
+// Change to correct URLS  
     // - Home Page containing product list `/index.html`
     // - Product Page showing all details of a specific product `/product/index.html`
     // - Checkout Page showing all items in the basket `/checkout/index.html`
@@ -238,7 +238,7 @@ async function handleCheckOutButtonClick() {
         alert("Your cart is empty. Add some items before checking out!")
         console.log("Check Out button clicked and find no items in cart");
     } else {
-        window.location.href = "checkout/checkout.html";
+        window.location.href = "checkout/index.html";
     }
 };
 
@@ -348,7 +348,7 @@ async function handleMovieClick(movie) {
 
         // Check if you already have detailed information about the movie
         if (movie.title && Object.keys(movie.title).length !== 0) {
-            window.location.assign(`product/product.html?id=${movie.id}`);
+            window.location.assign(`product/index.html?id=${movie.id}`);
             console.log("Movie details found:", movie.title);
         } else {
             // Fetch details only if not already available
@@ -358,7 +358,7 @@ async function handleMovieClick(movie) {
                 // Save the movie details to sessionStorage for retrieval on the product page
                 sessionStorage.setItem("selectedMovie", JSON.stringify(movieDetails));
 
-                window.location.assign(`product/product.html?id=${movie.id}`);
+                window.location.assign(`product/index.html?id=${movie.id}`);
                 console.log("Movie details fetched:", movieDetails);
             } else {
                 console.error("Movie details not found");
