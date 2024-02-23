@@ -205,7 +205,7 @@ async function handlePayButtonClick() {
         const confirmPayment = confirm("Are you sure you want to proceed with the payment?");
 
         if (confirmPayment) 
-            window.location.href = "checkout/confirmation/confirmation.html";
+            window.location.href = "confirmation/confirmation.html";
             console.log("Confirm and goes to confirmation page");
 
     } else {

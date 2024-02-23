@@ -38,6 +38,7 @@
 // Loading ERRORS
 // Remove Console Logs
 
+const API_BASE = "https://v2.api.noroff.dev/square-eyes";
 
 
 // DomContent Loads
@@ -76,7 +77,7 @@ document.body.addEventListener("click", (event) => {
 // Fetch movies from the API
 async function fetchMovies() {
     try {
-        const response = await fetch("https://v2.api.noroff.dev/square-eyes");
+        const response = await fetch(API_BASE);
         const data = await response.json();
 
         if (Array.isArray(data.data)) {
@@ -293,11 +294,7 @@ async function displayMovies(movies) {
             movieElement.innerHTML = `
                 <img src="${movie.image.url}" alt="${movie.title}">
             `;
-
-            // const movieElementClicked = document.querySelectorAll(".movie");
-            // movieElementClicked.forEach(img => img.addEventListener("click", detailedMovie));
-            // console.log("Go to movie product page when clicked on movie");        
-
+      
             const moviePriceElement = document.createElement("div");
             moviePriceElement.classList.add("price-movie");
             moviePriceElement.innerHTML = `
@@ -307,7 +304,7 @@ async function displayMovies(movies) {
                 </div>
             `;
 
-            movieElement.addEventListener("click", () => detailedMovie(movie.id));
+            // movieElement.addEventListener("click", () => handleMovieClick(movie.id));
 
             moviesContainer.appendChild(movieElement);
             movieElement.appendChild(moviePriceElement);
@@ -319,11 +316,6 @@ async function displayMovies(movies) {
         console.error("Error displaying movies", error);
     }
 };
-
-function detailedMovie(movieId) {
-        console.log("movie id is found", movieId)
-        window.location.href = `product/product.html?id=${movieId}`;
-    }
 
 
 document.querySelector(".movie-container").addEventListener("click", async (event)=> {
@@ -382,6 +374,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     await displayMovies(movies);
 });
 
+
+
+
 // ------
 
 // Check Out Page
@@ -432,6 +427,7 @@ async function main () {
         const movies = await fetchMovies();
         await GenreFilter();
         await displayMovies(movies);
+        // await fetchMoviesDetails();
 
         // Display the initial cart items and total
         // await displayCartItem(title, price, imgSrc);
