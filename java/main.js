@@ -40,12 +40,13 @@
 
 const API_BASE = "https://v2.api.noroff.dev/square-eyes";
 
-
 // DomContent Loads
 document.addEventListener("DOMContentLoaded", function () {
     loadCartFromSessionStorage();
     console.log("DOMContentLoaded works the correct way");
 });
+
+
 
 // ---------
 
@@ -75,7 +76,7 @@ document.body.addEventListener("click", (event) => {
 // ------
 
 // Fetch movies from the API
-async function fetchMovies() {
+  async function fetchMovies() {
     try {
         const response = await fetch(API_BASE);
         const data = await response.json();
@@ -94,10 +95,12 @@ async function fetchMovies() {
 };
 
 
+
+
 // Display the correct item in cart 
 let isCartEmpty = true; // Variable to track if the cart is empty
 
-async function displayCartItem(title, price, imgSrc) {
+  async function displayCartItem(title, price, imgSrc) {
     try {
         const cartItemContainer = document.querySelector(".cart-dropdown-content");
 
@@ -153,7 +156,7 @@ async function displayCartItem(title, price, imgSrc) {
 };
 
 
-async function saveCartToSessionStorage() {
+  async function saveCartToSessionStorage() {
     sessionStorage.removeItem("cart");
     console.log("The storage is empty before adding");
 
@@ -191,7 +194,7 @@ async function saveCartToSessionStorage() {
 //-------
 
 // Cart-total outside
-async function displayCartTotal(cartItems) {
+  async function displayCartTotal(cartItems) {
     try {
         const cartTotalContainer = document.querySelector(".cart-dropdown-total");
 
@@ -244,7 +247,7 @@ async function handleCheckOutButtonClick() {
 
 
 // Update Total
-async function updateTotal() {
+  async function updateTotal() {
         const cartItems = document.querySelectorAll(".cart-item");
         const totalValue = document.querySelector(".total-price");
 
@@ -274,7 +277,7 @@ async function updateTotal() {
     };
 
 
-function removeCartItem(event){
+  function removeCartItem(event){
     const buttonClicked = event.target;
     const cartItem = buttonClicked.closest(".cart-item");
 
@@ -294,16 +297,10 @@ function removeCartItem(event){
     updateTotal();
 };
 
-function ready() {
-    const removeCartButtons = document.querySelectorAll (".remove-item");
-    removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
-};
-
-document.addEventListener("DOMContentLoaded", ready);
 
 // ------
 
-async function displayMovies(movies) {
+  async function displayMovies(movies) {
     try {
         const moviesContainer = document.querySelector(".movie-container");
 
@@ -418,7 +415,7 @@ document.querySelector(".movie-container").addEventListener("click", async (even
     }
 });
 
-async function addCart(title, price, imgSrc) {
+  async function addCart(title, price, imgSrc) {
      console.log(title, price, imgSrc);
 
     displayCartItem(title, price, imgSrc);
@@ -465,7 +462,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 // Check Out Page
 // Session storage - store the data to the checkout page
 
-async function loadCartFromSessionStorage() {
+  async function loadCartFromSessionStorage() {
     const savedCart = sessionStorage.getItem("cart");
 
     if (savedCart) {
@@ -483,9 +480,13 @@ async function loadCartFromSessionStorage() {
 };
 
 function clearCart() {
-    const cartItemContainer = document.querySelector(".cart-item");
+    const cartItemContainer = document.querySelector(".cart-dropdown-content");
     cartItemContainer.innerHTML = "";
 };
+
+updateTotal();
+
+
 
 // Local storage - store the data to the checkout page
 
@@ -510,7 +511,7 @@ async function main () {
         const movies = await fetchMovies();
         await GenreFilter();
         await displayMovies(movies);
-        await handleMovieClick();
+        // await handleMovieClick();
         // await fetchMoviesDetails();
 
         // Display the initial cart items and total
