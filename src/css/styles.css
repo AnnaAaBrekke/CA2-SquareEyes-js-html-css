@@ -1827,6 +1827,15 @@ Media query for larger screens (e.g., desktop)
   color: #5FBF45;
 }
 
+/* listofmovies-headline */
+
+.listofmovies-headline {
+  text-align: center;
+  font-size: 60px;
+  color: lightgray;
+  text-shadow: white;
+}
+
 /*Contact Us Form*/
 
 .flex-grid {

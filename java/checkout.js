@@ -72,10 +72,9 @@ async function fetchMovies() {
 
 // ------
 
-// Display the correct item in cart 
 async function displayCartItem(title, price, imgSrc) {
     try {
-        const cartItemContainer = document.querySelector(".cart-dropdown-content")
+        const cartItemContainer = document.querySelector(".cart-dropdown-content");
 
         const cartItem = document.createElement("div");
         cartItem.classList.add("cart-item");
@@ -86,37 +85,37 @@ async function displayCartItem(title, price, imgSrc) {
         imgElement.src = imgSrc;
 
         imgElement.onload = function () {
-            cartItem.innerHTML = `
+            const newCartItem = document.createElement("div");
+            newCartItem.classList.add("cart-item");
+
+            newCartItem.innerHTML = `
                 <div class="cart-item-title">${title}</div>
                 <img src="${imgSrc}" alt="${title}" class="cart-img">
                 <div class="cart-item-info">
                     <div class="cart-item-price">${price}</div>
                 </div>
                 <button type="button" class="remove-item" value="Remove">Remove</button>
-            `; 
+            `;
 
-        // cartItemContainer.innerHTML = ""; //replaces instead of adding
-        cartItemContainer.appendChild(cartItem);
-        console.log("The correct cart-item is displayed");
+            // Append the new item directly to the container without clearing
+            cartItemContainer.appendChild(newCartItem);
+            console.log("A new cart-item is displayed");
 
-        // // Show the cart
-        // dropdownCart.classList.add("active");
+            const removeCartButtons = document.querySelectorAll(".remove-item");
+            removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
+            console.log("Remove cart item when clicked button");
 
-        const removeCartButtons = document.querySelectorAll(".remove-item");
-        removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
-        console.log("Remove cart item when clicked button");
+            updateTotal();
+            saveCartToSessionStorage();
+        };
 
-        updateTotal();
-        saveCartToSessionStorage();
-    };
-
-        // Append the imgElement to the cartItem
         cartItem.appendChild(imgElement);
 
     } catch (error) {
         console.error("Error displaying data in cart:", error);
     }
-};
+}
+
 
 async function saveCartToSessionStorage() {
     sessionStorage.removeItem("cart");
@@ -250,16 +249,21 @@ function removeCartItem(event){
     console.log("The closest cart item is removed when clicked");
 
     updateTotal();
+    saveCartToSessionStorage();
 };
 
-function ready() {
-    const removeCartButtons = document.querySelectorAll (".remove-item");
-    removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
-};
+// function ready() {
+//     const removeCartButtons = document.querySelectorAll (".remove-item");
+//     removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
+// };
 
-updateTotal();
+// updateTotal();
 
-document.addEventListener("DOMContentLoaded", ready);
+document.addEventListener("DOMContentLoaded", function () {
+    // Simulate a click on remove buttons when the page loads
+    const removeCartButtons = document.querySelectorAll(".remove-item");
+    removeCartButtons.forEach(button => button.click());
+});
 
 // ------
 

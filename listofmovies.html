@@ -13,263 +13,93 @@
 </head>
 
 <body>
+
     <header>
         <nav class="header-left">
-            <a href="index.html"><img class="SELogoBar" src="/images/images/SquareEyes_Logo-crop.png" alt="Futures Museum Logo"></a>
+            <a href="../index.html"><img class="SELogoBar" src="/images/images/SquareEyes_Logo-crop.png" alt="Futures Museum Logo"></a>
         </nav>
-        <!-- <nav>
-          <div class="hamburger-menu">
-            <button class="bar"><i class="fa-solid fa-bars"></i></button>  
-            <ul>
-                <li><a href="checkout.html"><i class="fa-solid fa-cart-shopping cart-icon" alt="My cart icon"></i> Cart</a></li>
-                <li><a href="listofmovies.html"><i class="fa-solid fa-film film-icon" alt="Film icon for my movies"></i> Movies</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-            </ul>
-          </div>
-        </nav> -->
         
         <section class="header-right">
             <i class="fa-solid fa-cart-shopping cart-icon" alt="My cart icon" id="cart-icon"></i>
                 <div class="dropdown-cart">
                     <h2>Your Cart</h2>
                     <div class="cart-dropdown-content">
-                        <div class="cart-item">
-                        <img src="images/images/OnceUponATimeInHollywood.jpeg" alt="" class="cart-img">
+                        <!-- <div class="cart-item">
+                        <img class="cart-img" src="#" alt="">
                             <div class="cart-item-info">
-                                <div class="cart-item-title">Once Upon A Time In Hollywood</div>
-                                <div class="cart-item-price">9.90$</div>
+                                <div class="cart-item-title">Title</div>
+                                <div class="cart-item-price">Price</div>
                             </div>
-                            <input type="number" value="1" class="quantity">
                             <button type="button" class="remove-item"  value="Remove">Remove</button>
-                        </div>
+                        </div> -->
+                    </div>
+                    <div class="cart-dropdown-total">
                         <div class="cart-total">
-                            <div class="total-title">Total</div>
-                            <div class="total-price">$0</div>
+                            <div class="total-title">Total:</div>
+                            <div class="total-price">0KR</div>
+                            <button type="submit" class="check-out">Check out</button>
+                            <i class="fa-solid fa-xmark" id="close-cart"></i>
                         </div>
-                        <button type="submit" class="check-out">Check out</button>
-                        <i class="fa-solid fa-xmark" id="close-cart"></i>
                     </div>
                 </div>
-                    <nav class="nav-list">
-                <div class="dropdown">
-                <button class="nav-button"><i class="fa-solid fa-bars"></i></button>
-                <ul>
-                    <li><a href="listofmovies.html"><i class="fa-solid fa-film film-icon" alt="Film icon for my movies"></i> Movies</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                </ul>
-                </div>
-            </nav>
+                <nav class="nav-list">
+                    <div class="dropdown">
+                    <button class="nav-button"><i class="fa-solid fa-bars"></i></button>
+                    <ul>
+                        <li><a href="listofmovies.html"><i class="fa-solid fa-film film-icon" alt="Film icon for my movies"></i> Movies</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                    </div>
+                </nav>
         </section>
-
     </header>
 
-    <div class="top-section-list">
-        <h1>M o v i e s</h1>
-        <h2>What would you like to watch today?</h2>
-        <form action="moviepage.html">                
-            <input class="searchfield2" id="searchfield" name="searchfield" placeholder= "Search"></input>
-        </form>
-    </div>
-
-    <div class="genres">
-        <ul>
-            <li>Action</li>
-            <li>Comedy</li>
-            <li>Drama</li>
-            <li>Horror</li>
-            <li>Sci-Fi</li>
-            <li>For the Family</li>
-            <li>Documentary</li>
-        </ul>
-    </div>
-
+    <h1 class="listofmovies-headline">Select your movie</h1>
+    
 
     <section class="movies">
-        <div class="action-movies">
-        <h2 class="Action">Action
-            <div class="action-images">
-                <div class="movie-container">
-                    <img class="Hobbs-Shaw-img" src="images/images/Hobbs&Shaw.jpeg" alt="Movie Hobbs & Shaw">
-                    <!-- <h2 class="movie-selected">Movie Hobbs & Shaw</h2> -->
-                    <div class="price-movie">
-                        <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
-                        <h class="product-price">7.90$</h>
-                    </div>
-                </div>
-                <div class="movie-container">
-                    <img class="Batman-img" src="images/images/Batman.jpeg"  alt="Movie Batman"> 
-                    <!-- <h2 class="movie-selected">Movie Hobbs & Shaw</h2> -->
-                    <div class="price-movie">
-                        <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
-                        <h class="product-price">11.00$</h>
-                    </div>
-                </div>
-                <div class="movie-container">
-                    <img class="Godzilla-img" src="images/images/Godzilla.jpeg" alt="Movie Godzilla">
-                    <div class="price-movie">
-                        <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
-                        <h class="product-price">12.00$</h>
-                    </div>
-                </div>
-                <div class="movie-container">
-                    <img class="Sweet-Heart-img" src="images/images/SweetHeart.jpeg"  alt="Movie Sweet Heart">
-                    <div class="price-movie">
-                        <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
-                        <h class="product-price">6.90$</h>
-                    </div>
-                    <i class="fa-solid fa-ellipsis" alt="Ellipsis icon which means more"></i>
-                </div> 
+        <div class="filter-container">
+            <button class="genre-button" data-genre="all" >All Movies</button>
+        </div>
+        <div class="movie-container">
+            <img class="image-poster" src="" alt="" data-movie-id="">
+            <div class="price-movie">
+                <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
+                <span class="product-price">kr</span>
             </div>
-        </h2>
-    </div>
-
-    
-    <div class="comedy-movies">
-        <h2 class="Comedy">Comedy
-            <div class="comedy-images">
-                <div class="movie-container">
-                    <img class="Addams-img" src="images/images/AddamsFamilyHalloween.jpeg" alt="Movie Addams Family Halloween">
-                    <div class="price-movie">
-                        <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
-                        <h class="product-price">8.00$</h>
-                    </div>
-                </div>
-                <div class="movie-container">
-                    <img class="Toy-Story-img" src="images/images/ToyStory4.jpeg" alt="Movie Toy Story 4">
-                    <div class="price-movie">
-                        <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
-                        <h class="product-price">11.00$</h>
-                    </div>     
-                </div>                 
-                <div class="movie-container">
-                    <img class="Hobbs-Shaw" src="images/images/Hobbs&Shaw.jpeg"  alt="Movie Hobbs & Shaw">
-                    <div class="price-movie">
-                        <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
-                        <h class="product-price">7.90$</h>
-                    </div>
-                </div>  
-                <div class="movie-container">
-                    <nav>
-                        <a href="moviepage.html"><img class="Once-Upon-img" src="images/images/OnceUponATimeInHollywood.jpeg"  alt="Movie Once Upon A Time In Hollywood"></a>
-                    </nav>                    
-                    <div class="price-movie">
-                        <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
-                        <h class="product-price">9.90$</h>
-                    </div>      
-                    <i class="fa-solid fa-ellipsis" alt="Ellipsis icon which means more"></i>
-                </div> 
-            </div>
-        </h2>
-    </div>
-
-    <div class="drama-movies">
-        <h2 class="Drama">Drama
-            <div class="drama-images">
-                <div class="movie-container">
-                    <nav>
-                        <a href="moviepage.html"><img class="Once-Upon-img" src="images/images/OnceUponATimeInHollywood.jpeg"  alt="Movie Once Upon A Time In Hollywood"></a>
-                    </nav>
-                    <div class="price-movie">
-                        <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
-                        <h class="product-price">9.90$</h>
-                    </div>
-                </div>
-                <div class="movie-container">
-                    <img class="Batman-img" src="images/images/Batman.jpeg"  alt="Movie Batman"> 
-                    <div class="price-movie">
-                        <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
-                        <h class="product-price">11.00$</h>
-                    </div>
-                </div>                
-                <div class="movie-container">
-                    <img class="Sweet-Heart-img" src="images/images/SweetHeart.jpeg"  alt="Movie Sweet Heart">
-                    <div class="price-movie">
-                        <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
-                        <h class="product-price">6.90$</h>
-                    </div>     
-                </div>        
-                <div class="movie-container">
-                    <img class="Toy-Story-img" src="images/images/ToyStory4.jpeg" alt="Movie Toy Story 4">
-                    <div class="price-movie">
-                        <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
-                        <h class="product-price">11.00$</h>
-                    </div>                
-                    <i class="fa-solid fa-ellipsis" alt="Ellipsis icon which means more"></i>
-                </div>           
-            </div>
-        </h2>
-    </div>
-    
-    <div class="horror-movies">
-        <h2 class="Horror">Horror
-            <div class="horror-images">
-                <div class="movie-container">
-                    <img class="Scream-img" src="images/images/Scream.jpeg" alt="Movie Scream">
-                    <div class="price-movie">
-                        <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
-                        <h class="product-price">7.00$</h>
-                    </div>
-                </div>
-                <div class="movie-container">
-                    <img class="Addams-img" src="images/images/AddamsFamilyHalloween.jpeg" alt="Movie Addams Family Halloween">
-                    <div class="price-movie">
-                        <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
-                        <h class="product-price">8.00$</h>
-                    </div>
-                </div>                
-                <div class="movie-container">
-                    <img class="Sweet-Heart-img" src="images/images/SweetHeart.jpeg" alt="Movie Sweet Heart">
-                    <div class="price-movie">
-                        <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
-                        <h class="product-price">6.90$</h>
-                    </div>
-                </div>                
-                <div class="movie-container">
-                    <img class="Godzilla-img" src="images/images/Godzilla.jpeg" alt="Movie Godzilla">
-                    <div class="price-movie">
-                        <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
-                        <h class="product-price">12.00$</h>
-                    </div>
-                    <i class="fa-solid fa-ellipsis" alt="Ellipsis icon which means more"></i>
-                </div>              
-            </div>
-        </h2>
-    </div>    
+        </div>
     </section>
 
-
-<footer>
-    <div class="footer">
-        <div class="left-footer">
-            <nav>
-                <ul>
-                    <li>Terms of Use</li>
-                    <li><a href="about.html" class="link" >About</a></li>
-                    <li><a href="contact.html" class="link">Contact</a></li>
-                </ul>
-            </nav>
-            <div class="social-icons">
-                <ul>
-                    <a href="#" class="social-icon"><i class="fa-brands fa-tiktok" alt="TikTok icon"></i></a>
-                    <a href="#" class="social-icon"><i class="fa-brands fa-square-instagram" alt="Instagram icon"></i></a>
-                    <a href="#" class="social-icon"><i class="fa-brands fa-twitter" alt="Twitter icon"></i></a>
-                    <a href="#" class="social-icon"><i class="fa-brands fa-square-facebook" alt="Facebook icon"></i></a>
-                </ul>   
+    <footer>
+        <div class="footer">
+            <div class="left-footer">
+                <nav>
+                    <ul>
+                        <li>Terms & Conditions</li>
+                        <li>Privacy Policy</li>
+                    </ul>
+                </nav>
+                <div class="social-icons">
+                    <ul>
+                        <a href="#" class="social-icon"><i class="fa-brands fa-tiktok" alt="TikTok icon"></i></a>
+                        <a href="#" class="social-icon"><i class="fa-brands fa-square-instagram" alt="Instagram icon"></i></a>
+                        <a href="#" class="social-icon"><i class="fa-brands fa-twitter" alt="Twitter icon"></i></a>
+                        <a href="#" class="social-icon"><i class="fa-brands fa-square-facebook" alt="Facebook icon"></i></a>
+                    </ul>   
+                </div>
+                <div class="copyright">
+                    <h>&copy; 2022 All rights reserved</h>
+                </div>
             </div>
-            <div class="copyright">
-                <h>&copy; 2022 All rights reserved</h>
+            <div class="right-footer">
+                <img class="SELogoFooter" src="images/images/SquareEyes_Logo.png" alt="Square Eyes Logo">
             </div>
         </div>
-        <div class="right-footer">
-            <img class="SELogoFooter" src="images/images/SquareEyes_Logo.png" alt="Square Eyes Logo">
-        </div>
-    </div>
-</footer>
+    </footer>
 
-
-<script src="java/script.js"></script>
+<script src="../java/script.js"></script>
+<script src="../java/product.js"></script>
 
 </body>
 </html>
