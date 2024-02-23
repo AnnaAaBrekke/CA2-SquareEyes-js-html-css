@@ -21,21 +21,17 @@
 // Alert where needed ✅
 // Confirm where needed ✅
 
-// As a user, I want to view a single product page with more detail.
-// Add to cart from the movie-page detailed as well 
+// As a user, I want to view a single product page with more detail.🚫
+// Add to cart from the movie-page detailed as well 🚫
 
 // Clean up 
-// Export / Import
-// CSS
+// Export / Import 🚫
+// CSS ✅
 
 // Reviews: That is what Oliver answered  : "Reviews are not marked, and we should be able to see comments on the actual PR page itself" So the idea is to check the code of the student and make some pull request with some comment 🙂Something to fix for example
 
-// Change to correct URLS  
-    // - Home Page containing product list `/index.html`
-    // - Product Page showing all details of a specific product `/product/index.html`
-    // - Checkout Page showing all items in the basket `/checkout/index.html`
-    // - Confirmation Page showing a thank you message `/checkout/confirmation/index.html`
-// Loading ERRORS
+// Change to correct URLS ✅
+// Loading ERRORS 
 // Remove Console Logs
 
 const API_BASE = "https://v2.api.noroff.dev/square-eyes";
@@ -45,8 +41,6 @@ document.addEventListener("DOMContentLoaded", function () {
     loadCartFromSessionStorage();
     console.log("DOMContentLoaded works the correct way");
 });
-
-
 
 // ---------
 
@@ -125,9 +119,9 @@ let isCartEmpty = true; // Variable to track if the cart is empty
                 <button type="button" class="remove-item" value="Remove">Remove</button>
             `;
 
-            // Check if the cart is empty
+            // Checking if the cart is empty
             if (isCartEmpty) {
-                // Replace the existing content if the cart is empty
+                // Replacing the existing content if the cart is empty
                 cartItemContainer.innerHTML = "";
                 isCartEmpty = false;
             }
@@ -175,31 +169,12 @@ let isCartEmpty = true; // Variable to track if the cart is empty
     console.log("Cart data is correctly saved to the session storage");
 };
 
-// async function saveCartToLocalStorage() {
-//      const cartItems = document.querySelectorAll(".cart-item");
-//      const cartData = [];
-
-//      cartItems.forEach((cartItem) => {
-//          const title = cartItem.querySelector(".cart-item-title").innerText;
-//          const price = cartItem.querySelector(".cart-item-price").innerText;
-//          const imgSrc = cartItem.querySelector(".cart-img").src;
-        
-//      cartData.push({title, price, imgSrc});
-//     });
-
-//     localStorage.setItem("cart", JSON.stringify(cartData));
-//     console.log("Cart data is correctly saved to the local storage");
-// };
-
 //-------
 
 // Cart-total outside
   async function displayCartTotal(cartItems) {
     try {
         const cartTotalContainer = document.querySelector(".cart-dropdown-total");
-
-        // Only next page if there are items in the cart
-        // const hasItemsInCart = Array.from(cartItems).length > 0;
 
         const total = Array.from(cartItems).reduce((acc, cartItem) => {
             const price = parseFloat(cartItem.querySelector(".cart-item-price"));
@@ -281,7 +256,6 @@ async function handleCheckOutButtonClick() {
     const buttonClicked = event.target;
     const cartItem = buttonClicked.closest(".cart-item");
 
-        // Check if the cart is empty after removing an item
         const cartItemContainer = document.querySelector(".cart-dropdown-content");
         isCartEmpty = cartItemContainer.children.length === 0;
     
@@ -343,12 +317,10 @@ async function handleMovieClick(movie) {
     try {
         console.log("Clicked movie ID:", movie.id);
 
-        // Check if you already have detailed information about the movie
         if (movie.title && Object.keys(movie.title).length !== 0) {
             window.location.assign(`product/index.html?id=${movie.id}`);
             console.log("Movie details found:", movie.title);
         } else {
-            // Fetch details only if not already available
             const movieDetails = await fetchMovieDetails(movie.id);
 
             if (movieDetails && Object.keys(movieDetails).length !== 0) {
@@ -460,8 +432,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 // ------
 
 // Check Out Page
-// Session storage - store the data to the checkout page
 
+// Session storage - store the data to the checkout page
   async function loadCartFromSessionStorage() {
     const savedCart = sessionStorage.getItem("cart");
 
@@ -486,26 +458,6 @@ function clearCart() {
 
 updateTotal();
 
-
-
-// Local storage - store the data to the checkout page
-
-//  async function loadCartFromLocalStorage() {
-//     const savedCart = localStorage.getItem("cart");
-
-//     if (savedCart) {
-//         const cartData = JSON.parse(savedCart);
-
-//          cartData.forEach(({title, price,  imgSrc }) => {
-//              displayCartItem(title, price, imgSrc);
-//          });
-
-//         updateTotal();
-//         console.log("Loaded cart - The cart data is loaded and saved from the local storage");
-//      }
-//  };
-
-
 async function main () {
     try {
         const movies = await fetchMovies();
@@ -513,9 +465,6 @@ async function main () {
         await displayMovies(movies);
         // await handleMovieClick();
         // await fetchMoviesDetails();
-
-        // Display the initial cart items and total
-        // await displayCartItem(title, price, imgSrc);
 
         await loadCartFromSessionStorage();
 

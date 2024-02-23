@@ -1,4 +1,5 @@
 
+const API_BASE = "https://v2.api.noroff.dev/square-eyes";
 
 // DomContent Loads
 document.addEventListener("DOMContentLoaded", function () {
@@ -7,10 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+
 // Fetch movies from the API
 async function fetchMovies() {
     try {
-        const response = await fetch("https://v2.api.noroff.dev/square-eyes");
+        const response = await fetch(API_BASE);
         const data = await response.json();
 
         if (Array.isArray(data.data)) {
@@ -183,7 +185,7 @@ function removeCartItem(event){
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Simulate a click on remove buttons when the page loads
+    // Simulate a fake click on remove buttons when the page loads
     const removeCartButtons = document.querySelectorAll(".remove-item");
     removeCartButtons.forEach(button => button.click());
 });
@@ -231,14 +233,12 @@ updateTotal();
  };
 
 document.addEventListener("DOMContentLoaded", async () => {
-    // await GenreFilter();
     const movies = await fetchMovies();
     await displayMovies(movies);
 });
 
 
 // Session storage - store the data to the checkout page
-
 async function loadCartFromSessionStorage() {
     const savedCart = sessionStorage.getItem("cart");
 
@@ -258,29 +258,26 @@ async function loadCartFromSessionStorage() {
 };
 
 function clearCart() {
-    const cartItemContainer = document.querySelector(".cart-item");
+    const cartItemContainer = document.querySelector(".cart-dropdown-content");
     cartItemContainer.innerHTML = "";
 };
 
-async function main () {
+async function handlePayButtonClick() {
+    console.log("Pay button clicked");
+    const cartItems = document.querySelectorAll(".cart-item");
+};
+
+async function main() {
     try {
         const movies = await fetchMovies();
-        // await GenreFilter();
         await displayMovies(movies);
-
-        // Display the initial cart items and total
-        // await displayCartItem(title, price, imgSrc);
         await loadCartFromSessionStorage();
-
         await displayCartTotal(document.querySelectorAll(".cart-item"));
         await updateTotal();
-
-        console.log("The main is not working");
-
     } catch (error) {
         console.error("Error in the main async function:", error);
     }
-};
+}
 
 document.addEventListener("DOMContentLoaded", main);
 
