@@ -311,7 +311,7 @@ async function displayMovies(movies) {
     
         console.log("Movies displayed successfully");
 
-        const movieElements = document.querySelectorAll(".movie");
+        const movieElements = document.querySelectorAll(".image-poster");
     
         movieElements.forEach(movieElement => {
             movieElement.addEventListener("click", () => {
