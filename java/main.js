@@ -31,7 +31,7 @@
 // Reviews: That is what Oliver answered  : "Reviews are not marked, and we should be able to see comments on the actual PR page itself" So the idea is to check the code of the student and make some pull request with some comment 🙂Something to fix for example
 
 // Change to correct URLS ✅
-// Loading ERRORS 
+// Loading ERRORS
 // Remove Console Logs
 
 const API_BASE = "https://v2.api.noroff.dev/square-eyes";

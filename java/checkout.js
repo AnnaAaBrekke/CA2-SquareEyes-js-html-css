@@ -1,5 +1,5 @@
 
-const API_BASE = "https://v2.api.noroff.dev/square-eyes";
+// const API_BASE = "https://v2.api.noroff.dev/square-eyes";
 
 // DomContent Loads
 document.addEventListener("DOMContentLoaded", function () {
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // Fetch movies from the API
 async function fetchMovies() {
     try {
-        const response = await fetch(API_BASE);
+        const response = await fetch("https://v2.api.noroff.dev/square-eyes");
         const data = await response.json();
 
         if (Array.isArray(data.data)) {
@@ -29,6 +29,9 @@ async function fetchMovies() {
 };
 
 // ------
+let dropdownCart = document.querySelector(".dropdown-cart");
+
+let isCartEmpty = true; // Variable to track if the cart is empty
 
 async function displayCartItem(title, price, imgSrc) {
     try {
@@ -55,9 +58,18 @@ async function displayCartItem(title, price, imgSrc) {
                 <button type="button" class="remove-item" value="Remove">Remove</button>
             `;
 
+            // Checking if the cart is empty
+            if (isCartEmpty) {
+            // Replacing the existing content if the cart is empty
+            cartItemContainer.innerHTML = "";
+            isCartEmpty = false;
+        }
+
             // Append the new item directly to the container without clearing
             cartItemContainer.appendChild(newCartItem);
             console.log("A new cart-item is displayed");
+
+            dropdownCart.classList.add("active");
 
             const removeCartButtons = document.querySelectorAll(".remove-item");
             removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
@@ -72,7 +84,8 @@ async function displayCartItem(title, price, imgSrc) {
     } catch (error) {
         console.error("Error displaying data in cart:", error);
     }
-}
+};
+
 
 
 async function saveCartToSessionStorage() {
@@ -100,7 +113,7 @@ async function displayCartTotal(cartItems) {
         const cartTotalContainer = document.querySelector(".cart-dropdown-total");
 
         const total = Array.from(cartItems).reduce((acc, cartItem) => {
-            const price = parseFloat(cartItem.querySelector(".cart-item-price"));
+            const price = parseFloat(cartItem.querySelector(".cart-item-price").price);
             const quantity = 1;
             return acc + (price * quantity);
         }, 0);  
@@ -146,32 +159,29 @@ async function handlePayButtonClick() {
 
 // Update Total
 async function updateTotal() {
-        const cartItems = document.querySelectorAll(".cart-item");
-        const totalValue = document.querySelector(".total-price");
+    const cartItems = document.querySelectorAll(".cart-item");
+    const totalValue = document.querySelector(".total-price");
 
-        let total = 0;
+    let total = 0;
 
-        console.log("Total before calculation", total)
-    
-        cartItems.forEach(cartItem => {
-            const priceElement = cartItem.querySelector(".cart-item-price");
+    cartItems.forEach(cartItem => {
+        const priceElement = cartItem.querySelector(".cart-item-price");
 
-        if (priceElement && priceElement.innerText) {
-            const price = parseFloat(priceElement.innerText.replace("0KR", "")) || 0;
-            const quantityElement = 1;
-            total = total + (price * quantityElement);
-        };
-
-        });
-
-        console.log("Total after calcuation", total) // NaN
-
-        // If price contains many decimals
-        total = Math.round(total * 100) / 100;
-        
-        totalValue.innerText = `${total}KR`;
-
+    if (priceElement && priceElement.innerText) {
+        const price = parseFloat(priceElement.textContent.replace("KR", "")) || 0;
+        const quantityElement = 1;
+        total = total + (price * quantityElement);
     };
+});
+
+    console.log("Total after calcuation", total) // NaN
+
+    // If price contains many decimals
+    total = Math.round(total * 100) / 100;
+    
+    totalValue.innerText = `${total}KR`;
+
+};
 
 function removeCartItem(event){
     const buttonClicked = event.target;
@@ -212,8 +222,8 @@ async function displayMovies(movies) {
                 </div>
             `;
 
-            // moviesContainer.appendChild(movieElement);
-            // movieElement.appendChild(moviePriceElement);
+            moviesContainer.appendChild(movieElement);
+            movieElement.appendChild(moviePriceElement);
 
         });
 
@@ -262,17 +272,12 @@ function clearCart() {
     cartItemContainer.innerHTML = "";
 };
 
-async function handlePayButtonClick() {
-    console.log("Pay button clicked");
-    const cartItems = document.querySelectorAll(".cart-item");
-};
-
 async function main() {
     try {
         const movies = await fetchMovies();
         await displayMovies(movies);
         await loadCartFromSessionStorage();
-        await displayCartTotal(document.querySelectorAll(".cart-item"));
+        await displayCartTotal();
         await updateTotal();
     } catch (error) {
         console.error("Error in the main async function:", error);
