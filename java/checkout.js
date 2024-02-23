@@ -213,9 +213,6 @@ async function handlePayButtonClick() {
     }
 };
 
-
-
-
 // Update Total
 async function updateTotal() {
         const cartItems = document.querySelectorAll(".cart-item");

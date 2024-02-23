@@ -304,16 +304,42 @@ async function displayMovies(movies) {
                 </div>
             `;
 
-            // movieElement.addEventListener("click", () => handleMovieClick(movie.id));
-
             moviesContainer.appendChild(movieElement);
             movieElement.appendChild(moviePriceElement);
 
         });
-
+    
         console.log("Movies displayed successfully");
+
+        const movieElements = document.querySelectorAll(".movie");
+    
+        movieElements.forEach(movieElement => {
+            movieElement.addEventListener("click", () => {
+                const movieId = movieElement.dataset.movieId;
+                handleMovieClick(movieId);
+            });
+        });
+
     } catch (error) {
         console.error("Error displaying movies", error);
+    }
+};
+
+async function handleMovieClick(movieId) {
+    try {
+        console.log("Clicked movie ID:", movieId);
+        const movieDetails = await fetchMovieDetails(movieId);
+
+        if (movieDetails && Object.keys(movieDetails).length !== 0) {
+            displayDetailedMovie(movieDetails);
+            window.location.href = `product/product.html?id=${movieId}`;
+
+            console.log("movie id is found", movieDetails);
+        } else {
+            console.error("movie details not found");
+        }
+    } catch (error) {
+        console.error("Error handling movie click:", error);
     }
 };
 
@@ -367,6 +393,8 @@ document.querySelector(".filter-container").addEventListener("click", async (eve
         await displayMovies(filteredMovies);
     }
 });
+
+
 
 document.addEventListener("DOMContentLoaded", async () => {
     await GenreFilter();

@@ -1,5 +1,5 @@
 // // Get api
-// // get id 
+// // get id
 // // create a universal when  event click on img - redirect to movie-page
 // // movie page should get the details based on the movie clicked - movie id img = moviepage details
 // // get the url and then - the closest details and display
@@ -11,19 +11,28 @@ const API_BASE = "https://v2.api.noroff.dev/square-eyes";
 
 // const movieElementClicked = document.querySelectorAll(".movie");
 // movieElementClicked.forEach(img => img.addEventListener("click", detailedMovie));
-// console.log("Go to movie product page when clicked on movie");  
+// console.log("Go to movie product page when clicked on movie");
 
 // //export for you mig like and cart
 // cart
 // displayMovies()
 // fetchMovies()
 
-async function fetchMoviesDetails(movieId) {
+console.log("Working 1");
+
+async function fetchMovieDetails(movieId) {
     try {
-        const response = await fetch("https://v2.api.noroff.dev/square-eyes/04fd79ad-2612-4dab-b2ee-1320c4e5ccd1");
+        const response = await fetch((`${API_BASE}/${movieId}`), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
         const data = await response.json();
 
         if (data && data.data) {
+            console.log("API movie details", data.data);
             return data.data;
         } else {
             console.error("Invalid detailed data format from the API");
@@ -35,6 +44,9 @@ async function fetchMoviesDetails(movieId) {
     }
 };
 
+console.log("Working 2");
+
+
 async function displayDetailedMovie(movieDetails) {
     try {
         const detailedMovieContainer = document.querySelector(".movie-page");
@@ -45,8 +57,14 @@ async function displayDetailedMovie(movieDetails) {
         const detailedMovieElement = document.createElement("div");
         detailedMovieElement.classList.add("movie-page-cover");
         detailedMovieElement.innerHTML = `
-            <img src="${movieDetails.image.url}" alt="${movieDetails.title}">
+            <img src="${movieDetails.image.url}" alt="${movieDetails.title}" data-movie-id="${movieDetails.id}">
             <h1>${movieDetails.title}</h1>
+            <p>Genre: ${movieDetails.genre}</p>
+            <p>Release Year: ${movieDetails.releaseYear}</p>
+            <p>Description: ${movieDetails.description}</p>
+            <p>Director: ${movieDetails.director}</p>
+            <p>Duration: ${movieDetails.duration} minutes</p>
+            <p>Price: ${movieDetails.price} KR</p>
         `;
 
         detailedMovieContainer.appendChild(detailedMovieElement);
@@ -58,21 +76,9 @@ async function displayDetailedMovie(movieDetails) {
     }
 };
 
-async function handleMovieClick(movieId) {
-    try {
-        const movieDetails = await fetchMoviesDetails(movieId);
 
-        if (movieDetails && Object.keys(movieDetails).length !== 0) {
-            displayDetailedMovie(movieDetails);
-            window.location.href = `product/product.html`;
-            console.log("movie id is found", movieId);
-        } else {
-            console.error("movie details not found");
-        }
-    } catch (error) {
-        console.error("Error handling movie click:", error);
-    }
-};
+
+console.log("Working 3");
 
 
 // // DomContent Loads
@@ -128,7 +134,7 @@ async function handleMovieClick(movieId) {
 // };
 
 
-// // Display the correct item in cart 
+// // Display the correct item in cart
 // async function displayCartItem(title, price, imgSrc) {
 //     try {
 //         const cartItemContainer = document.querySelector(".cart-dropdown-content")
@@ -149,7 +155,7 @@ async function handleMovieClick(movieId) {
 //                     <div class="cart-item-price">${price}KR</div>
 //                 </div>
 //                 <button type="button" class="remove-item" value="Remove">Remove</button>
-//             `; 
+//             `;
 
 //         // cartItemContainer.innerHTML = ""; //replaces instead of adding
 //         cartItemContainer.appendChild(cartItem);
@@ -202,7 +208,7 @@ async function handleMovieClick(movieId) {
 // //          const title = cartItem.querySelector(".cart-item-title").innerText;
 // //          const price = cartItem.querySelector(".cart-item-price").innerText;
 // //          const imgSrc = cartItem.querySelector(".cart-img").src;
-        
+
 // //      cartData.push({title, price, imgSrc});
 // //     });
 
@@ -229,13 +235,13 @@ async function handleMovieClick(movieId) {
 //             const cartTotal = document.createElement("div");
 //             cartTotal.classList.add("cart-total");
 
-//             cartTotal.innerHTML =  ` 
+//             cartTotal.innerHTML =  `
 //                 <div class="total-title">Total:</div>
 //                 <div class="total-price">${total}KR</div>
 //                 <button type="submit" class="check-out">Check out</button>
 //                 <i class="fa-solid fa-xmark" id="close-cart"></i>
 //                 `;
-            
+
 
 //             cartTotalContainer.innerHTML = "";
 //             cartTotalContainer.appendChild(cartTotal);
@@ -255,7 +261,7 @@ async function handleMovieClick(movieId) {
 
 // async function handleCheckOutButtonClick() {
 //     const cartItems = document.querySelectorAll(".cart-item");
-    
+
 //     if (cartItems.length === 0) {
 //         alert("Your cart is empty. Add some items before checking out!")
 //         console.log("Check Out button clicked and find no items in cart");
@@ -273,9 +279,9 @@ async function handleMovieClick(movieId) {
 //         let total = 0;
 
 //         console.log("Total before calculation", total)
-    
+
 //         cartItems.forEach(cartItem => {
-            
+
 //             const priceElement = cartItem.querySelector(".cart-item-price");
 
 //             if (priceElement && priceElement.innerText) {
@@ -290,7 +296,7 @@ async function handleMovieClick(movieId) {
 
 //         // If price contains many decimals
 //         total = Math.round(total * 100) / 100;
-        
+
 //         totalValue.innerText = `${total}KR`;
 
 //     };
@@ -328,7 +334,7 @@ async function handleMovieClick(movieId) {
 //             movieElement.innerHTML = `
 //                 <img src="${movie.image.url}" alt="${movie.title}">
 //             `;
-      
+
 //             const moviePriceElement = document.createElement("div");
 //             moviePriceElement.classList.add("price-movie");
 //             moviePriceElement.innerHTML = `
@@ -358,7 +364,7 @@ async function handleMovieClick(movieId) {
 //         const imgSrc = movieContainer.querySelector("img").src;
 //         const title = movieContainer.querySelector("img").alt;
 //         const price = parseFloat(movieContainer.querySelector(".product-price").innerText.replace(" KR", ""));
-        
+
 //         console.log(title, price, imgSrc);
 
 //         displayCartItem(title, price, imgSrc);
@@ -379,7 +385,7 @@ async function handleMovieClick(movieId) {
 
 // // const movieElementClicked = document.querySelectorAll(".movie");
 // // movieElementClicked.forEach(img => img.addEventListener("click", detailedMovie));
-// // console.log("Go to movie product page when clicked on movie");  
+// // console.log("Go to movie product page when clicked on movie");
 
 // // async function handleMovieClick(movieId) {
 // //     try {
@@ -436,7 +442,7 @@ async function handleMovieClick(movieId) {
 
 // // const movieElementClicked = document.querySelectorAll(".movie");
 // // movieElementClicked.forEach(img => img.addEventListener("click", detailedMovie));
-// // console.log("Go to movie product page when clicked on movie");  
+// // console.log("Go to movie product page when clicked on movie");
 
 // // async function detailedMovie(movieId) {
 // //     try {
