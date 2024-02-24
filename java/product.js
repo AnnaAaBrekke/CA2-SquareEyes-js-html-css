@@ -17,10 +17,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         const urlParams = new URLSearchParams(window.location.search);
         const movieId = urlParams.get("id");
 
+        console.log(movieId);
+
         // Fetch movie details using the movie ID
         const movieDetails = await fetchMovieDetails(movieId);
 
-        // Now you can use movieDetails to display the information on the product page
         displayMovieDetails(movieDetails);
 
     } catch (error) {
@@ -30,19 +31,19 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 async function fetchMovieDetails(movieId) {
     try {
-        const response = await fetch("https://v2.api.noroff.dev/square-eyes/352ba432-5b5d-4ccc-9aba-f2704c500cf3");
+        const response = await fetch(`https://v2.api.noroff.dev/square-eyes/4696b9e6-ec6e-4672-a08d-3e3212a215c8/?=${movieId}`);
         const data = await response.json();
 
         if (data && data.data) {
-            console.log("API detail movie with data:", data.data);
+            console.log("Id detail movie with data:", data.data);
             return data.data;
         } else {
-            console.error("Invalid data format from the API");
-            return null;
+            console.error("Invalid id format from the API");
+            return [];
         }
     } catch (error) {
-        console.error("Error fetching movie details:", error);
-        return null;
+        console.error("Error fetching id details:", error);
+        return [];
     }
 };
 
