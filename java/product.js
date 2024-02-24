@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 async function fetchMovieDetails(movieId) {
     try {
-        const response = await fetch(`https://v2.api.noroff.dev/square-eyes/4696b9e6-ec6e-4672-a08d-3e3212a215c8/?=${movieId}`);
+        const response = await fetch(`https://v2.api.noroff.dev/square-eyes/b9e4edb1-e798-45e3-9c46-f7cd75b9326f/?=${movieId}`);
         const data = await response.json();
 
         if (data && data.data) {
@@ -52,6 +52,10 @@ function displayMovieDetails(movieDetails) {
 
     const movieElement = document.createElement("div");
     movieElement.classList.add("movie-page-cover");
+
+    // Is the movie is on sale or not (both ways)
+    const isOnSale = movieDetails.onSale === true;
+
     movieElement.innerHTML = `
         <img src="${movieDetails.image.url}" alt="${movieDetails.title}">
         <h1>${movieDetails.title}</h1>
@@ -63,8 +67,12 @@ function displayMovieDetails(movieDetails) {
         <h2>About this movie</h2>
         <p>${movieDetails.description}</p>
         <div class="sale-container">
-            <p class="original-price">${movieDetails.price}KR</p><p>${movieDetails.discountedPrice}KR <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i></p>
-
+            ${isOnSale ? `
+                <p class="original-price">${movieDetails.price}KR</p>
+                <p>${movieDetails.discountedPrice}KR <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i></p>
+            ` : `
+                <p>${movieDetails.price}KR <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i></p>
+            `}
         </div>
     `;
 

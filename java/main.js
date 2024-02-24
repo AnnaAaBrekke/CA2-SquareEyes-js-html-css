@@ -326,7 +326,7 @@ async function handleCheckOutButtonClick() {
     };
 };
 
-async function handleMovieClick() {
+async function handleMovieClick(movie) {
     window.location.href = "product/index.html?id=${movie.id}";
 };
 

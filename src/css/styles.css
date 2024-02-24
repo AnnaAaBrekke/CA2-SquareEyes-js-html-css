@@ -1275,7 +1275,7 @@ Media query for larger screens (e.g., desktop) */
 .product-page {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding: 0.2rem;
 }
 
 .movie-page {
@@ -1285,7 +1285,6 @@ Media query for larger screens (e.g., desktop) */
 .movie-page-cover {
   font-size: 26px;
   padding: 1rem;
-  margin-left: 1rem;
   margin-right: 1rem;
 }
 
@@ -1332,12 +1331,12 @@ Media query for larger screens (e.g., desktop) */
 }
 
 .movie-page-cover img {
-  filter: opacity(70%);
-  height: 500px;
+  filter: opacity(90%);
+  height: 600px;
   width: 100%;
   object-fit: cover;
-  border-radius: 5px;
-  border: 8px solid black
+  border-radius: 2px;
+  border: 3px solid black
 }
 
 .movie-cover-index {
@@ -1358,8 +1357,7 @@ Media query for larger screens (e.g., desktop) */
   }
 
   .movie-page-cover img {
-    filter: opacity(70%);
-    position: 60% 20%;
+    filter: opacity(90%);
    }
   }
 
@@ -1378,8 +1376,8 @@ Media query for larger screens (e.g., desktop) */
   }
 
   .movie-page-cover img {
-    filter: opacity(70%);
-    height: 500px;
+    filter: opacity(90%);
+    height: 600px;
     width: 100%;
     object-fit: cover;
     border-radius: 5px;
