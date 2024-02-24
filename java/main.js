@@ -44,7 +44,7 @@ window.addEventListener("load", () => {
     });
 });
 
-const API_BASE = "https://v2.api.noroff.dev/square-eyes";
+const API_BASE = "https://v2.api.noroff.dev/square-eyes/";
 
 // DomContent Loads
 document.addEventListener("DOMContentLoaded", function () {
