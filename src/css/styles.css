@@ -1285,6 +1285,8 @@ Media query for larger screens (e.g., desktop) */
 .movie-page-cover {
   font-size: 26px;
   padding: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 /* Media query for larger screens (e.g., desktop)
@@ -1376,7 +1378,7 @@ Media query for larger screens (e.g., desktop) */
   }
 
   .movie-page-cover img {
-    filter: opacity(20%);
+    filter: opacity(70%);
     height: 500px;
     width: 100%;
     object-fit: cover;
@@ -1456,6 +1458,7 @@ Media query for larger screens (e.g., desktop) */
   justify-content: center;
   align-items: center;
   width: auto;
+  margin-left: 1rem;
 }
 
 .you-might-movie-container img {

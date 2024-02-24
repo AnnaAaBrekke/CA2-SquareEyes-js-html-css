@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     } catch (error) {
         console.error("Error loading movie details", error);
     }
-})
+});
 
 async function fetchMovieDetails(movieId) {
     try {
@@ -44,7 +44,7 @@ async function fetchMovieDetails(movieId) {
         console.error("Error fetching movie details:", error);
         return null;
     }
-}
+};
 
 function displayMovieDetails(movieDetails) {
     const productContainer = document.querySelector(".movie-page");
