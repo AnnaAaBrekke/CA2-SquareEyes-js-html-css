@@ -34,6 +34,16 @@
 // Loading ERRORS
 // Remove Console Logs
 
+window.addEventListener("load", () => {
+    const loader = document.querySelector(".loader");
+
+    loader.classList.add("loader-hidden");
+
+    loader.addEventListener("transitionend", () => {
+        loader.remove();  
+    });
+});
+
 const API_BASE = "https://v2.api.noroff.dev/square-eyes";
 
 // DomContent Loads
@@ -220,14 +230,13 @@ async function handleCheckOutButtonClick() {
 };
 
 
+
 // Update Total
   async function updateTotal() {
         const cartItems = document.querySelectorAll(".cart-item");
         const totalValue = document.querySelector(".total-price");
 
         let total = 0;
-
-        console.log("Total before calculation", total)
     
         cartItems.forEach(cartItem => {
             
@@ -249,6 +258,7 @@ async function handleCheckOutButtonClick() {
         totalValue.innerText = `${total}KR`;
 
     };
+
 
 
   function removeCartItem(event){

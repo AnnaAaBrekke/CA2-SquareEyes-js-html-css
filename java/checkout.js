@@ -1,22 +1,15 @@
-// A function to remove items from the cart ✅
-// A function to calculate the total cost of the items in the cart ✅
-// An event listener to remove items from the cart when the user clicks the 'Remove' button ✅
-// The ability to save the cart data to the local storage/session storage 
-// Redirect to the Check Out Page ✅
-// A check out page ✅
-// Display the cart data to a check out page
-// An event listener to pay items from the cart when the user clicks the 'Pay' button and redirect to the Confirmation page ✅
-// Confirmation order page or alert on successfully 
 
-// Clean up 
-// Export / Import
-// CSS
-
-// Reviews
-
-// Change to correct URLS
 // Loading ERRORS
-// Remove Console Logs
+
+window.addEventListener("load", () => {
+    const loader = document.querySelector(".loader");
+
+    loader.classList.add("loader-hidden");
+
+    loader.addEventListener("transitionend", () => {
+        loader.remove();  
+    });
+});
 
 // DomContent Loads
 document.addEventListener("DOMContentLoaded", function () {
@@ -432,7 +425,7 @@ document.addEventListener("DOMContentLoaded", main);
 
 
 
-
+// DID NOT WORK:
 
 // // const API_BASE = "https://v2.api.noroff.dev/square-eyes";
 // // let dropdownCart = document.querySelector(".cart-container");
