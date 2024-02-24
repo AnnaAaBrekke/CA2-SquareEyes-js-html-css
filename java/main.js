@@ -21,18 +21,18 @@
 // Alert where needed ✅
 // Confirm where needed ✅
 
-// As a user, I want to view a single product page with more detail.🚫
-// Add to cart from the movie-page detailed as well 🚫
+// Add to cart from the movie-page detailed as well 👩🏽‍💻
+// As a user, I want to view a single product page with more detail.👩🏽‍💻
 
-// Clean up 
+// Review
+
+// Clean up ✅
 // Export / Import 🚫
 // CSS ✅
 
-// Reviews: That is what Oliver answered  : "Reviews are not marked, and we should be able to see comments on the actual PR page itself" So the idea is to check the code of the student and make some pull request with some comment 🙂Something to fix for example
-
 // Change to correct URLS ✅
-// Loading ERRORS
-// Remove Console Logs
+// Loading ERRORS ✅
+// Remove Console Logs 
 
 window.addEventListener("load", () => {
     const loader = document.querySelector(".loader");
