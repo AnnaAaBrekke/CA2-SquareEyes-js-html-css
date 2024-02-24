@@ -36,7 +36,7 @@
 
 // Change to correct URLS ✅
 // Loading ERRORS ✅
-// Remove Console Logs 
+// Remove Console Logs ✅
 
 window.addEventListener("load", () => {
     const loader = document.querySelector(".loader");
