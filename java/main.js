@@ -217,7 +217,7 @@ async function handleCheckOutButtonClick() {
     if (cartItems.length === 0) {
         alert("Your cart is empty. Add some items before checking out!")
     } else {
-        window.location.href = "checkout/index.html";
+        window.location.href = "./checkout/index.html";
     }
 };
 
@@ -309,7 +309,7 @@ async function handleCheckOutButtonClick() {
 };
 
 async function handleMovieClick(movie) {
-    window.location.href = "product/index.html?id=${movie.id}";
+    window.location.href = "./product/index.html?id=${movie.id}";
 };
 
 
