@@ -1330,11 +1330,12 @@ Media query for larger screens (e.g., desktop) */
 }
 
 .movie-page-cover img {
-  filter: opacity(20%);
+  filter: opacity(70%);
   height: 500px;
   width: 100%;
   object-fit: cover;
   border-radius: 5px;
+  border: 8px solid black
 }
 
 .movie-cover-index {
@@ -1355,7 +1356,7 @@ Media query for larger screens (e.g., desktop) */
   }
 
   .movie-page-cover img {
-    filter: opacity(20%);
+    filter: opacity(70%);
     position: 60% 20%;
    }
   }
@@ -1393,7 +1394,7 @@ Media query for larger screens (e.g., desktop) */
   justify-content: center;
 }
 
-.price {
+.sale-container {
   max-width: 1440px;
   height: 3rem;
   padding: 1rem;
@@ -1401,18 +1402,14 @@ Media query for larger screens (e.g., desktop) */
   border-radius: 10px;
   background-color: rgb(21, 15, 11);
   color: #ffffff;
-  border: 5px solid black;
+  border: 2px solid black;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: 1rem;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   transition: background-color 0.3s;
-}
-
-.price:hover {
-  background-color: grey;
 }
 
 /* Media query for larger screens (e.g., desktop)
@@ -2184,4 +2181,12 @@ input[type="message"] {
   max-width: 600px;
   margin: auto;
   padding: 1rem;
+}
+
+
+/* OTHER */
+
+.original-price {
+  text-decoration: line-through;
+  color: grey;
 }

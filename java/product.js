@@ -54,12 +54,17 @@ function displayMovieDetails(movieDetails) {
     movieElement.innerHTML = `
         <img src="${movieDetails.image.url}" alt="${movieDetails.title}">
         <h1>${movieDetails.title}</h1>
-        <p>${movieDetails.genre}</p>
-        <p>${movieDetails.released}</p>
+        <div class="movie-index">
+            <p>Genre: ${movieDetails.genre}</p>
+            <p>Year: ${movieDetails.released}</p>
+            <p>Rating: ${movieDetails.rating}</p>
+        </div>
+        <h2>About this movie</h2>
         <p>${movieDetails.description}</p>
-        <p>${movieDetails.rating}</p>
-        <p>${movieDetails.price} KR</p>
-        <p>${movieDetails.discountedPrice} KR</p>
+        <div class="sale-container">
+            <p class="original-price">${movieDetails.price}KR</p><p>${movieDetails.discountedPrice}KR <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i></p>
+
+        </div>
     `;
 
     productContainer.appendChild(movieElement);
