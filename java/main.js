@@ -40,6 +40,7 @@ const API_BASE = "https://v2.api.noroff.dev/square-eyes";
 document.addEventListener("DOMContentLoaded", function () {
     loadCartFromSessionStorage();
     console.log("DOMContentLoaded works the correct way");
+
 });
 
 // ---------
@@ -89,12 +90,10 @@ document.body.addEventListener("click", (event) => {
 };
 
 
-
-
 // Display the correct item in cart 
 let isCartEmpty = true; // Variable to track if the cart is empty
 
-  async function displayCartItem(title, price, imgSrc) {
+async function displayCartItem(title, price, imgSrc) {
     try {
         const cartItemContainer = document.querySelector(".cart-dropdown-content");
 
@@ -301,9 +300,9 @@ async function handleCheckOutButtonClick() {
             movieElement.appendChild(moviePriceElement);
 
 
-        // Event listener to each movie poster image
-        const detailedMovieElement = movieElement.querySelector(".movie-container img");
-        detailedMovieElement.addEventListener("click", () => handleMovieClick(movie));
+        // // Event listener to each movie poster image
+        // const detailedMovieElement = movieElement.querySelector(".movie-container img");
+        // detailedMovieElement.addEventListener("click", () => handleMovieClick(movie));
     });
 
     console.log("Movies displayed successfully");
@@ -313,55 +312,55 @@ async function handleCheckOutButtonClick() {
     };
 };
 
-async function handleMovieClick(movie) {
-    try {
-        console.log("Clicked movie ID:", movie.id);
+// async function handleMovieClick(movie) {
+//     try {
+//         console.log("Clicked movie ID:", movie.id);
 
-        if (movie.title && Object.keys(movie.title).length !== 0) {
-            window.location.assign(`product/index.html?id=${movie.id}`);
-            console.log("Movie details found:", movie.title);
-        } else {
-            const movieDetails = await fetchMovieDetails(movie.id);
+//         if (movie.title && Object.keys(movie.title).length !== 0) {
+//             window.location.assign(`product/index.html?id=${movie.id}`);
+//             console.log("Movie details found:", movie.title);
+//         } else {
+//             const movieDetails = await fetchMovieDetails(movie.id);
 
-            if (movieDetails && Object.keys(movieDetails).length !== 0) {
-                // Save the movie details to sessionStorage for retrieval on the product page
-                sessionStorage.setItem("selectedMovie", JSON.stringify(movieDetails));
+//             if (movieDetails && Object.keys(movieDetails).length !== 0) {
+//                 // Save the movie details to sessionStorage for retrieval on the product page
+//                 sessionStorage.setItem("selectedMovie", JSON.stringify(movieDetails));
 
-                window.location.assign(`product/index.html?id=${movie.id}`);
-                console.log("Movie details fetched:", movieDetails);
-            } else {
-                console.error("Movie details not found");
-            }
-        }
-    } catch (error) {
-        console.error("Error handling movie click:", error);
-    }
-};
+//                 window.location.assign(`product/index.html?id=${movie.id}`);
+//                 console.log("Movie details fetched:", movieDetails);
+//             } else {
+//                 console.error("Movie details not found");
+//             }
+//         }
+//     } catch (error) {
+//         console.error("Error handling movie click:", error);
+//     }
+// };
 
 
-async function fetchMovieDetails(id) {
-    try {
-        const response = await fetch((`${API_BASE}/${id}`), {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+// async function fetchMovieDetails(id) {
+//     try {
+//         const response = await fetch((`${API_BASE}/${id}`), {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//         });
 
-        const data = await response.json();
+//         const data = await response.json();
 
-        if (data && data.data) {
-            console.log("API movie details", data.data);
-            return data.data;
-        } else {
-            console.error("Invalid detailed data format from the API");
-            return {};
-        }
-    } catch (error) {
-        console.error("Error fetching movie details:", error);
-        return {};
-    }
-};
+//         if (data && data.data) {
+//             console.log("API movie details", data.data);
+//             return data.data;
+//         } else {
+//             console.error("Invalid detailed data format from the API");
+//             return {};
+//         }
+//     } catch (error) {
+//         console.error("Error fetching movie details:", error);
+//         return {};
+//     }
+// };
 
 
 document.querySelector(".movie-container").addEventListener("click", async (event)=> {
@@ -373,13 +372,13 @@ document.querySelector(".movie-container").addEventListener("click", async (even
         
         console.log(title, price, imgSrc);
 
-        const movieDetails = await fetchMovieDetails(movieContainer.dataset.movieId);
-          // Display the details
-          if (movieDetails && Object.keys(movieDetails).length !== 0) {
-            displayDetailedMovie(movieDetails);
-        } else {
-            console.error("Movie details not found");
-        }
+        // const movieDetails = await fetchMovieDetails(movieContainer.dataset.movieId);
+        //   // Display the details
+        //   if (movieDetails && Object.keys(movieDetails).length !== 0) {
+        //     displayDetailedMovie(movieDetails);
+        // } else {
+        //     console.error("Movie details not found");
+        // }
 
 
         displayCartItem(title, price, imgSrc);

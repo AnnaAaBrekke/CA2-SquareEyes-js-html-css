@@ -1,18 +1,20 @@
-
 // const API_BASE = "https://v2.api.noroff.dev/square-eyes";
+// let dropdownCart = document.querySelector(".cart-container");
 
-// DomContent Loads
-document.addEventListener("DOMContentLoaded", function () {
-    loadCartFromSessionStorage();
+document.addEventListener("DOMContentLoaded", async function () {
+    const movies = await fetchMovies();
+    await saveCartToSessionStorage();
+    await loadCartFromSessionStorage();
+    await displayCartItem();
+    await updateTotal();
     console.log("DOMContentLoaded works the correct way");
 });
-
-
 
 // Fetch movies from the API
 async function fetchMovies() {
     try {
-        const response = await fetch("https://v2.api.noroff.dev/square-eyes");
+        console.log("API URL:", API_BASE);
+        const response = await fetch(API_BASE);
         const data = await response.json();
 
         if (Array.isArray(data.data)) {
@@ -28,11 +30,7 @@ async function fetchMovies() {
     }
 };
 
-// ------
-let dropdownCart = document.querySelector(".dropdown-cart");
-
-let isCartEmpty = true; // Variable to track if the cart is empty
-
+// Display cart item
 async function displayCartItem(title, price, imgSrc) {
     try {
         const cartItemContainer = document.querySelector(".cart-dropdown-content");
@@ -45,90 +43,78 @@ async function displayCartItem(title, price, imgSrc) {
         imgElement.alt = title;
         imgElement.src = imgSrc;
 
-        imgElement.onload = function () {
-            const newCartItem = document.createElement("div");
-            newCartItem.classList.add("cart-item");
+        const newCartItem = document.createElement("div");
+        newCartItem.classList.add("cart-item");
 
-            newCartItem.innerHTML = `
+        newCartItem.innerHTML = `
+            <img src="${imgSrc}" alt="${title}" class="cart-img">
+            <div class="cart-item-info">
                 <div class="cart-item-title">${title}</div>
-                <img src="${imgSrc}" alt="${title}" class="cart-img">
-                <div class="cart-item-info">
-                    <div class="cart-item-price">${price}</div>
-                </div>
-                <button type="button" class="remove-item" value="Remove">Remove</button>
-            `;
+                <div class="cart-item-price">${price}KR</div>
+            </div>
+            <button type="button" class="remove-item" value="Remove">Remove</button>
+        `;
 
-            // Checking if the cart is empty
-            if (isCartEmpty) {
-            // Replacing the existing content if the cart is empty
-            cartItemContainer.innerHTML = "";
-            isCartEmpty = false;
-        }
+        // Append the new item directly to the container without clearing
+        cartItemContainer.appendChild(newCartItem);
+        console.log("A new cart-item is displayed");
 
-            // Append the new item directly to the container without clearing
-            cartItemContainer.appendChild(newCartItem);
-            console.log("A new cart-item is displayed");
+        // dropdownCart.classList.add("active");
 
-            dropdownCart.classList.add("active");
+        const removeCartButtons = document.querySelectorAll(".remove-item");
+        removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
+        console.log("Remove cart item when clicked button");
 
-            const removeCartButtons = document.querySelectorAll(".remove-item");
-            removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
-            console.log("Remove cart item when clicked button");
-
-            updateTotal();
-            saveCartToSessionStorage();
-        };
-
-        cartItem.appendChild(imgElement);
-
+        updateTotal();
+        saveCartToSessionStorage();
     } catch (error) {
         console.error("Error displaying data in cart:", error);
     }
 };
 
-
-
+// Save cart to session storage
 async function saveCartToSessionStorage() {
-    sessionStorage.removeItem("cart");
-    console.log("The storage is empty before adding");
+    // sessionStorage.removeItem("cart");
+    console.log("The storage is not cleared before adding");
 
     const cartItems = document.querySelectorAll(".cart-item");
     const cartData = [];
 
     cartItems.forEach((cartItem) => {
-        const title = cartItem.querySelector(".cart-item-title");
-        const price = cartItem.querySelector(".cart-item-price");
-        const imgSrc = cartItem.querySelector(".cart-img");
+        const title = cartItem.querySelector(".cart-item-title").innerText;
+        const price = cartItem.querySelector(".cart-item-price").innerText;
+        const imgSrc = cartItem.querySelector(".cart-img").src;
 
-        cartData.push({title, price, imgSrc});
+        cartData.push({ title, price, imgSrc });
     });
 
     sessionStorage.setItem("cart", JSON.stringify(cartData));
     console.log("Cart data is correctly saved to the session storage");
 };
 
-// Cart-total outside
+// Display cart total
 async function displayCartTotal(cartItems) {
     try {
         const cartTotalContainer = document.querySelector(".cart-dropdown-total");
 
         const total = Array.from(cartItems).reduce((acc, cartItem) => {
-            const price = parseFloat(cartItem.querySelector(".cart-item-price").price);
+            const price = parseFloat(cartItem.querySelector(".cart-item-price"));
             const quantity = 1;
             return acc + (price * quantity);
-        }, 0);  
+        }, 0);
 
         const cartTotal = document.createElement("div");
         cartTotal.classList.add("cart-total");
-        cartTotal.innerHTML = ` 
-            <div class="total-title">Total</div>
+
+        cartTotal.innerHTML = `
+            <div class="total-title">Total:</div>
             <div class="total-price">${total}KR</div>
             <button type="submit" class="Pay">Pay</button>
         `;
 
         cartTotalContainer.innerHTML = "";
         cartTotalContainer.appendChild(cartTotal);
-        console.log("The total and pay are displayed");
+        console.log("The total and check out is displayed");
 
         updateTotal();
 
@@ -137,7 +123,7 @@ async function displayCartTotal(cartItems) {
         console.log("Event listener added to Pay Button");
 
     } catch (error) {
-        console.error("Error adding total on checkout", error);
+        console.error("Error adding submit and total", error);
     }
 };
 
@@ -150,14 +136,13 @@ async function handlePayButtonClick() {
 
         if (confirmPayment) 
             window.location.href = "checkout/../confirmation/index.html";
-            console.log("Confirm and goes to confirmation page");
-
+        
     } else {
             window.location.href = "checkout/../confirmation/index.html"
     }
 };
 
-// Update Total
+// Update total
 async function updateTotal() {
     const cartItems = document.querySelectorAll(".cart-item");
     const totalValue = document.querySelector(".total-price");
@@ -167,32 +152,43 @@ async function updateTotal() {
     cartItems.forEach(cartItem => {
         const priceElement = cartItem.querySelector(".cart-item-price");
 
-    if (priceElement && priceElement.innerText) {
-        const price = parseFloat(priceElement.textContent.replace("KR", "")) || 0;
-        const quantityElement = 1;
-        total = total + (price * quantityElement);
-    };
-});
+        if (priceElement && priceElement.innerText) {
+            const price = parseFloat(priceElement.innerText.replace("KR", "")) || 0;
+            const quantityElement = 1;
+            total = total + (price * quantityElement);
+        };
 
-    console.log("Total after calcuation", total) // NaN
+    });
+
+    console.log("Total after calculation", total);
 
     // If price contains many decimals
     total = Math.round(total * 100) / 100;
-    
+
     totalValue.innerText = `${total}KR`;
-
+    console.log("Total is displayed correct")
 };
 
-function removeCartItem(event){
-    const buttonClicked = event.target;
-    const cartItem = buttonClicked.closest(".cart-item");
 
-    cartItem.remove();
-    console.log("The closest cart item is removed when clicked");
+function removeCartItem(event) {
+    try {
+        const buttonClicked = event.target;
+        const cartItem = buttonClicked.closest(".cart-item");
+        console.log("Found the remove-button");
 
-    updateTotal();
-    saveCartToSessionStorage();
-};
+        if (cartItem) {
+            cartItem.remove();
+            console.log("The closest cart item is removed when clicked");
+
+            updateTotal();
+            saveCartToSessionStorage();
+        } else {
+            console.error("Could not find the cart item to remove.");
+        }
+    } catch (error) {
+        console.error("Error removing cart item:", error);
+    }
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     // Simulate a fake click on remove buttons when the page loads
@@ -202,9 +198,69 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // ------
 
+// // async function addCart(title, price, imgSrc) {
+// //      console.log(title, price, imgSrc);
+
+// displayCartItem(title, price, imgSrc);
+// updateTotal();
+     
+
+// document.addEventListener("DOMContentLoaded", async () => {
+//     const movies = await fetchMovies();
+//     await displayMovies(movies);
+// });
+
+
+// Session storage - store the data to the checkout page
+// async function loadCartFromSessionStorage() {
+//     const savedCart = sessionStorage.getItem("cart");
+
+//     if (savedCart) {
+//         clearCart();
+
+//         const cartData = JSON.parse(savedCart);
+
+//         cartData.forEach(({title, price, imgSrc }) => {
+//             displayCartItem(title, price, imgSrc);
+//         });
+
+//     updateTotal();
+
+//     console.log("Loaded cart - The cart data is loaded and saved from the session storage");
+//     }
+// };
+
+// function clearCart() {
+//     const cartItemContainer = document.querySelector(".cart-dropdown-content");
+//     cartItemContainer.innerHTML = "";
+// };
+
+// Session storage - store the data to the checkout page
+async function loadCartFromSessionStorage() {
+    try {
+        const savedCart = sessionStorage.getItem("cart");
+
+        if (savedCart) {
+            const cartData = JSON.parse(savedCart);
+
+            cartData.forEach(({ title, price, imgSrc }) => {
+                displayCartItem(title, price, imgSrc);
+            });
+
+            updateTotal();
+
+            console.log("Loaded cart - The cart data is loaded and saved from the session storage");
+        }
+    } catch (error) {
+        console.error("Error loading cart from session storage:", error);
+    }
+};
+
+
 async function displayMovies(movies) {
     try {
         const moviesContainer = document.querySelector(".movie-container");
+        console.log("Found the movie-container");
 
         movies.forEach(movie => {
             const movieElement = document.createElement("div");
@@ -217,7 +273,6 @@ async function displayMovies(movies) {
             moviePriceElement.classList.add("price-movie");
             moviePriceElement.innerHTML = `
                 <div class="price-movie">
-                    <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
                     <span class="product-price">${movie.price} KR</span>
                 </div>
             `;
@@ -233,57 +288,7 @@ async function displayMovies(movies) {
     }
 };
 
-async function addCart(title, price, imgSrc) {
-     console.log(title, price, imgSrc);
-
-displayCartItem(title, price, imgSrc);
-    
-updateTotal();
-     
- };
-
-document.addEventListener("DOMContentLoaded", async () => {
-    const movies = await fetchMovies();
-    await displayMovies(movies);
-});
 
 
-// Session storage - store the data to the checkout page
-async function loadCartFromSessionStorage() {
-    const savedCart = sessionStorage.getItem("cart");
-
-    if (savedCart) {
-        clearCart();
-
-        const cartData = JSON.parse(savedCart);
-
-        cartData.forEach(({title, price, imgSrc }) => {
-            displayCartItem(title, price, imgSrc);
-        });
-
-    updateTotal();
-
-    console.log("Loaded cart - The cart data is loaded and saved from the session storage");
-    }
-};
-
-function clearCart() {
-    const cartItemContainer = document.querySelector(".cart-dropdown-content");
-    cartItemContainer.innerHTML = "";
-};
-
-async function main() {
-    try {
-        const movies = await fetchMovies();
-        await displayMovies(movies);
-        await loadCartFromSessionStorage();
-        await displayCartTotal();
-        await updateTotal();
-    } catch (error) {
-        console.error("Error in the main async function:", error);
-    }
-}
-
-document.addEventListener("DOMContentLoaded", main);
 
 
