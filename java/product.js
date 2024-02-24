@@ -1,13 +1,72 @@
-document.addEventListener("DOMContentLoaded", async () => {
-    // Retrieve the saved movie details from sessionStorage
-    const selectedMovie = JSON.parse(sessionStorage.getItem("selectedMovie"));
+// document.addEventListener("DOMContentLoaded", async () => {
+//     // Retrieve the saved movie details from sessionStorage
+//     const selectedMovie = JSON.parse(sessionStorage.getItem("selectedMovie"));
 
-    if (selectedMovie && Object.keys(selectedMovie).length !== 0) {
-        await displayDetailedMovie(selectedMovie);
-    } else {
-        console.error("Selected movie details not found");
+//     if (selectedMovie && Object.keys(selectedMovie).length !== 0) {
+//         await displayDetailedMovie(selectedMovie);
+//     } else {
+//         console.error("Selected movie details not found");
+//     }
+// });
+
+// product.js
+
+document.addEventListener("DOMContentLoaded", async function () {
+    try {
+        // Get movie ID from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const movieId = urlParams.get("id");
+
+        // Fetch movie details using the movie ID
+        const movieDetails = await fetchMovieDetails(movieId);
+
+        // Now you can use movieDetails to display the information on the product page
+        displayMovieDetails(movieDetails);
+
+    } catch (error) {
+        console.error("Error loading movie details", error);
     }
-});
+})
+
+async function fetchMovieDetails(movieId) {
+    try {
+        const response = await fetch("https://v2.api.noroff.dev/square-eyes/352ba432-5b5d-4ccc-9aba-f2704c500cf3");
+        const data = await response.json();
+
+        if (data && data.data) {
+            console.log("API detail movie with data:", data.data);
+            return data.data;
+        } else {
+            console.error("Invalid data format from the API");
+            return null;
+        }
+    } catch (error) {
+        console.error("Error fetching movie details:", error);
+        return null;
+    }
+}
+
+function displayMovieDetails(movieDetails) {
+    const productContainer = document.querySelector(".movie-page");
+
+    const movieElement = document.createElement("div");
+    movieElement.classList.add("movie-page-cover");
+    movieElement.innerHTML = `
+        <img src="${movieDetails.image.url}" alt="${movieDetails.title}">
+        <h1>${movieDetails.title}</h1>
+        <p>${movieDetails.genre}</p>
+        <p>${movieDetails.released}</p>
+        <p>${movieDetails.description}</p>
+        <p>${movieDetails.rating}</p>
+        <p>${movieDetails.price} KR</p>
+        <p>${movieDetails.discountedPrice} KR</p>
+    `;
+
+    productContainer.appendChild(movieElement);
+
+    console.log("Movie details displayed successfully", movieDetails);
+};
+
 
 
 
@@ -140,24 +199,24 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // // // ------
 
-// // // Fetch movies from the API
-// // async function fetchMovies() {
-// //     try {
-// //         const response = await fetch("https://v2.api.noroff.dev/square-eyes");
-// //         const data = await response.json();
+// Fetch movies from the API
+async function fetchMovies() {
+    try {
+        const response = await fetch("https://v2.api.noroff.dev/square-eyes");
+        const data = await response.json();
 
-// //         if (Array.isArray(data.data)) {
-// //             console.log("API movies with data:", data.data);
-// //             return data.data;
-// //         } else {
-// //             console.error("Invalid data format from the API");
-// //             return [];
-// //         }
-// //     } catch (error) {
-// //         console.error("Error fetching movies:", error);
-// //         return [];
-// //     }
-// // };
+        if (Array.isArray(data.data)) {
+            console.log("API movies with data:", data.data);
+            return data.data;
+        } else {
+            console.error("Invalid data format from the API");
+            return [];
+        }
+    } catch (error) {
+        console.error("Error fetching movies:", error);
+        return [];
+    }
+};
 
 
 // // // Display the correct item in cart
@@ -347,41 +406,41 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // // // // ------
 
-// // async function displayMovies(movies) {
-// //     try {
-// //         const moviesContainer = document.querySelector(".you-might-movie-container");
+async function displayMovies(movies) {
+    try {
+        const moviesContainer = document.querySelector(".you-might-movie-container");
 
-// //         // Clear existing innerHTML content
-// //         moviesContainer.innerHTML = "";
+        // Clear existing innerHTML content
+        moviesContainer.innerHTML = "";
 
-// //         movies.slice(0, 3).forEach(movie => {
-// //             const movieElement = document.createElement("div");
-// //             movieElement.classList.add("movie");
-// //             movieElement.innerHTML = `
-// //                 <img src="${movie.image.url}" alt="${movie.title}">
-// //             `;
+        movies.slice(3, 6).forEach(movie => {
+            const movieElement = document.createElement("div");
+            movieElement.classList.add("movie");
+            movieElement.innerHTML = `
+                <img src="${movie.image.url}" alt="${movie.title}">
+            `;
 
-// //             const moviePriceElement = document.createElement("div");
-// //             moviePriceElement.classList.add("price-movie");
-// //             moviePriceElement.innerHTML = `
-// //                 <div class="price-movie">
-// //                     <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
-// //                     <span class="product-price">${movie.price} KR</span>
-// //                 </div>
-// //             `;
+            const moviePriceElement = document.createElement("div");
+            moviePriceElement.classList.add("price-movie");
+            moviePriceElement.innerHTML = `
+                <div class="price-movie">
+                    <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
+                    <span class="product-price">${movie.price} KR</span>
+                </div>
+            `;
 
-// //             movieElement.addEventListener("click", () => detailedMovie(movie.id));
+            movieElement.addEventListener("click", () => detailedMovie(movie.id));
 
-// //             moviesContainer.appendChild(movieElement);
-// //             movieElement.appendChild(moviePriceElement);
+            moviesContainer.appendChild(movieElement);
+            movieElement.appendChild(moviePriceElement);
 
-// //         });
+        });
 
-// //         console.log("You might like these movies are displayed successfully");
-// //     } catch (error) {
-// //         console.error("Error displaying movies", error);
-// //     }
-// // };
+        console.log("You might like these movies are displayed successfully");
+    } catch (error) {
+        console.error("Error displaying movies", error);
+    }
+};
 
 
 // document.querySelector(".movie-container").addEventListener("click", async (event)=> {
@@ -518,10 +577,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 // // // // }
 
 
-// // document.addEventListener("DOMContentLoaded", async () => {
-// //     const movies = await fetchMovies();
-// //     await displayMovies(movies);
-// // });
+document.addEventListener("DOMContentLoaded", async () => {
+    const movies = await fetchMovies();
+    await displayMovies(movies);
+});
 
 // // // // ------
 

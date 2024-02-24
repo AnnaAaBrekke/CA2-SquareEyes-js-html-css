@@ -21,13 +21,16 @@
 // Alert where needed ✅
 // Confirm where needed ✅
 
-// Add to cart from the movie-page detailed as well 👩🏽‍💻
+// A product page ✅
+// Add to cart from the product/movie-page detailed as well 👩🏽‍💻
 // As a user, I want to view a single product page with more detail.👩🏽‍💻
 
 // Review post
 // Review others
 
+// URL ✅
 // Clean up ✅
+// DRY principle (🚫/✅)
 // Export / Import 🚫
 // CSS ✅
 
@@ -311,9 +314,9 @@ async function handleCheckOutButtonClick() {
             movieElement.appendChild(moviePriceElement);
 
 
-        // // Event listener to each movie poster image
-        // const detailedMovieElement = movieElement.querySelector(".movie-container img");
-        // detailedMovieElement.addEventListener("click", () => handleMovieClick(movie));
+        // Event listener to each movie poster image
+        const detailedMovieElement = movieElement.querySelector(".movie-container img");
+        detailedMovieElement.addEventListener("click", () => handleMovieClick(movie));
     });
 
     console.log("Movies displayed successfully");
@@ -323,30 +326,11 @@ async function handleCheckOutButtonClick() {
     };
 };
 
-// async function handleMovieClick(movie) {
-//     try {
-//         console.log("Clicked movie ID:", movie.id);
+async function handleMovieClick() {
+    window.location.href = "product/index.html?id=${movie.image}";
+};
 
-//         if (movie.title && Object.keys(movie.title).length !== 0) {
-//             window.location.assign(`product/index.html?id=${movie.id}`);
-//             console.log("Movie details found:", movie.title);
-//         } else {
-//             const movieDetails = await fetchMovieDetails(movie.id);
 
-//             if (movieDetails && Object.keys(movieDetails).length !== 0) {
-//                 // Save the movie details to sessionStorage for retrieval on the product page
-//                 sessionStorage.setItem("selectedMovie", JSON.stringify(movieDetails));
-
-//                 window.location.assign(`product/index.html?id=${movie.id}`);
-//                 console.log("Movie details fetched:", movieDetails);
-//             } else {
-//                 console.error("Movie details not found");
-//             }
-//         }
-//     } catch (error) {
-//         console.error("Error handling movie click:", error);
-//     }
-// };
 
 
 // async function fetchMovieDetails(id) {

@@ -1274,11 +1274,13 @@ Media query for larger screens (e.g., desktop) */
 
 .product-page {
   display: flex;
-  margin: 0;
+  flex-direction: column;
+  padding: 1rem;
 }
 
 .movie-page {
-  background: linear-gradient(to bottom, rgb(71,71,71),rgb(71,71,71), rgb(128, 106, 89));}
+  background: linear-gradient(to bottom, rgb(71,71,71),rgb(71,71,71), rgb(128, 106, 89));
+}
 
 .movie-page-cover {
   font-size: 26px;
