@@ -14,7 +14,6 @@ window.addEventListener("load", () => {
 // DomContent Loads
 document.addEventListener("DOMContentLoaded", function () {
     loadCartFromSessionStorage();
-    console.log("DOMContentLoaded works the correct way");
 });
 
 // ------
@@ -26,7 +25,6 @@ async function fetchMovies() {
         const data = await response.json();
 
         if (Array.isArray(data.data)) {
-            console.log("API movies with data:", data.data);
             return data.data;
         } else {
             console.error("Invalid data format from the API");
@@ -65,14 +63,12 @@ async function displayCartItem(title, price, imgSrc) {
 
         // cartItemContainer.innerHTML = ""; //replaces instead of adding
         cartItemContainer.appendChild(cartItem);
-        console.log("The correct cart-item is displayed");
 
         // // Show the cart
         // dropdownCart.classList.add("active");
 
         const removeCartButtons = document.querySelectorAll(".remove-item");
         removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
-        console.log("Remove cart item when clicked button");
 
         updateTotal();
         saveCartToSessionStorage();
@@ -88,7 +84,6 @@ async function displayCartItem(title, price, imgSrc) {
 
 async function saveCartToSessionStorage() {
     sessionStorage.removeItem("cart");
-    console.log("The storage is empty before adding");
 
     const cartItems = document.querySelectorAll(".cart-item");
     const cartData = [];
@@ -102,7 +97,6 @@ async function saveCartToSessionStorage() {
     });
 
     sessionStorage.setItem("cart", JSON.stringify(cartData));
-    console.log("Cart data is correctly saved to the session storage");
 };
 
 //-------
@@ -128,13 +122,11 @@ async function displayCartTotal(cartItems) {
 
         cartTotalContainer.innerHTML = "";
         cartTotalContainer.appendChild(cartTotal);
-        console.log("The total and pay are displayed");
 
         updateTotal();
 
         const payButton = document.querySelector(".Pay");
         payButton.addEventListener("click", handlePayButtonClick);
-        console.log("Event listener added to Pay Button");
 
     } catch (error) {
         console.error("Error adding total on checkout", error);
@@ -142,7 +134,6 @@ async function displayCartTotal(cartItems) {
 };
 
 async function handlePayButtonClick() {
-    console.log("Pay button clicked");
     const cartItems = document.querySelectorAll(".cart-item");
     
     if (cartItems.length > 0) {
@@ -150,8 +141,6 @@ async function handlePayButtonClick() {
 
         if (confirmPayment) 
             window.location.href = "checkout/../confirmation/index.html";
-            console.log("Confirm and goes to confirmation page");
-
 
     } else {
             window.location.href = "checkout/../confirmation/index.html"
@@ -165,8 +154,6 @@ async function updateTotal() {
         const totalValue = document.querySelector(".total-price");
 
         let total = 0;
-
-        console.log("Total before calculation", total)
     
         cartItems.forEach(cartItem => {
             const priceElement = cartItem.querySelector(".cart-item-price");
@@ -178,8 +165,6 @@ async function updateTotal() {
         };
 
         });
-
-        console.log("Total after calcuation", total) // NaN
 
         // If price contains many decimals
         total = Math.round(total * 100) / 100;
@@ -193,7 +178,6 @@ function removeCartItem(event){
     const cartItem = buttonClicked.closest(".cart-item");
 
     cartItem.remove();
-    console.log("The closest cart item is removed when clicked");
 
     updateTotal();
 };
@@ -231,14 +215,12 @@ async function displayMovies(movies) {
 
         });
 
-        console.log("Movies displayed successfully");
     } catch (error) {
         console.error("Error displaying movies", error);
     }
 };
 
 async function addCart(title, price, imgSrc) {
-     console.log(title, price, imgSrc);
 
 displayCartItem(title, price, imgSrc);
     
@@ -272,7 +254,6 @@ async function loadCartFromSessionStorage() {
 
     updateTotal();
 
-    console.log("Loaded cart - The cart data is loaded and saved from the session storage");
     }
 };
 
@@ -288,8 +269,6 @@ async function main () {
         await loadCartFromSessionStorage();
         await displayCartTotal(document.querySelectorAll(".cart-item"));
         await updateTotal();
-
-        console.log("The main is not working");
 
     } catch (error) {
         console.error("Error in the main async function:", error);

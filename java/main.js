@@ -22,11 +22,11 @@
 // Confirm where needed ✅
 
 // A product page ✅
-// Add to cart from the product/movie-page detailed as well 👩🏽‍💻
-// As a user, I want to view a single product page with more detail.👩🏽‍💻
+// Add to cart from the product/movie-page detailed as well 🚫
+// As a user, I want to view a single product page with more detail.👩🏽‍💻✅
 
-// Review post
-// Review others
+// Review post ✅
+// Review others ✅
 
 // URL ✅
 // Clean up ✅
@@ -53,8 +53,6 @@ const API_BASE = "https://v2.api.noroff.dev/square-eyes/";
 // DomContent Loads
 document.addEventListener("DOMContentLoaded", function () {
     loadCartFromSessionStorage();
-    console.log("DOMContentLoaded works the correct way");
-
 });
 
 // ---------
@@ -63,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function () {
 let cartIcon = document.querySelector("#cart-icon");
 let dropdownCart = document.querySelector(".dropdown-cart");
 let closeCart = document.querySelector("#close-cart");
-console.log("Dropdown cart is created successfully");
 
 // Open cart
 cartIcon.onclick = () => {
@@ -78,7 +75,6 @@ closeCart.onclick = () => {
 document.body.addEventListener("click", (event) => {
     if (event.target.classList.contains("fa-xmark")) {
         dropdownCart.classList.remove("active");
-        console.log("When x is clicked the cart removes totally");
     }
 });
 
@@ -91,7 +87,6 @@ document.body.addEventListener("click", (event) => {
         const data = await response.json();
 
         if (Array.isArray(data.data)) {
-            console.log("API movies with data:", data.data);
             return data.data;
         } else {
             console.error("Invalid data format from the API");
@@ -141,14 +136,12 @@ async function displayCartItem(title, price, imgSrc) {
 
             // Append the new item directly to the container
             cartItemContainer.appendChild(newCartItem);
-            console.log("A new cart-item is displayed");
 
             // Show the cart
             dropdownCart.classList.add("active");
 
             const removeCartButtons = document.querySelectorAll(".remove-item");
             removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
-            console.log("Remove cart item when clicked button");
 
             updateTotal();
             saveCartToSessionStorage();
@@ -165,7 +158,6 @@ async function displayCartItem(title, price, imgSrc) {
 
   async function saveCartToSessionStorage() {
     sessionStorage.removeItem("cart");
-    console.log("The storage is empty before adding");
 
     const cartItems = document.querySelectorAll(".cart-item");
     const cartData = [];
@@ -179,7 +171,6 @@ async function displayCartItem(title, price, imgSrc) {
     });
 
     sessionStorage.setItem("cart", JSON.stringify(cartData));
-    console.log("Cart data is correctly saved to the session storage");
 };
 
 //-------
@@ -208,13 +199,11 @@ async function displayCartItem(title, price, imgSrc) {
 
             cartTotalContainer.innerHTML = "";
             cartTotalContainer.appendChild(cartTotal);
-            console.log("The total and check out is displayed");
 
             updateTotal();
 
             const CheckOutButton = document.querySelector(".check-out");
             CheckOutButton.addEventListener("click", handleCheckOutButtonClick);
-            console.log("Check Out button clicked");
 
 
     } catch (error) {
@@ -227,7 +216,6 @@ async function handleCheckOutButtonClick() {
     
     if (cartItems.length === 0) {
         alert("Your cart is empty. Add some items before checking out!")
-        console.log("Check Out button clicked and find no items in cart");
     } else {
         window.location.href = "checkout/index.html";
     }
@@ -254,15 +242,12 @@ async function handleCheckOutButtonClick() {
 
         });
 
-        console.log("Total after calcualtion", total) // NaN
-
         // If price contains many decimals
         total = Math.round(total * 100) / 100;
         
         totalValue.innerText = `${total}KR`;
 
     };
-
 
 
   function removeCartItem(event){
@@ -275,11 +260,9 @@ async function handleCheckOutButtonClick() {
         // If the cart is empty, clear the container
         if (isCartEmpty) {
             cartItemContainer.innerHTML = "";
-            console.log("InnerHTML is gone");
         }
 
     cartItem.remove();
-    console.log("The closest cart item is removed when clicked");
 
     updateTotal();
 };
@@ -319,7 +302,6 @@ async function handleCheckOutButtonClick() {
         detailedMovieElement.addEventListener("click", () => handleMovieClick(movie));
     });
 
-    console.log("Movies displayed successfully");
 
     } catch (error) {
         console.error("Error displaying movies", error);
@@ -331,33 +313,6 @@ async function handleMovieClick(movie) {
 };
 
 
-
-
-// async function fetchMovieDetails(id) {
-//     try {
-//         const response = await fetch((`${API_BASE}/${id}`), {
-//             method: 'GET',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//             },
-//         });
-
-//         const data = await response.json();
-
-//         if (data && data.data) {
-//             console.log("API movie details", data.data);
-//             return data.data;
-//         } else {
-//             console.error("Invalid detailed data format from the API");
-//             return {};
-//         }
-//     } catch (error) {
-//         console.error("Error fetching movie details:", error);
-//         return {};
-//     }
-// };
-
-
 document.querySelector(".movie-container").addEventListener("click", async (event)=> {
     if (event.target.classList.contains("fa-cart-plus")){
         const movieContainer = event.target.closest(".movie");
@@ -365,24 +320,12 @@ document.querySelector(".movie-container").addEventListener("click", async (even
         const title = movieContainer.querySelector("img").alt;
         const price = parseFloat(movieContainer.querySelector(".product-price").innerText.replace(" KR", ""));
         
-        console.log(title, price, imgSrc);
-
-        // const movieDetails = await fetchMovieDetails(movieContainer.dataset.movieId);
-        //   // Display the details
-        //   if (movieDetails && Object.keys(movieDetails).length !== 0) {
-        //     displayDetailedMovie(movieDetails);
-        // } else {
-        //     console.error("Movie details not found");
-        // }
-
-
         displayCartItem(title, price, imgSrc);
         updateTotal();
     }
 });
 
   async function addCart(title, price, imgSrc) {
-     console.log(title, price, imgSrc);
 
     displayCartItem(title, price, imgSrc);
      updateTotal();
@@ -400,7 +343,6 @@ async function GenreFilter() {
             button.textContent = genre;
             button.dataset.genre = genre;
             filterContainer.appendChild(button);
-            console.log("Button for genres is created")
         });
     } catch (error) {
         console.error("Error creating a filter for genres", error);
@@ -441,7 +383,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
     updateTotal();
-    console.log("Loaded cart - The cart data is loaded and saved from the session storage");
     }
 };
 
@@ -465,7 +406,6 @@ async function main () {
         await displayCartTotal(document.querySelectorAll(".cart-item"));
         await updateTotal();
 
-        console.log("The main is not working");
 
     } catch (error) {
         console.error("Error in the main async function:", error);
