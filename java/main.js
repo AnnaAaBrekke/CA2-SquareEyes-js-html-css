@@ -24,7 +24,8 @@
 // Add to cart from the movie-page detailed as well 👩🏽‍💻
 // As a user, I want to view a single product page with more detail.👩🏽‍💻
 
-// Review
+// Review post
+// Review others
 
 // Clean up ✅
 // Export / Import 🚫

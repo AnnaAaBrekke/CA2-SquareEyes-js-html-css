@@ -221,6 +221,7 @@ button:hover,
   position: relative;
   margin: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
 
 .cart-item-info {
   color: #000000;
@@ -245,6 +246,7 @@ button:hover,
   max-height: 100%;
   border-radius: 2px;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5); 
+}
 
 /* .quantity {
   border: 1px solid grey;
@@ -835,7 +837,7 @@ button:hover,
   flex: 0 0;
 } */
 
-/* } */ */
+/* } */ 
 
 /* Media query for smaller screens (e.g., mobile)
 @media (max-width: 600px) {
@@ -1411,12 +1413,12 @@ Media query for larger screens (e.g., desktop) */
   background-color: grey;
 }
 
-Media query for larger screens (e.g., desktop)
+/* Media query for larger screens (e.g., desktop)
 @media (min-width: 400px) {
   .price {
     width: 1400px;
   }
-}
+} */
 
 .about-this {
   padding: 1rem;
@@ -2180,41 +2182,4 @@ input[type="message"] {
   max-width: 600px;
   margin: auto;
   padding: 1rem;
-}
-
-
-/* Play Movie Page
-
-.movie {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  width: 100%;
-  padding: 1rem;
-  height: 400px;
-  margin: 4rem auto;
-  /* background-image: url(images/images/OnceUponATimeInHollywood.jpeg); */
-  object-fit: cover;
-  text-align: start;
-  font-size: 40px;
-  border-radius: 2px;
-}
-
-/* Media query for larger screens (e.g., desktop) */
-@media (min-width: 1440px) { */
-  /* .movie {
-    flex-direction: column;
-    width: 800px;
-    height: 500px;
-    object-fit: fill;
-} */
-}
-
-/* Media query for smaller screens (e.g., mobile) */
-/* @media (max-width: 600px) {
-  .movie {
-    flex-direction: ;
-    width: 500px;
-  } */
 }
