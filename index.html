@@ -14,6 +14,8 @@
 
 <body>
 
+    <div class="loader"></div>
+
     <header>
         <nav class="header-left">
             <a href="./index.html"><img class="SELogoBar" src="./images/images/SquareEyes_Logo-crop.png" alt="Futures Museum Logo"></a>
@@ -24,6 +26,14 @@
                 <div class="dropdown-cart">
                     <h2>Your Cart</h2>
                     <div class="cart-dropdown-content">
+                        <div class="cart-item">
+                        <div class="cart-item-title"></div>
+                        <img class="cart-img" src="" alt="">
+                            <div class="cart-item-info">
+                                <div class="cart-item-price"></div>
+                            </div>
+                            <button type="button" class="remove-item"  value="Remove">Remove</button>
+                        </div>
                     </div>
                     <div class="cart-dropdown-total">
                         <div class="cart-total">
@@ -38,7 +48,6 @@
                     <div class="dropdown">
                     <button class="nav-button"><i class="fa-solid fa-bars"></i></button>
                     <ul>
-                        <li><a href="listofmovies.html"><i class="fa-solid fa-film film-icon" alt="Film icon for my movies"></i> Movies</a></li>
                         <li><a href="about.html">About Us</a></li>
                         <li><a href="contact.html">Contact Us</a></li>
                     </ul>
@@ -76,10 +85,10 @@
 
     <section class="movies">
         <div class="filter-container">
-            <button class="genre-button" data-genre="all" >All Movies</button>
+            <button class="genre-button" data-genre="" >All Movies</button>
         </div>
         <div class="movie-container">
-            <img class="image-poster" src="" alt="" data-movie-id="">
+            <img class="image-poster" src="" alt="" id="">
             <div class="price-movie">
                 <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i>
                 <span class="product-price">kr</span>
@@ -113,8 +122,6 @@
             </div>
         </div>
     </footer>
-
-    <div class="loader"></div>
 
     <script src="java/main.js"></script>
 
