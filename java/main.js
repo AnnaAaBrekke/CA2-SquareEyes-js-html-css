@@ -52,7 +52,7 @@ const API_BASE = "https://v2.api.noroff.dev/square-eyes/";
 
 // DomContent Loads
 document.addEventListener("DOMContentLoaded", function () {
-    loadCartFromSessionStorage();
+    loadCartFromLocalStorage();
 });
 
 // ---------
@@ -89,11 +89,11 @@ document.body.addEventListener("click", (event) => {
         if (Array.isArray(data.data)) {
             return data.data;
         } else {
-            console.error("Invalid data format from the API");
-            return [];
+            throw new Error("Invalid data format from the API");
         }
     } catch (error) {
         console.error("Error fetching movies:", error);
+        alert("Error fetching movies. Please try again later.");
         return [];
     }
 };
@@ -144,7 +144,7 @@ async function displayCartItem(title, price, imgSrc) {
             removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
 
             updateTotal();
-            saveCartToSessionStorage();
+            saveCartToLocalStorage();
         };
 
         // Append the imgElement to the cartItem
@@ -156,8 +156,8 @@ async function displayCartItem(title, price, imgSrc) {
 };
 
 
-  async function saveCartToSessionStorage() {
-    sessionStorage.removeItem("cart");
+  async function saveCartToLocalStorage() {
+    localStorage.removeItem(".cart");
 
     const cartItems = document.querySelectorAll(".cart-item");
     const cartData = [];
@@ -170,7 +170,7 @@ async function displayCartItem(title, price, imgSrc) {
         cartData.push({title, price, imgSrc});
     });
 
-    sessionStorage.setItem("cart", JSON.stringify(cartData));
+    localStorage.setItem("cart", JSON.stringify(cartData));
 };
 
 //-------
@@ -254,17 +254,38 @@ async function handleCheckOutButtonClick() {
     const buttonClicked = event.target;
     const cartItem = buttonClicked.closest(".cart-item");
 
-        const cartItemContainer = document.querySelector(".cart-dropdown-content");
-        isCartEmpty = cartItemContainer.children.length === 0;
-    
-        // If the cart is empty, clear the container
-        if (isCartEmpty) {
-            cartItemContainer.innerHTML = "";
-        }
+    const titleToRemove = cartItem.dataset.title;    
+    findAndRemoveProduct(titleToRemove);
+
+    const cartItemContainer = document.querySelector(".cart-dropdown-content");
+    isCartEmpty = cartItemContainer.children.length === 0;
+
+    // If the cart is empty, clear the container
+    if (isCartEmpty) {
+        cartItemContainer.innerHTML = "";
+    }
 
     cartItem.remove();
-
     updateTotal();
+};
+
+function findAndRemoveProduct(title) {
+    let cart = JSON.parse(localStorage.cart);
+
+    if (cart.length === 1) {
+        localStorage.removeItem(".cart-item") //If only 1 item in cart, clear it.
+
+    } else {
+        let indexToRemove = cart.findIndex((movie) => 
+        movie.title === title); // Find the first instance of the movie inside the cart
+
+    if (indexToRemove !== -1) {
+        cart.splice(indexToRemove, 1) // Remove it from cart variable
+        localStorage.cart = JSON.stringify(cart); // Add the updated cart to localStorage
+    } else {
+        console.log("No match.");
+    }
+}   
 };
 
 
@@ -281,9 +302,14 @@ async function handleCheckOutButtonClick() {
             const movieElement = document.createElement("div");
             movieElement.classList.add("movie");
             movieElement.innerHTML = `
-                <img src="${movie.image.url}" alt="${movie.title}">
+                <img src="${movie.image.url}" alt="${movie.title}" id="${movie.id}">
             `;
-      
+        
+            // Add click event listener to movie poster
+            movieElement.querySelector('img').addEventListener('click', () => {
+                window.location.href = `../product/index.html?id=${movie.id}`;
+            });
+        
             const moviePriceElement = document.createElement("div");
             moviePriceElement.classList.add("price-movie");
             moviePriceElement.innerHTML = `
@@ -292,24 +318,20 @@ async function handleCheckOutButtonClick() {
                     <span class="product-price">${movie.price} KR</span>
                 </div>
             `;
-
+        
             moviesContainer.appendChild(movieElement);
             movieElement.appendChild(moviePriceElement);
-
-
-        // Event listener to each movie poster image
-        const detailedMovieElement = movieElement.querySelector(".movie-container img");
-        detailedMovieElement.addEventListener("click", () => handleMovieClick(movie));
-    });
+        });
 
 
     } catch (error) {
         console.error("Error displaying movies", error);
+        alert("Error displaying movies. Please try again later.");
     };
 };
 
 async function handleMovieClick(movie) {
-    window.location.href = "./product/index.html?id=${movie.id}";
+    window.location.href = `../product/index.html?id=${movie.id}`;
 };
 
 
@@ -346,6 +368,7 @@ async function GenreFilter() {
         });
     } catch (error) {
         console.error("Error creating a filter for genres", error);
+        alert("Error creating a filter for genres. Please try again later.");
     }
 };
 
@@ -369,9 +392,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // Check Out Page
 
-// Session storage - store the data to the checkout page
-  async function loadCartFromSessionStorage() {
-    const savedCart = sessionStorage.getItem("cart");
+// Local storage - store the data to the checkout page
+  async function loadCartFromLocalStorage() {
+    const savedCart = localStorage.getItem("cart");
 
     if (savedCart) {
         clearCart();
@@ -393,6 +416,8 @@ function clearCart() {
 
 updateTotal();
 
+
+
 async function main () {
     try {
         const movies = await fetchMovies();
@@ -401,7 +426,7 @@ async function main () {
         // await handleMovieClick();
         // await fetchMoviesDetails();
 
-        await loadCartFromSessionStorage();
+        await loadCartFromLocalStorage();
 
         await displayCartTotal(document.querySelectorAll(".cart-item"));
         await updateTotal();
@@ -409,6 +434,7 @@ async function main () {
 
     } catch (error) {
         console.error("Error in the main async function:", error);
+        alert("An unexpected error occurred. Please try again later.");
     }
 };
 

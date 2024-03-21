@@ -111,8 +111,8 @@ button:hover,
 
 .dropdown ul {
   list-style: none;
-  width: 150px;
-  height: 180px;
+  width: 140px;
+  height: 120px;
   justify-content: space-around;
   align-items: center;
   border-radius: 5px;
@@ -630,6 +630,7 @@ button:hover,
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 }
 
 .loader-hidden {
@@ -2097,6 +2098,7 @@ input[type="message"] {
 
 .contact-info-boxes {
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 1rem;
   padding: 1rem;
