@@ -64,7 +64,7 @@ function displayMovieDetails(movieDetails) {
         const isOnSale = movieDetails.onSale && movieDetails.onSale === true;
 
     movieElement.innerHTML = `
-        <img src="${movieDetails.image}" alt="${movieDetails.title}" id="${movieDetails.id}">
+        <img src="${movieDetails.image.url}" alt="${movieDetails.title}" id="${movieDetails.id}">
         <h1>${movieDetails.title}</h1>
         <div class="movie-index">
             <p>Genre: ${movieDetails.genre}</p>
