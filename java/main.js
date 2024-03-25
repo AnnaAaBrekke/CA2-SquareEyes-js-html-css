@@ -313,22 +313,27 @@ document.querySelector(".movie-container").addEventListener("click", async (even
      updateTotal();
  };
 
+const addedGenres = new Set();
+
 async function GenreFilter() {
     try {
         const movies = await fetchMovies();
-        const genres = [...new Set (movies.map(movie => movie.genre))];
+        const genres = [...new Set(movies.map(movie => movie.genre))];
         const filterContainer = document.querySelector(".filter-container");
 
-        genres.forEach (genre =>{
-            const button = document.createElement("button");
-            button.classList.add("genre-button");
-            button.textContent = genre;
-            button.dataset.genre = genre;
-            filterContainer.appendChild(button);
+        genres.forEach(genre => {
+            if (!addedGenres.has(genre)) {
+                const button = document.createElement("button");
+                button.classList.add("genre-button");
+                button.textContent = genre;
+                button.dataset.genre = genre;
+                filterContainer.appendChild(button);
+                addedGenres.add(genre);
+            }
         });
     } catch (error) {
         console.error("Error creating a filter for genres", error);
-        alert("Error creating a filter for genres. Please try again later.");
+        alert("error creating a filter for genres. Please try again later.");
     }
 };
 
