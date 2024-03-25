@@ -76,7 +76,7 @@ function displayMovieDetails(movieDetails) {
         <div class="sale-container">
             ${isOnSale ? `
                 <p class="original-price">${movieDetails.price}KR</p>
-                <p>${movieDetails.discountedPrice}KR <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i></p>
+                <p class="discounted-price">${movieDetails.discountedPrice}KR <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i></p>
             ` : `
                 <p>${movieDetails.price}KR <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i></p>
             `}
@@ -88,32 +88,26 @@ function displayMovieDetails(movieDetails) {
     productContainer.appendChild(movieElement);
 };
 
-document.querySelector(".movie-page").addEventListener("click", async (event)=> {
-    if (event.target.classList.contains("fa-cart-plus")){
-        const movieContainer = event.target.closest(".movie-page-cover");
-        const imgSrc = movieContainer.querySelector("img").src;
-        const title = movieContainer.querySelector("img").alt;
-        const price = parseFloat(movieContainer.querySelector(".sale-container").innerText.replace(" KR", ""));
-        
-        displayCartItem(title, price, imgSrc);
-        updateTotal();
-    }
-});
-
-  async function addCart(title, price, imgSrc) {
-
-    displayCartItem(title, price, imgSrc);
-     updateTotal();
- };
-
-
 // Add to cart from movie-page and check out from there --> if time
 
-// async function addCart(title, price, imgSrc) {
+// document.querySelector(".movie-page").addEventListener("click", async (event)=> {
+//     if (event.target.classList.contains("fa-cart-plus")){
+//         const movieContainer = event.target.closest(".movie-page-cover");
+//         const imgSrc = movieContainer.querySelector("img").src;
+//         const title = movieContainer.querySelector("img").alt;
+//         const price = parseFloat(movieContainer.querySelector(".discounted-price").innerText.replace(" KR", ""));
+        
+//         displayCartItem(title, price, imgSrc);
+//         updateTotal();
+//     }
+// });
+
+//   async function addCart(title, price, imgSrc) {
 
 //     displayCartItem(title, price, imgSrc);
 //      updateTotal();
 //  };
+
 
 // async function handleCheckOutButtonClick() {
 //     const cartItems = document.querySelectorAll(".cart-item");
@@ -121,10 +115,9 @@ document.querySelector(".movie-page").addEventListener("click", async (event)=> 
 //     if (cartItems.length === 0) {
 //         alert("Your cart is empty. Add some items before checking out!")
 //     } else {
-//         window.location.href = "./checkout/index.html";
+//         window.location.href = "../../checkout/index.html";
 //     }
 // };
-
 
 
 // "You might also like"..section
