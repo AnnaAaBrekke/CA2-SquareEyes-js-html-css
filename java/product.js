@@ -14,12 +14,14 @@ document.addEventListener("DOMContentLoaded", async function () {
         const movieId = urlParams.get("id");
 
         // Fetch movie details using the movie ID
+        const movies = await fetchMovies();
         const movieDetails = await fetchMovieDetails(movieId);
+        console.log("Fetched movie details", movieDetails);
+        await displayMovies(movies);
+        displayMovieDetails(movieDetails);
 
         // Store the movie details in local storage
         localStorage.setItem("selectedMovie", JSON.stringify(movieDetails));
-
-        displayMovieDetails(movieDetails);
 
     } catch (error) {
         console.error("Error loading movie details", error);
@@ -35,11 +37,11 @@ async function fetchMovieDetails(movieId) {
     try {
         const response = await fetch(`https://v2.api.noroff.dev/square-eyes/${movieId}`);
         const movieDetails = await response.json();
-        console.log("movie ID", movieId);
+        console.log("The movie ID is found:", movieId);
 
     // Check if the API response is in the expected format
-    if (movieDetails && typeof movieDetails === 'object') {
-        return movieDetails;
+    if (movieDetails && typeof movieDetails === 'object' && movieDetails.data) {
+        return movieDetails.data;
     } else {
         throw new Error("Movie not found");
     }
@@ -57,7 +59,9 @@ function displayMovieDetails(movieDetails) {
     movieElement.classList.add("movie-page-cover");
 
     // Is the movie is on sale or not (both ways)
-    const isOnSale = movieDetails.onSale === true;
+    if (movieDetails) {
+        // Check if the 'onSale' property exists and is true
+        const isOnSale = movieDetails.onSale && movieDetails.onSale === true;
 
     movieElement.innerHTML = `
         <img src="${movieDetails.image}" alt="${movieDetails.title}" id="${movieDetails.id}">
@@ -78,9 +82,12 @@ function displayMovieDetails(movieDetails) {
             `}
         </div>
     `;
-
+} else {
+    movieElement.innerHTML = "<p>No movie details available</p>";
+}
     productContainer.appendChild(movieElement);
 };
+
 
 // Add to cart from movie-page and check out from there --> if time
 
@@ -136,7 +143,7 @@ async function displayMovies(movies) {
                 <img src="${movie.image.url}" alt="${movie.title}">
             `;
 
-            movieElement.addEventListener("click", () => handleMovieClick(movie));
+            // movieElement.addEventListener("click", () => handleMovieClick(movie));
 
             moviesContainer.appendChild(movieElement);
             // movieElement.appendChild(moviePriceElement);
