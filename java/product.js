@@ -27,9 +27,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 });
 
-async function handleMovieClick(movie) {
-    window.location.href = `./product/index.html?id=${movie.id}`;
-};
+// async function handleMovieClick(movie) {
+//     window.location.href = `./product/index.html?id=${movie.id}`;
+// };
 
 async function fetchMovieDetails(movieId) {
     try {
