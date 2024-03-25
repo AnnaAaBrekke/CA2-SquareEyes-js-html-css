@@ -35,6 +35,7 @@ async function fetchMovieDetails(movieId) {
     try {
         const response = await fetch(`https://v2.api.noroff.dev/square-eyes/${movieId}`);
         const movieDetails = await response.json();
+        console.log("movie ID", movieId);
 
     // Check if the API response is in the expected format
     if (movieDetails && typeof movieDetails === 'object') {
@@ -152,6 +153,7 @@ async function displayMovies(movies) {
 document.addEventListener("DOMContentLoaded", async () => {
     try {
         const movies = await fetchMovies();
+        await fetchMovieDetails();
         await displayMovies(movies);
     } catch (error) {
         console.error("Error in DOMContentLoaded event listener", error);
