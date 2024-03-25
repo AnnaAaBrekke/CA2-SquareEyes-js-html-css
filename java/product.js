@@ -81,6 +81,23 @@ function displayMovieDetails(movieDetails) {
     productContainer.appendChild(movieElement);
 };
 
+// Add to cart from movie-page and check out from there --> if time
+
+// async function addCart(title, price, imgSrc) {
+
+//     displayCartItem(title, price, imgSrc);
+//      updateTotal();
+//  };
+
+// async function handleCheckOutButtonClick() {
+//     const cartItems = document.querySelectorAll(".cart-item");
+    
+//     if (cartItems.length === 0) {
+//         alert("Your cart is empty. Add some items before checking out!")
+//     } else {
+//         window.location.href = "./checkout/index.html";
+//     }
+// };
 
 
 
