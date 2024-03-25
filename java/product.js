@@ -88,6 +88,24 @@ function displayMovieDetails(movieDetails) {
     productContainer.appendChild(movieElement);
 };
 
+document.querySelector(".movie-page").addEventListener("click", async (event)=> {
+    if (event.target.classList.contains("fa-cart-plus")){
+        const movieContainer = event.target.closest(".movie-page-cover");
+        const imgSrc = movieContainer.querySelector("img").src;
+        const title = movieContainer.querySelector("img").alt;
+        const price = parseFloat(movieContainer.querySelector(".sale-container").innerText.replace(" KR", ""));
+        
+        displayCartItem(title, price, imgSrc);
+        updateTotal();
+    }
+});
+
+  async function addCart(title, price, imgSrc) {
+
+    displayCartItem(title, price, imgSrc);
+     updateTotal();
+ };
+
 
 // Add to cart from movie-page and check out from there --> if time
 
