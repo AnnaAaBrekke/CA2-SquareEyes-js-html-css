@@ -291,7 +291,7 @@ function findAndRemoveProduct(title) {
 };
 
 async function handleMovieClick(movie) {
-    window.location.href = `./product/index.html?id=${movie.id}`;
+    window.location.href = `../product/index.html?id=${movie.id}`;
 };
 
 
