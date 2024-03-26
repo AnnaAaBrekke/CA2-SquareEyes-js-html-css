@@ -21,13 +21,14 @@ try {
     // Display movie details
     displayMovieDetails(movieDetails);
 
-    // Fetch and display recommended movies (optional)
-    const recommendedMovies = await fetchMovies();
-    if (recommendedMovies) {
-    displayMovies(recommendedMovies);
-    } else {
-    console.error("Error fetching recommended movies");
-    }
+    // // Fetch and display recommended movies (optional)
+    // const recommendedMovies = await fetchMovies();
+    // if (recommendedMovies) {
+    //     displayMovies(recommendedMovies);
+
+    // } else {
+    // console.error("Error fetching recommended movies");
+    // }
 
 } catch (error) {
     console.error("Error loading movie details:", error);
@@ -73,10 +74,10 @@ movieContainer.innerHTML = `
                 movieDetails.discountedPrice && movieDetails.discountedPrice !== movieDetails.price ?
                 `
                 <p class="original-price">${movieDetails.price}KR</p>
-                <p>${movieDetails.discountedPrice}KR <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i></p>
+                <p>${movieDetails.discountedPrice}KR</p>
                 ` :
                 `
-                <p>${movieDetails.price}KR <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i></p>
+                <p>${movieDetails.price}KR</p>
                 `
             }
         </div>
@@ -114,9 +115,6 @@ movies.forEach(movie => {
     moviesContainer.appendChild(movieElement);
 });
 }
-
-
-
 
 
 
@@ -265,3 +263,32 @@ movies.forEach(movie => {
 //     }
 // });
 
+
+
+
+// function displayMovieDetails(movieDetails) {
+//     const movieContainer = document.querySelector(".movie-page-cover");
+//     movieContainer.innerHTML = `
+//         <img src="${movieDetails.image.url}" alt="${movieDetails.title}" id="${movieDetails.id}">
+//         <h1>${movieDetails.title}</h1>
+//             <div class="movie-index">
+//                 <p>Genre: ${movieDetails.genre}</p>
+//                 <p>Year: ${movieDetails.released}</p>
+//                 <p>Rating: ${movieDetails.rating}</p>
+//             </div>
+//             <h2>About this movie</h2>
+//             <p>${movieDetails.description}</p>
+//             <div class="sale-container">
+//                 ${
+//                     movieDetails.discountedPrice && movieDetails.discountedPrice !== movieDetails.price ?
+//                     `
+//                     <p class="original-price">${movieDetails.price}KR</p>
+//                     <p>${movieDetails.discountedPrice}KR <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i></p>
+//                     ` :
+//                     `
+//                     <p>${movieDetails.price}KR <i class="fa-solid fa-cart-plus" alt="Add to cart icon"></i></p>
+//                     `
+//                 }
+//             </div>
+//         `;
+//     }
