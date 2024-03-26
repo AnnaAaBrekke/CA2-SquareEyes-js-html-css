@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
     loadCartFromLocalStorage();
 });
 
-// ------
+
 
 // Fetch movies from the API
 async function fetchMovies() {
@@ -35,7 +35,7 @@ async function fetchMovies() {
     }
 };
 
-// ------
+
 
 // Display the correct item in cart 
 async function displayCartItem(title, price, imgSrc) {
@@ -60,11 +60,7 @@ async function displayCartItem(title, price, imgSrc) {
                 <button type="button" class="remove-item" value="Remove">Remove</button>
             `; 
 
-        // cartItemContainer.innerHTML = ""; //replaces instead of adding
         cartItemContainer.appendChild(cartItem);
-
-        // // Show the cart
-        // dropdownCart.classList.add("active");
 
         const removeCartButtons = document.querySelectorAll(".remove-item");
         removeCartButtons.forEach(button => button.addEventListener("click", removeCartItem));
@@ -99,7 +95,6 @@ async function saveCartToLocalStorage() {
     localStorage.setItem("cart", JSON.stringify(cartData));
 };
 
-//-------
 
 // Cart-total outside
 async function displayCartTotal(cartItems) {
@@ -265,7 +260,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     await displayMovies(movies);
 });
 
-// ------
 
 // Check Out Page
 // Local storage - store the data to the checkout page

@@ -38,8 +38,6 @@ document.body.addEventListener("click", (event) => {
     }
 });
 
-// ------
-
 // Fetch movies from the API
   async function fetchMovies() {
     try {
@@ -133,7 +131,6 @@ async function displayCartItem(title, price, imgSrc) {
     localStorage.setItem("cart", JSON.stringify(cartData));
 };
 
-//-------
 
 // Cart-total outside
   async function displayCartTotal(cartItems) {
@@ -249,7 +246,6 @@ function findAndRemoveProduct(title) {
 };
 
 
-// ------
 
   async function displayMovies(movies) {
     try {
@@ -353,7 +349,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await displayMovies(movies);
 });
 
-// ------
+
 
 // Check Out Page
 
