@@ -267,7 +267,7 @@ function findAndRemoveProduct(title) {
         
             // Add click event listener to movie poster
             movieElement.querySelector('img').addEventListener('click', () => {
-                window.location.href = `../product/index.html?id=${movie.id}`;
+                window.location.href = `./product/index.html?id=${movie.id}`;
             });
         
             const moviePriceElement = document.createElement("div");
