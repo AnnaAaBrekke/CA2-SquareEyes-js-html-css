@@ -2195,12 +2195,3 @@ input[type="message"] {
   color: grey;
 }
 
-
-/* Media query for screens smaller than 576px */
-@media only screen and (max-width: 1600px) {
-  #cart-icon {
-    font-size: 2.1rem; 
-    margin-right: 1.2rem; 
-    margin-top: 2rem; 
-  }
-}
