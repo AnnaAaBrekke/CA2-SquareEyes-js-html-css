@@ -1220,7 +1220,7 @@ button:hover,
 .fa-cart-plus {
   font-size: 2rem;
   margin: 3px;
-  color: white; /* Set the color of the cart icon */
+  color: white; 
   cursor: pointer;
 }
 
@@ -2193,4 +2193,14 @@ input[type="message"] {
 .original-price {
   text-decoration: line-through;
   color: grey;
+}
+
+
+/* Media query for screens smaller than 576px */
+@media only screen and (max-width: 1600px) {
+  #cart-icon {
+    font-size: 2.1rem; 
+    margin-right: 1.2rem; 
+    margin-top: 2rem; 
+  }
 }
