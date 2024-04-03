@@ -69,7 +69,6 @@ header {
   cursor: pointer;
   z-index: 1;
   position: absolute;
-  margin-top:  1rem;
   margin-top: 1rem;
   right: 1.5rem;
 }
@@ -172,7 +171,6 @@ button:hover,
   max-width: 100%;
   margin-left: 1.5rem;
 }
-
 
 /* Cart */
 
@@ -589,35 +587,6 @@ button:hover,
     transition: background-color 0.3s;
   }
 }
-
-
-/* .searchfield-container {
-  flex-grow: inherit;
-  align-items: center;
-  min-width: 300px;
-  max-width: 750px;
-  margin: auto;
-  margin-bottom: 2rem;
-}
-
-.searchfield {
-  background-color: #FFFFFF;
-  opacity: 55%;
-  margin: 20px;
-  width: 750px;
-  height: 40px;
-  border: 5px;
-  border-radius: 5px;
-  font-size: 20px;
-  max-width: 100%;
-} */
-
-/* Media query for smaller screens (e.g., mobile)
-@media (min-width: 600px) {
-  .searchfield {
-    width: 400px;
-}
-} */
 
 
 .loader {
@@ -1201,6 +1170,7 @@ button:hover,
 .kids-movies {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   gap: 0;
   margin: 0;
 }
