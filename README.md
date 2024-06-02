@@ -2,6 +2,8 @@
 
 ## Overview
 This project involves creating an interactive online movie store where users can watch high-quality movies directly from the creators without a subscription. The goal is to use JavaScript to dynamically display movies, manage a cart, and handle user interactions such as filtering movies by genre, adding to the cart, and checking out.
+
+
 <img width="1425" alt="Skjermbilde 2024-06-02 kl  16 13 27" src="https://github.com/AnnaAaBrekke/CA2-SquareEyes-js-html-css/assets/143593909/a4aee6d8-7125-4c06-9e73-80a6c1d936fd">
 <img width="1417" alt="Skjermbilde 2024-06-02 kl  16 10 52" src="https://github.com/AnnaAaBrekke/CA2-SquareEyes-js-html-css/assets/143593909/62cd3dd8-600a-481d-b43a-9b04b1c8ec6a">
 <img width="1425" alt="Skjermbilde 2024-06-02 kl  16 11 37" src="https://github.com/AnnaAaBrekke/CA2-SquareEyes-js-html-css/assets/143593909/f0c1f71f-3ba1-444d-bba8-e88f45dde905">
